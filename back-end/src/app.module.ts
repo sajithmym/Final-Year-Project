@@ -7,6 +7,10 @@ import { DoctorController } from './doctor/doctor.controller';
 import { DoctorService } from './doctor/doctor.service';
 import { PharmacyController } from './pharmacy/pharmacy.controller';
 import { PharmacyService } from './pharmacy/pharmacy.service';
+import { LoginController } from './login/login.controller';
+import { LoginService } from './login/login.service';
+import { SignupController } from './signup/signup.controller';
+import { SignupService } from './signup/signup.service';
 
 @Module({
   imports: [],
@@ -15,7 +19,9 @@ import { PharmacyService } from './pharmacy/pharmacy.service';
     PatientController,
     DoctorController,
     PharmacyController,
+    LoginController,
+    SignupController,
   ],
-  providers: [AppService, PatientService, DoctorService, PharmacyService],
+  providers: [AppService, PatientService, DoctorService, PharmacyService, LoginService, SignupService],
 })
 export class AppModule {}
