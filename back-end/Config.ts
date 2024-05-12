@@ -1,3 +1,6 @@
+import { config } from 'dotenv';
+config();
+
 module.exports = {
-  port: '5678',
+  port: process.env.Port || 5670,
 };
