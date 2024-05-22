@@ -9,6 +9,8 @@ import { DoctorComponent } from './doctor/doctor.component';
 import { PharmacyComponent } from './pharmacy/pharmacy.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { FormsModule } from '@angular/forms';
+import { RegisterComponent } from './register/register.component';
+import { SigninComponent } from './signin/signin.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { FormsModule } from '@angular/forms';
     PatientComponent,
     DoctorComponent,
     PharmacyComponent,
-    NavBarComponent
+    NavBarComponent,
+    RegisterComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,

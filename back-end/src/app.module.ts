@@ -13,7 +13,6 @@ import { SignupController } from './signup/signup.controller';
 import { SignupService } from './signup/signup.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const config = require('../Config');
 
 @Module({

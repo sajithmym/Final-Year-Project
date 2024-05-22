@@ -1,0 +1,73 @@
+<div class="container">
+    <form id="userForm">
+      <h2>User Creation....</h2>
+  
+      <!-- <label for="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        [(ngModel)]="inputValue"
+        (input)="onInputChange('name')"
+      /> -->
+      <div class="form-control">
+        <input type="text"
+        id="email" name="email" required [(ngModel)]="inputValue" (input)="onInputChange('name')" />
+        <label>
+          <span style="transition-delay: 0ms">N</span
+          ><span style="transition-delay: 50ms">a</span
+          ><span style="transition-delay: 100ms">m</span
+          ><span style="transition-delay: 150ms">e</span
+          ><span style="transition-delay: 200ms">:</span>
+        </label>
+      </div>
+  
+      <!-- <label for="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        [(ngModel)]="inputValueEmail"
+        (input)="onInputChange('email')"
+      /> -->
+  
+      <div class="form-control">
+        <input type="email"
+        id="email" name="email" required [(ngModel)]="inputValueEmail" (input)="onInputChange('email')" />
+        <label>
+          <span style="transition-delay: 0ms">E</span
+          ><span style="transition-delay: 50ms">-</span
+          ><span style="transition-delay: 100ms">M</span
+          ><span style="transition-delay: 150ms">a</span
+          ><span style="transition-delay: 200ms">i</span
+          ><span style="transition-delay: 250ms">l</span>
+          <span style="transition-delay: 300ms">:</span>
+        </label>
+      </div>
+  
+      <div class="form-control">
+        <input type="password"
+        id="email" name="email" required [(ngModel)]="inputValuePassword" (input)="onInputChange('password')" />
+        <label>
+          <span style="transition-delay: 0ms">P</span
+          ><span style="transition-delay: 50ms">a</span
+          ><span style="transition-delay: 100ms">s</span
+          ><span style="transition-delay: 150ms">s</span
+          ><span style="transition-delay: 200ms">w</span
+          ><span style="transition-delay: 250ms">o</span>
+          <span style="transition-delay: 300ms">r</span>
+          <span style="transition-delay: 350ms">d</span>
+          <span style="transition-delay: 400ms">:</span>
+        </label>
+      </div>
+  
+      <button class="button2" type="button" (click)="makeApiRequest()">
+        - Add User -
+      </button>
+          <br/> <br/> 
+      <b>{{ message }}</b>
+    </form>
+  </div>
+  
