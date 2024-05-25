@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { settings } from 'Static_values';
 
 @Component({
   selector: 'app-register',
@@ -15,10 +16,7 @@ export class RegisterComponent {
 
   message: string = ''; // Variable to store static message
 
-  // get baseurl from localstorage
-  baseurl = localStorage.getItem('PATIENT MANAGEMENT SYSTEM backend baseurl');
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   makeApiRequest() {
     // Check if all fields are filled
@@ -48,7 +46,7 @@ export class RegisterComponent {
         return;
       }
 
-      const apiUrl = `${this.baseurl}/signup`;
+      const apiUrl = `${settings.APIURL}/signup`;
 
       const postData = {
         name: this.inputValue,

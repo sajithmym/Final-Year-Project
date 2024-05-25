@@ -4,8 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { Patient } from './../DB_Models/Patient.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-
-const config = require('../../Config');
+import { configure } from 'config';
 
 @Injectable()
 export class SignupService {
@@ -16,7 +15,7 @@ export class SignupService {
     @InjectRepository(Patient)
     private readonly patientRepository: Repository<Patient>,
   ) {
-    this.twilioClient = new Twilio(config.TWILIO_SID, config.TWILIO_TOKEN);
+    this.twilioClient = new Twilio(configure.TWILIO_SID, configure.TWILIO_TOKEN);
     this.otpStore = new Map();
   }
 
@@ -26,7 +25,7 @@ export class SignupService {
 
     await this.twilioClient.messages.create({
       body: `Your OTP code is ${otp}`,
-      from: config.NUMBER,
+      from: configure.NUMBER,
       to: `+94${phoneNumber}`,
     });
   }

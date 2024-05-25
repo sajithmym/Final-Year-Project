@@ -16,17 +16,17 @@ import { Patient } from './DB_Models/Patient.entity';
 import { Doctor } from './DB_Models/Doctor.entity';
 import { Pharmacy } from './DB_Models/Pharmacy.entity';
 
-const config = require('../Config');
+import { configure } from 'config'
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: config.DB_Host,
-      port: config.DB_Port,
-      username: config.DB_User,
-      password: config.DB_Pass,
-      database: config.DB_Name,
+      host: configure.DB_Host,
+      port: Number(configure.DB_Port),
+      username: configure.DB_User,
+      password: configure.DB_Pass,
+      database: configure.DB_Name,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),

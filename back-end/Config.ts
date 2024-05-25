@@ -1,7 +1,7 @@
 import { config } from 'dotenv';
 config();
 
-module.exports = {
+export const configure = {
   port: process.env.PORT || 5670,
   DB_Port: process.env.DB_PORT || 3306,
   DB_Host: process.env.DB_HOST || 'localhost',
