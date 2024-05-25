@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Patient management system';
+
+  constructor() {
+    // Set a baseurl
+    localStorage.setItem('PATIENT MANAGEMENT SYSTEM backend baseurl', 'http://localhost:5670');
+  }
+
 }

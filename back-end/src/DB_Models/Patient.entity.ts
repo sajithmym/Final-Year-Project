@@ -12,6 +12,9 @@ export class Patient {
   @Column({ nullable: false })
   phone_number:number;
 
+  @Column({ nullable: false })
+  address: string;
+
   @Column({  nullable: false })
   password: string;
 }

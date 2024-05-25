@@ -8,39 +8,53 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RegisterComponent {
   inputValue: string = ''; // Variable to store input value
-  inputValueEmail: string = ''; // Variable to store input value
+  inputValueMobileNumber: string = ''; // Variable to store input value
   inputValuePassword: string = ''; // Variable to store input value
+  inputvalueAddress: string = ''; // Variable to store input value
   apiData: any; // Variable to store API response
 
   message: string = ''; // Variable to store static message
 
-  constructor(private http: HttpClient) {}
+  // get baseurl from localstorage
+  baseurl = localStorage.getItem('PATIENT MANAGEMENT SYSTEM backend baseurl');
 
-  onInputChange(field: string) {
-    switch (field) {
-      case 'name':
-        console.log('Input Value (Name):', this.inputValue);
-        break;
-      case 'email':
-        console.log('Input Value (Email):', this.inputValueEmail);
-        break;
-      case 'password':
-        console.log('Input Value (Password):', this.inputValuePassword);
-        break;
-      default:
-        break;
-    }
-  }
+  constructor(private http: HttpClient) { }
 
   makeApiRequest() {
-    if (this.inputValue != '' && this.inputValueEmail != '' && this.inputValuePassword != '') {
+    // Check if all fields are filled
+    if (this.inputValue != '' && this.inputValueMobileNumber != '' && this.inputValuePassword != '' && this.inputvalueAddress != '') {
+      // Validate phone number (assuming it should be a 9 digit Sri Lankan number begin with 7)
+      const phoneNumberPattern = /^7[0-9]{8}$/;
+      // console.log(`Number : ${this.inputValueMobileNumber} -- ${phoneNumberPattern.test(this.inputValueMobileNumber)}`);
+      if (!phoneNumberPattern.test(this.inputValueMobileNumber)) {
+        this.message = 'Invalid phone number.';
+        this.disableMessage();
+        return;
+      }
 
-      const apiUrl = 'http://localhost:3000/users'; // Example API URL
+      // Validate address (assuming it should not be empty)
+      if (this.inputvalueAddress.trim() === '') {
+        this.message = 'Invalid address';
+        this.disableMessage();
+        return;
+      }
+
+      // Validate password (it should be at least 8 characters long, include a mix of uppercase and lowercase letters, numbers, and special characters)
+      const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+=\-])[A-Za-z\d!@#$%^&*()_+=\-]{8,}$/;
+      console.log(`Password : ${this.inputValuePassword} -- ${passwordPattern.test(this.inputValuePassword)}`); // Debugging
+      if (!passwordPattern.test(this.inputValuePassword)) {
+        this.message = 'Invalid password.';
+        this.disableMessage();
+        return;
+      }
+
+      const apiUrl = `${this.baseurl}/signup`;
 
       const postData = {
         name: this.inputValue,
-        email: this.inputValueEmail,
-        password: this.inputValuePassword,
+        phone_number: this.inputValueMobileNumber,
+        address: this.inputvalueAddress,
+        password: this.inputValuePassword
       };
 
       this.http.post(apiUrl, postData).subscribe(
@@ -48,7 +62,6 @@ export class RegisterComponent {
           console.log('POST Request Response:', data);
           this.apiData = data;
           this.message = ' - Data Inserted Successfully - '
-          alert(this.message)
           this.disableMessage();
           this.resetForm();
         },
@@ -58,21 +71,22 @@ export class RegisterComponent {
         },
       );
     } else {
-      this.message = '-> Please Fill All The Fields <-' 
+      this.message = ' Please Fill All The Fields --)'
       this.disableMessage();
     }
   }
 
   resetForm() {
     this.inputValue = '';
-    this.inputValueEmail = '';
+    this.inputValueMobileNumber = '';
     this.inputValuePassword = '';
+    this.inputvalueAddress = '';
   }
 
   // Disable the message after 1 seconds
   disableMessage() {
     setTimeout(() => {
       this.message = '';
-    }, 1000);
+    }, 2500);
   }
 }

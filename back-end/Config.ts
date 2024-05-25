@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { config } from 'dotenv';
 config();
 
@@ -9,4 +8,7 @@ module.exports = {
   DB_User: process.env.DB_USER || 'root',
   DB_Pass: process.env.DB_PASS || '',
   DB_Name: process.env.DB_NAME || 'patient_management_system',
+  TWILIO_SID : process.env.TWILIO_ACCOUNT_SID || 'ACXXXXXXXX',
+  TWILIO_TOKEN : process.env.TWILIO_AUTH_TOKEN || 'your_auth_token',
+  NUMBER : process.env.TWILIO_PHONE_NUMBER || '+15017122661',
 };
