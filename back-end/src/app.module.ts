@@ -12,6 +12,9 @@ import { LoginService } from './login/login.service';
 import { SignupController } from './signup/signup.controller';
 import { SignupService } from './signup/signup.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Patient } from './DB_Models/Patient.entity';
+import { Doctor } from './DB_Models/Doctor.entity';
+import { Pharmacy } from './DB_Models/Pharmacy.entity';
 
 const config = require('../Config');
 
@@ -27,6 +30,7 @@ const config = require('../Config');
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
+    TypeOrmModule.forFeature([Patient, Doctor, Pharmacy]),
   ],
   controllers: [
     AppController,
