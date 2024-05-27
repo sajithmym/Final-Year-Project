@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Twilio } from 'twilio';
+import * as SibApiV3Sdk from 'sib-api-v3-sdk';
 import * as bcrypt from 'bcrypt';
 import { Patient } from './../DB_Models/Patient.entity';
 import { Repository } from 'typeorm';
@@ -8,14 +8,16 @@ import { configure } from 'config';
 
 @Injectable()
 export class SignupService {
-  private readonly twilioClient: Twilio;
+  private readonly sendinblueClient: SibApiV3Sdk.TransactionalSMSApi;
   private readonly otpStore: Map<string, string>;
 
   constructor(
     @InjectRepository(Patient)
     private readonly patientRepository: Repository<Patient>,
   ) {
-    this.twilioClient = new Twilio(configure.TWILIO_SID, configure.TWILIO_TOKEN);
+    const apiKey = SibApiV3Sdk.ApiClient.instance.authentications['api-key'];
+    apiKey.apiKey = configure.SENDINBLUE_API_KEY;
+    this.sendinblueClient = new SibApiV3Sdk.TransactionalSMSApi();
     this.otpStore = new Map();
   }
 
@@ -23,11 +25,18 @@ export class SignupService {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     this.otpStore.set(phoneNumber, otp);
 
-    await this.twilioClient.messages.create({
-      body: `Your OTP code is ${otp}`,
-      from: configure.NUMBER,
-      to: `+94${phoneNumber}`,
+    const sendSms = new SibApiV3Sdk.SendTransacSms({
+      sender: configure.SENDER_NAME,
+      recipient: `+94${phoneNumber}`,
+      content: `Your OTP code is ${otp}`,
     });
+
+    try {
+      await this.sendinblueClient.sendTransacSms(sendSms);
+    } catch (error) {
+      console.error('Error sending OTP via Sendinblue:', error);
+      throw new Error('Failed to send OTP. Please try again later.');
+    }
   }
 
   async verifyOtpAndCreate(data: any): Promise<boolean> {
