@@ -23,18 +23,26 @@ export class SignupService {
 
   async sendOtp(phoneNumber: string): Promise<void> {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    this.otpStore.set(phoneNumber, otp);
 
-    const sendSms = new SibApiV3Sdk.SendTransacSms({
+    const sendSms : any = new SibApiV3Sdk.SendTransacSms({
       sender: configure.SENDER_NAME,
       recipient: `+94${phoneNumber}`,
       content: `Your OTP code is ${otp}`,
     });
+    sendSms.sender = configure.SENDER_NAME;
+    sendSms.recipient = `+94${phoneNumber}`;
+    sendSms.content = `Your OTP code is ${otp}`;
 
+    console.log('OTP:', otp);
+    console.log('Phone number:', phoneNumber);
+    console.log(sendSms);
+    
     try {
       await this.sendinblueClient.sendTransacSms(sendSms);
+      this.otpStore.set(phoneNumber, otp);
+      console.log('OTP sent successfully to', phoneNumber);
     } catch (error) {
-      console.error('Error sending OTP via Sendinblue:', error);
+      console.error('Error sending OTP via Sendinblue:', error.message, error.response.body);
       throw new Error('Failed to send OTP. Please try again later.');
     }
   }
