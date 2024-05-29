@@ -7,12 +7,22 @@ export class SignupController {
 
   @Post('Send_OTP')
   async sendOtp(@Body('phone_number') phoneNumber: string): Promise<any> {
-    await this.signupService.sendOtp(phoneNumber);
-    return { message: 'OTP sent successfully' };
+    const isVerified = await this.signupService.verifyPhoneNumber(phoneNumber);
+    if (isVerified) {
+      await this.signupService.sendOtp(phoneNumber);
+      return { message: 'OTP sent successfully' };
+    } else {
+      return { message: 'Phone number verification failed. Please try again.' };
+    }
   }
 
   @Post('verify_and_Create')
-  async verifyOtpAndCreate(@Body() data: any): Promise<boolean> {
-    return this.signupService.verifyOtpAndCreate(data);
+  async verifyOtpAndCreate(@Body() data: any): Promise<any> {
+    const result = await this.signupService.verifyOtpAndCreate(data);
+    if (result) {
+      return { message: 'User created successfully' };
+    } else {
+      return { message: 'OTP verification failed or phone number not verified' };
+    }
   }
 }

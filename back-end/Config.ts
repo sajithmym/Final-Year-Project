@@ -8,6 +8,9 @@ export const configure = {
   DB_User: process.env.DB_USER || 'root',
   DB_Pass: process.env.DB_PASS || '',
   DB_Name: process.env.DB_NAME || 'patient_management_system',
-  SENDINBLUE_API_KEY : process.env.API_KEY,
+  INFOBIP_API_KEY : process.env.INFOBIP_API_KEY,
   SENDER_NAME : process.env.SENDER_NAME,
+  TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
+  TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
+  TWILIO_PHONE_NUMBER: process.env.TWILIO_PHONE_NUMBER,
 };

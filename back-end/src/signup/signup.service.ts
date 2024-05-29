@@ -1,58 +1,81 @@
 import { Injectable } from '@nestjs/common';
-import * as SibApiV3Sdk from 'sib-api-v3-sdk';
 import * as bcrypt from 'bcrypt';
 import { Patient } from './../DB_Models/Patient.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { configure } from 'config';
+import { configure } from 'config'; // Adjust the path if necessary
+import { Twilio } from 'twilio';
 
 @Injectable()
 export class SignupService {
-  private readonly sendinblueClient: SibApiV3Sdk.TransactionalSMSApi;
+  private readonly twilioClient: Twilio;
   private readonly otpStore: Map<string, string>;
 
   constructor(
     @InjectRepository(Patient)
     private readonly patientRepository: Repository<Patient>,
   ) {
-    const apiKey = SibApiV3Sdk.ApiClient.instance.authentications['api-key'];
-    apiKey.apiKey = configure.SENDINBLUE_API_KEY;
-    this.sendinblueClient = new SibApiV3Sdk.TransactionalSMSApi();
+    const accountSid = configure.TWILIO_ACCOUNT_SID;
+    const authToken = configure.TWILIO_AUTH_TOKEN;
+    this.twilioClient = new Twilio(accountSid, authToken);
     this.otpStore = new Map();
+  }
+
+  async verifyPhoneNumber(phoneNumber: string): Promise<boolean> {
+    try {
+      const verification = await this.twilioClient.verify.v2.services(configure.TWILIO_ACCOUNT_SID)
+        .verifications
+        .create({ to: `+94${phoneNumber}`, channel: 'sms' });
+
+      console.log('Verification initiated:', verification);
+      return verification.status === 'pending' || verification.status === 'approved';
+    } catch (error) {
+      console.error('Error verifying phone number:', error.message);
+      return false;
+    }
   }
 
   async sendOtp(phoneNumber: string): Promise<void> {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    const sendSms : any = new SibApiV3Sdk.SendTransacSms({
-      sender: configure.SENDER_NAME,
-      recipient: `+94${phoneNumber}`,
-      content: `Your OTP code is ${otp}`,
-    });
-    sendSms.sender = configure.SENDER_NAME;
-    sendSms.recipient = `+94${phoneNumber}`;
-    sendSms.content = `Your OTP code is ${otp}`;
+    const message = {
+      from: configure.TWILIO_PHONE_NUMBER,
+      to: `+94${phoneNumber}`, // Sri Lanka country code is +94
+      body: `Your OTP code is ${otp}`,
+    };
 
     console.log('OTP:', otp);
     console.log('Phone number:', phoneNumber);
-    console.log(sendSms);
-    
+    console.log(message);
+
     try {
-      await this.sendinblueClient.sendTransacSms(sendSms);
-      this.otpStore.set(phoneNumber, otp);
-      console.log('OTP sent successfully to', phoneNumber);
+      const response = await this.twilioClient.messages.create({
+        from: message.from,
+        to: message.to,
+        body: message.body,
+      });
+
+      if (response.sid) {
+        this.otpStore.set(phoneNumber, otp);
+        console.log('OTP sent successfully to', phoneNumber);
+      } else {
+        console.error('Error sending OTP:', response.errorMessage);
+        throw new Error('Failed to send OTP. Please try again later.');
+      }
     } catch (error) {
-      console.error('Error sending OTP via Sendinblue:', error.message, error.response.body);
-      throw new Error('Failed to send OTP. Please try again later.');
+      console.error('Error sending OTP via Twilio:', error.message);
     }
   }
 
   async verifyOtpAndCreate(data: any): Promise<boolean> {
-    const storedOtp = this.otpStore.get(data.phoneNumber);
-    if (storedOtp === data.otp) {
-      this.otpStore.delete(data.phoneNumber);
+    const verificationCheck = await this.twilioClient.verify.v2.services(configure.TWILIO_ACCOUNT_SID)
+      .verificationChecks
+      .create({ to: `+94${data.phoneNumber}`, code: data.otp });
+
+    if (verificationCheck.status === 'approved') {
       const hashedPassword = await bcrypt.hash(data.password, 10);
-      data.password = hashedPassword;
+      data.password = hashedPassword
+
       await this.patientRepository.save(data);
       return true;
     }
