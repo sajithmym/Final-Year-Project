@@ -8,9 +8,8 @@ export const configure = {
   DB_User: process.env.DB_USER || 'root',
   DB_Pass: process.env.DB_PASS || '',
   DB_Name: process.env.DB_NAME || 'patient_management_system',
-  INFOBIP_API_KEY : process.env.INFOBIP_API_KEY,
-  SENDER_NAME : process.env.SENDER_NAME,
-  TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
-  TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
-  TWILIO_PHONE_NUMBER: process.env.TWILIO_PHONE_NUMBER,
+  
+  CLICKSEND_USERNAME : 'Sajithmym@gmail.com',
+  CLICKSEND_API_KEY : 'D1C7FF29-D354-6B5A-62DE-C825BD6F9D4E',
+  CLICKSEND_FROM_PHONE : '+94766450662',
 };
