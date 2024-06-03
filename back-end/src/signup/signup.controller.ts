@@ -16,7 +16,7 @@ export class SignupController {
   }
 
   @Post('verify-and-create')
-  async verifyOtpAndCreate(@Body() data: { phoneNumber: string, otp: string, password: string }): Promise<any> {
+  async verifyOtpAndCreate(@Body() data: any): Promise<any> {
     try {
       const result = await this.signupService.verifyOtpAndCreate(data);
       if (result) {

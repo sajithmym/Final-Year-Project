@@ -8,80 +8,103 @@ import { settings } from 'Static_values';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  inputValue: string = ''; // Variable to store input value
-  inputValueMobileNumber: string = ''; // Variable to store input value
-  inputValuePassword: string = ''; // Variable to store input value
-  inputvalueAddress: string = ''; // Variable to store input value
-  apiData: any; // Variable to store API response
+  inputValue: string = '';
+  inputValueMobileNumber: string = '';
+  inputValuePassword: string = '';
+  inputValueAddress: string = '';
+  otp: string = ''; // Variable to store OTP
+  showOtpPopup: boolean = false; // Variable to show/hide OTP popup
 
-  message: string = ''; // Variable to store static message
+  apiData: any;
+  message: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  makeApiRequest() {
-    // Check if all fields are filled
-    if (this.inputValue != '' && this.inputValueMobileNumber != '' && this.inputValuePassword != '' && this.inputvalueAddress != '') {
-      // Validate phone number (assuming it should be a 9 digit Sri Lankan number begin with 7)
+  closeOtpPopup() {
+    this.showOtpPopup = false;
+  }
+
+  sendOtp() {
+    if (this.inputValue != '' && this.inputValueMobileNumber != '' && this.inputValuePassword != '' && this.inputValueAddress != '') {
       const phoneNumberPattern = /^7[0-9]{8}$/;
-      // console.log(`Number : ${this.inputValueMobileNumber} -- ${phoneNumberPattern.test(this.inputValueMobileNumber)}`);
+
       if (!phoneNumberPattern.test(this.inputValueMobileNumber)) {
         this.message = 'Invalid phone number.';
         this.disableMessage();
         return;
       }
 
-      // Validate address (assuming it should not be empty)
-      if (this.inputvalueAddress.trim() === '') {
+      if (this.inputValueAddress.trim() === '') {
         this.message = 'Invalid address';
         this.disableMessage();
         return;
       }
 
-      // Validate password (it should be at least 8 characters long, include a mix of uppercase and lowercase letters, numbers, and special characters)
       const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+=\-])[A-Za-z\d!@#$%^&*()_+=\-]{8,}$/;
-      console.log(`Password : ${this.inputValuePassword} -- ${passwordPattern.test(this.inputValuePassword)}`); // Debugging
       if (!passwordPattern.test(this.inputValuePassword)) {
         this.message = 'Invalid password.';
         this.disableMessage();
         return;
       }
 
-      const apiUrl = `${settings.APIURL}/signup`;
+      const apiUrl = `${settings.APIURL}/signup/send-otp`;
 
       const postData = {
-        name: this.inputValue,
         phone_number: this.inputValueMobileNumber,
-        address: this.inputvalueAddress,
-        password: this.inputValuePassword
       };
 
       this.http.post(apiUrl, postData).subscribe(
         (data: any) => {
-          console.log('POST Request Response:', data);
-          this.apiData = data;
-          this.message = ' - Data Inserted Successfully - '
+          console.log('OTP sent:', data);
+          this.message = 'OTP sent successfully. Please check your mobile.';
+          this.showOtpPopup = true; // Show OTP popup
           this.disableMessage();
-          this.resetForm();
         },
         (error) => {
-          this.message = 'Error Occurred while Inserting Data'
+          this.message = 'Error occurred while sending OTP';
           this.disableMessage();
-        },
+        }
       );
     } else {
-      this.message = ' Please Fill All The Fields --)'
+      this.message = 'Please fill all the fields';
       this.disableMessage();
     }
+  }
+
+  verifyOtp() {
+    const apiUrl = `${settings.APIURL}/signup/verify-and-create`;
+
+    const postData = {
+      phone_number: this.inputValueMobileNumber,
+      name: this.inputValue,
+      address: this.inputValueAddress,
+      password: this.inputValuePassword,
+      otp: this.otp,
+    };
+
+    this.http.post(apiUrl, postData).subscribe(
+      (data: any) => {
+        console.log('User registered:', data);
+        this.apiData = data;
+        this.message = 'Data Inserted Successfully';
+        this.disableMessage();
+        this.resetForm();
+        this.showOtpPopup = false; // Hide OTP popup
+      },
+      (error) => {
+        this.message = 'Error occurred while inserting data';
+        this.disableMessage();
+      }
+    );
   }
 
   resetForm() {
     this.inputValue = '';
     this.inputValueMobileNumber = '';
     this.inputValuePassword = '';
-    this.inputvalueAddress = '';
+    this.inputValueAddress = '';
   }
 
-  // Disable the message after 1 seconds
   disableMessage() {
     setTimeout(() => {
       this.message = '';

@@ -1,3 +1,3 @@
 export const settings = {
-    APIURL:"http://localhost:5670"
+    APIURL:"http://localhost:8888"
 }
