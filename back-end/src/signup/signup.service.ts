@@ -85,10 +85,12 @@ export class SignupService {
 
   async signInToSystem(data: any): Promise<object> {
     const user = await this.patientRepository.findOne({ where: { phone_number: data.phone_number } });
-    let payload = { username: user.name, sub: user.id };
     if (user && bcrypt.compareSync(data.password, user.password)) {
+      let payload = { sub: user.id };
       return {
         access_token: this.jwtService.sign(payload),
+        Username: user.name,
+        ID: user.id
       };
     }
     throw new BadRequestException('Invalid phone number or password');

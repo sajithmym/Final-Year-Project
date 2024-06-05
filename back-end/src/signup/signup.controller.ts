@@ -1,4 +1,4 @@
-import { Controller, Post, Body, BadRequestException, InternalServerErrorException, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, BadRequestException, InternalServerErrorException, UseGuards, HttpStatus, Res } from '@nestjs/common';
 import { SignupService } from './signup.service';
 import { JwtAuthGuard } from 'src/auth/jwt.guard';
 
@@ -31,13 +31,13 @@ export class SignupController {
   }
 
   @Post('signin-to-system')
-  async signInToSystem(@Body() data: any): Promise<any> {
+  async signInToSystem(@Body() data: any, @Res() res: any): Promise<any> {
     try {
-      const result = await this.signupService.signInToSystem(data);
+      const result: any = await this.signupService.signInToSystem(data);
       console.log('Sign in result:', result);
-      console.log('Sign in data:', data);
       if (result) {
-        return { message: 'Sign in successful', token: result };
+        res.cookie('token-PATIENT MANAGEMENT SYSTEM-uok', result.access_token, { httpOnly: true, maxAge: 60 }); // 1 hour
+        return res.status(HttpStatus.OK).send({ message: 'Sign in successful', Username: result.Username, ID: result.ID });
       } else {
         throw new BadRequestException('Sign in failed');
       }
