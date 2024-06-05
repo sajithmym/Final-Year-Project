@@ -16,10 +16,16 @@ import { Patient } from './DB_Models/Patient.entity';
 import { Doctor } from './DB_Models/Doctor.entity';
 import { Pharmacy } from './DB_Models/Pharmacy.entity';
 
-import { configure } from 'config'
+import { JwtModule } from '@nestjs/jwt';
+import { configure } from 'config';
 
 @Module({
   imports: [
+    JwtModule.register({
+      secret: configure.JWTsecret,
+      signOptions: { expiresIn: '1d' },
+    }),
+
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: configure.DB_Host,
@@ -32,6 +38,7 @@ import { configure } from 'config'
     }),
     TypeOrmModule.forFeature([Patient, Doctor, Pharmacy]),
   ],
+
   controllers: [
     AppController,
     PatientController,
@@ -40,6 +47,7 @@ import { configure } from 'config'
     LoginController,
     SignupController,
   ],
+
   providers: [
     AppService,
     PatientService,
@@ -48,5 +56,6 @@ import { configure } from 'config'
     LoginService,
     SignupService,
   ],
+
 })
-export class AppModule {}
+export class AppModule { }

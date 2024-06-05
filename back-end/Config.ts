@@ -13,5 +13,5 @@ export const configure = {
   CLICKSEND_API_KEY: 'D1C7FF29-D354-6B5A-62DE-C825BD6F9D4E',
   CLICKSEND_FROM_PHONE: '+94766450662',
 
-  JWTsecret: "JwtSecretKey",
+  JWTsecret: "qTAJ/qSat/MJ7Zj1Il0Q30JWVwXEyLEF6QwnH4jMsVk=",
 };

@@ -1,5 +1,6 @@
-import { Controller, Post, Body, BadRequestException, InternalServerErrorException } from '@nestjs/common';
+import { Controller, Post, Body, BadRequestException, InternalServerErrorException, UseGuards } from '@nestjs/common';
 import { SignupService } from './signup.service';
+import { JwtAuthGuard } from 'src/auth/jwt.guard';
 
 @Controller('signup')
 export class SignupController {
@@ -36,12 +37,18 @@ export class SignupController {
       console.log('Sign in result:', result);
       console.log('Sign in data:', data);
       if (result) {
-        return { message: 'Sign in successful' };
+        return { message: 'Sign in successful', token: result };
       } else {
         throw new BadRequestException('Sign in failed');
       }
     } catch (error) {
       throw new InternalServerErrorException('Sign in failed. Please try again later.');
     }
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('logout')
+  async logout(): Promise<any> {
+    return { message: 'Logout successful' };
   }
 }

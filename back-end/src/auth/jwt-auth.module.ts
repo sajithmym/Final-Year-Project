@@ -7,7 +7,7 @@ import { JwtStrategy } from './jwt.strategy';
     imports: [
         JwtModule.register({
             secret: configure.JWTsecret,
-            signOptions: { expiresIn: '60s' },  // adjust as needed
+            signOptions: { expiresIn: 'id' },  // adjust as needed
         }),
     ],
     providers: [JwtStrategy],
