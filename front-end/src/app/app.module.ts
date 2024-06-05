@@ -12,6 +12,10 @@ import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { SigninComponent } from './signin/signin.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BookAppointmentComponent } from './patient/book-appointment/book-appointment.component';
+import { ViewMedicalHistoryComponent } from './patient/view-medical-history/view-medical-history.component';
+import { ViewPrescriptionComponent } from './patient/view-prescription/view-prescription.component';
+import { ViewPatientInformationComponent } from './doctor/view-patient-information/view-patient-information.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,11 @@ import { HttpClientModule } from '@angular/common/http';
     PharmacyComponent,
     NavBarComponent,
     RegisterComponent,
-    SigninComponent
+    SigninComponent,
+    BookAppointmentComponent,
+    ViewMedicalHistoryComponent,
+    ViewPrescriptionComponent,
+    ViewPatientInformationComponent
   ],
   imports: [
     BrowserModule,
