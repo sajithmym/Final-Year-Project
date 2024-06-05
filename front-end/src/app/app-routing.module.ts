@@ -8,12 +8,12 @@ import { RegisterComponent } from './register/register.component';
 import { SigninComponent } from './signin/signin.component';
 
 const routes: Routes = [
-  {path : 'home', component : HomeComponent},
-  {path : 'patient', component : PatientComponent},
-  {path : 'doctor', component : DoctorComponent},
-  {path : 'pharmacy', component : PharmacyComponent},
-  {path : 'signup', component : RegisterComponent},
-  {path : 'signin', component : SigninComponent},
+  { path: '', component: HomeComponent },
+  { path: 'patient', component: PatientComponent },
+  { path: 'doctor', component: DoctorComponent },
+  { path: 'pharmacy', component: PharmacyComponent },
+  { path: 'signup', component: RegisterComponent },
+  { path: 'signin', component: SigninComponent },
 ];
 
 @NgModule({
