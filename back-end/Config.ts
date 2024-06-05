@@ -8,8 +8,10 @@ export const configure = {
   DB_User: process.env.DB_USER || 'root',
   DB_Pass: process.env.DB_PASS || '',
   DB_Name: process.env.DB_NAME || 'patient_management_system',
-  
-  CLICKSEND_USERNAME : 'Sajithmym@gmail.com',
-  CLICKSEND_API_KEY : 'D1C7FF29-D354-6B5A-62DE-C825BD6F9D4E',
-  CLICKSEND_FROM_PHONE : '+94766450662',
+
+  CLICKSEND_USERNAME: 'Sajithmym@gmail.com',
+  CLICKSEND_API_KEY: 'D1C7FF29-D354-6B5A-62DE-C825BD6F9D4E',
+  CLICKSEND_FROM_PHONE: '+94766450662',
+
+  JWTsecret: "JwtSecretKey",
 };

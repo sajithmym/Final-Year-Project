@@ -23,6 +23,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'prettier/prettier': 'off',
     '@typescript-eslint/no-var-requires': 'off',
-    '@typescript-eslint/no-unused-vars' : 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
+    'prefer-const': 'off'
   },
 };

@@ -1,9 +1,10 @@
-import { Injectable, InternalServerErrorException, Body } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, BadRequestException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { Patient } from './../DB_Models/Patient.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { configure } from 'config';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class SignupService {
@@ -12,6 +13,7 @@ export class SignupService {
   constructor(
     @InjectRepository(Patient)
     private readonly patientRepository: Repository<Patient>,
+    private jwtService: JwtService,
   ) {
     this.otpStore = new Map();
   }
@@ -33,8 +35,8 @@ export class SignupService {
 
     this.otpStore.set(phone_number, otp);
 
-    console.log("OTP Store",this.otpStore.get(phone_number));
-    
+    console.log("OTP Store", this.otpStore.get(phone_number));
+
 
     // try {
     //   const response = await axios.post(
@@ -49,7 +51,7 @@ export class SignupService {
     //   );
 
     //   console.log(response.data);
-      
+
     //   if (response.data.http_code === 200) {
     //     this.otpStore.set(phone_number, otp);
     //   } else {
@@ -64,7 +66,7 @@ export class SignupService {
     const storedOtp = this.otpStore.get(data.phone_number);
 
     if (storedOtp !== data.otp) {
-      console.log("Stored OTP: " + storedOtp, "Statement",storedOtp,data.otp,storedOtp === data.otp);  // Debugging
+      console.log("Stored OTP: " + storedOtp, "Statement", storedOtp, data.otp, storedOtp === data.otp);  // Debugging
       return false;
     }
 
@@ -80,4 +82,16 @@ export class SignupService {
       throw new InternalServerErrorException('Error creating user in the database');
     }
   }
+
+  async signInToSystem(data: any): Promise<object> {
+    const user = await this.patientRepository.findOne({ where: { phone_number: data.phone_number } });
+    let payload = { username: user.name, sub: user.id };
+    if (user && bcrypt.compareSync(data.password, user.password)) {
+      return {
+        access_token: this.jwtService.sign(payload),
+      };
+    }
+    throw new BadRequestException('Invalid phone number or password');
+  }
+
 }

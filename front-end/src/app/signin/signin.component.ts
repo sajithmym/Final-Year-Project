@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { settings } from 'Static_values';
 
 @Component({
   selector: 'app-signin',
@@ -7,69 +8,61 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent {
-  inputValue: string = ''; // Variable to store input value
-  inputValueEmail: string = ''; // Variable to store input value
-  inputValuePassword: string = ''; // Variable to store input value
-  apiData: any; // Variable to store API response
+  phoneNumber: string = '';
+  password: string = '';
+  apiData: any;
+  message: string = '';
 
-  message: string = ''; // Variable to store static message
+  constructor(private http: HttpClient) { }
 
-  constructor(private http: HttpClient) {}
+  signIn() {
+    if (this.phoneNumber != '' && this.password != '') {
+      const phoneNumberPattern = /^7[0-9]{8}$/;
 
-  onInputChange(field: string) {
-    switch (field) {
-      case 'name':
-        console.log('Input Value (Name):', this.inputValue);
-        break;
-      case 'email':
-        console.log('Input Value (Email):', this.inputValueEmail);
-        break;
-      case 'password':
-        console.log('Input Value (Password):', this.inputValuePassword);
-        break;
-      default:
-        break;
-    }
-  }
+      if (!phoneNumberPattern.test(this.phoneNumber)) {
+        this.message = 'Invalid phone number.';
+        this.disableMessage();
+        return;
+      }
 
-  makeApiRequest() {
-    if (this.inputValue != '' && this.inputValueEmail != '' && this.inputValuePassword != '') {
+      const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+=\-])[A-Za-z\d!@#$%^&*()_+=\-]{8,}$/;
+      if (!passwordPattern.test(this.password)) {
+        this.message = 'Invalid password.';
+        this.disableMessage();
+        return;
+      }
 
-      const apiUrl = 'http://localhost:3000/users'; // Example API URL
+      const apiUrl = `${settings.APIURL}/signup/signin-to-system`;
 
       const postData = {
-        name: this.inputValue,
-        email: this.inputValueEmail,
-        password: this.inputValuePassword,
+        phone_number: this.phoneNumber,
+        password: this.password,
       };
 
       this.http.post(apiUrl, postData).subscribe(
         (data: any) => {
-          console.log('POST Request Response:', data);
+          console.log('Sign in successful:', data);
           this.apiData = data;
-          this.message = ' - Data Inserted Successfully - '
-          alert(this.message)
+          this.message = 'Sign in successful';
           this.disableMessage();
           this.resetForm();
         },
         (error) => {
-          this.message = 'Error Occurred while Inserting Data'
+          this.message = 'Incorrect login information';
           this.disableMessage();
-        },
+        }
       );
     } else {
-      this.message = '-> Please Fill All The Fields <-' 
+      this.message = 'Please fill all the fields';
       this.disableMessage();
     }
   }
 
   resetForm() {
-    this.inputValue = '';
-    this.inputValueEmail = '';
-    this.inputValuePassword = '';
+    this.phoneNumber = '';
+    this.password = '';
   }
 
-  // Disable the message after 1 seconds
   disableMessage() {
     setTimeout(() => {
       this.message = '';
