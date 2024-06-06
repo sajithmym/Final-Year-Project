@@ -16,6 +16,11 @@ import { BookAppointmentComponent } from './patient/book-appointment/book-appoin
 import { ViewMedicalHistoryComponent } from './patient/view-medical-history/view-medical-history.component';
 import { ViewPrescriptionComponent } from './patient/view-prescription/view-prescription.component';
 import { ViewPatientInformationComponent } from './doctor/view-patient-information/view-patient-information.component';
+import { PrescribeMedicationComponent } from './doctor/prescribe-medication/prescribe-medication.component';
+import { ScheduleComponent } from './doctor/schedule/schedule.component';
+import { ViewAppointmentComponent } from './doctor/view-appointment/view-appointment.component';
+import { ViewPrescriptionsComponent } from './pharmacy/view-prescriptions/view-prescriptions.component';
+import { InventoryComponent } from './pharmacy/inventory/inventory.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +35,12 @@ import { ViewPatientInformationComponent } from './doctor/view-patient-informati
     BookAppointmentComponent,
     ViewMedicalHistoryComponent,
     ViewPrescriptionComponent,
-    ViewPatientInformationComponent
+    ViewPatientInformationComponent,
+    PrescribeMedicationComponent,
+    ScheduleComponent,
+    ViewAppointmentComponent,
+    ViewPrescriptionsComponent,
+    InventoryComponent
   ],
   imports: [
     BrowserModule,

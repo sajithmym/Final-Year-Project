@@ -1,5 +1,46 @@
-div {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.appointment {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.appointment h2 {
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+.appointment label {
+    display: block;
+    margin-bottom: 5px;
+    color: #495057;
+}
+
+.select-input {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+}
+
+.book-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.book-btn:hover {
+    background-color: #0056b3;
 }
