@@ -90,6 +90,7 @@ export class RegisterComponent {
         this.disableMessage();
         this.resetForm();
         this.showOtpPopup = false; // Hide OTP popup
+        window.location.href = `${settings.FrontendUrl}`;
       },
       (error) => {
         this.message = 'Error occurred while inserting data';

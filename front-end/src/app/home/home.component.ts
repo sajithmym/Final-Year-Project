@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './AuthService';
+import { settings } from 'Static_values';
 
 @Component({
   selector: 'app-home',
@@ -41,6 +42,7 @@ export class HomeComponent implements OnInit {
         this.isSignedIn = false;
         this.message = response.message;
         localStorage.removeItem('User-login-uok-pms');
+        window.location.href = `${settings.FrontendUrl}`;
       },
       error: (error) => {
         this.message = 'Logout failed. Please try again.';

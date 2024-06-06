@@ -46,6 +46,7 @@ export class SigninComponent {
           this.disableMessage();
           this.resetForm();
           localStorage.setItem('User-login-uok-pms', JSON.stringify(this.apiData));
+          window.location.href = `${settings.FrontendUrl}`;
         },
         (error) => {
           this.message = 'Incorrect login information';
@@ -68,4 +69,5 @@ export class SigninComponent {
       this.message = '';
     }, 1000);
   }
+
 }

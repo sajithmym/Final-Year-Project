@@ -12,7 +12,10 @@ export class Doctor {
   @Column({ nullable: false })
   username: string;
 
-  @Column({  nullable: false })
+  @Column({ nullable: false })
   password: string;
+
+  @Column({ unique: true, nullable: false })
+  phone_number: number;
 
 }

@@ -9,7 +9,7 @@ export class Patient {
   @Column()
   name: string;
 
-  @Column({ nullable: false })
+  @Column({ unique: true, nullable: false })
   phone_number: number;
 
   @Column({ nullable: false })
