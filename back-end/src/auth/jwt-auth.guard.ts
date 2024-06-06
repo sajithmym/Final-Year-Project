@@ -10,7 +10,6 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
     canActivate(context: ExecutionContext) {
         const request = context.switchToHttp().getRequest();
-        console.log(request.Body);
         const token = request.cookies['token-Uok-PMS'];
 
         if (!token) {
@@ -20,6 +19,8 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
         try {
             const decoded = this.jwtService.verify(token);
             request.user = decoded;
+            console.log(decoded);
+
             return true;
         } catch (err) {
             throw new UnauthorizedException('Invalid token');

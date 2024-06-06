@@ -86,7 +86,7 @@ export class SignupService {
   async signInToSystem(data: any): Promise<object> {
     const user = await this.patientRepository.findOne({ where: { phone_number: data.phone_number } });
     if (user && bcrypt.compareSync(data.password, user.password)) {
-      let payload = { sub: user.id };
+      let payload = { sub: user.id, User: user.name };
       return {
         access_token: this.jwtService.sign(payload),
         Username: user.name,

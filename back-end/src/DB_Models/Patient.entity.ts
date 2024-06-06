@@ -1,4 +1,3 @@
-// Patient.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('patient')
@@ -10,11 +9,11 @@ export class Patient {
   name: string;
 
   @Column({ nullable: false })
-  phone_number:number;
+  phone_number: number;
 
   @Column({ nullable: false })
   address: string;
 
-  @Column({  nullable: false })
+  @Column({ nullable: false })
   password: string;
 }
