@@ -5,7 +5,10 @@ import { configure } from 'config'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  app.enableCors({
+    origin: 'http://localhost:2222',
+    credentials: true,
+  });
   await app.listen(configure.port);
   Logger.log(`Server running on http://localhost:${configure.port}`);
 }

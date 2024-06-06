@@ -39,7 +39,7 @@ export class SigninComponent {
         password: this.password,
       };
 
-      this.http.post(apiUrl, postData).subscribe(
+      this.http.post(apiUrl, postData, { withCredentials: true }).subscribe(
         (data: any) => {
           console.log('Sign in successful:', data);
           this.apiData = data;
