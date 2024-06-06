@@ -1,5 +1,6 @@
 import { Controller, Post, Body, BadRequestException, InternalServerErrorException, UseGuards, HttpStatus, Res, Get } from '@nestjs/common';
 import { SignupService } from './signup.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('signup')
 export class SignupController {
@@ -35,11 +36,12 @@ export class SignupController {
       const result: any = await this.signupService.signInToSystem(data);
       console.log('Sign in data:', data);
       if (result) {
-        res.cookie('token-Uok-PMS', result.access_token, { httpOnly: true, maxAge: 60 * 60 * 1000, sameSite: 'lax', secure: false });
+        res.cookie('token-Uok-PMS', result.access_token, { httpOnly: true, maxAge: 60 * 60 * 1000, sameSite: 'lax', secure: true }); // expire in 1 hour
         return res.status(HttpStatus.OK).send({
           message: 'Sign in successful',
           User: result.Username,
           ID: result.ID,
+          UserType: 'Patient',
         });
       } else {
         throw new BadRequestException('Sign in failed');
@@ -55,6 +57,7 @@ export class SignupController {
     return res.status(HttpStatus.OK).send({ message: 'Logout successful' });
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('is-signed-in')
   checkSignIn(@Res() res: any): any {
     return res.status(HttpStatus.OK).send({ message: 'User is signed in' });

@@ -23,7 +23,7 @@ import { configure } from 'config';
   imports: [
     JwtModule.register({
       secret: configure.JWTsecret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '60m' },
     }),
 
     TypeOrmModule.forRoot({

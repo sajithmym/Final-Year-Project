@@ -1,1 +1,6 @@
-<p>home works!</p>
+<div *ngIf="isSignedIn; else notSignedIn">
+    <p>{{ message }}</p>
+</div>
+<ng-template #notSignedIn>
+    <p>{{ message }}</p>
+</ng-template>
