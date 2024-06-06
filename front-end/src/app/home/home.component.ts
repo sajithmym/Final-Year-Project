@@ -1,23 +1,6 @@
-import { Component, OnInit, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { settings } from 'Static_values';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './AuthService';
 
-// AuthService
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
-  private apiUrl = `${settings.APIURL}/signup`;  // Replace with your actual API URL
-
-  constructor(private http: HttpClient) { }
-
-  checkSignIn(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/is-signed-in`, { withCredentials: true });
-  }
-}
-
-// HomeComponent
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -26,6 +9,10 @@ export class AuthService {
 export class HomeComponent implements OnInit {
   isSignedIn: boolean = false;
   message: string = '';
+  user = JSON.parse(localStorage.getItem('User-login-uok-pms') || '{}');
+
+  UserName = '';
+  Type = '';
 
   constructor(private authService: AuthService) { }
 
@@ -37,6 +24,8 @@ export class HomeComponent implements OnInit {
     this.authService.checkSignIn().subscribe({
       next: (response) => {
         this.isSignedIn = true;
+        this.UserName = this.user.User;
+        this.Type = this.user.UserType;
         this.message = response.message;
       },
       error: (error) => {
@@ -45,4 +34,18 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+
+  logout(): void {
+    this.authService.logout().subscribe({
+      next: (response) => {
+        this.isSignedIn = false;
+        this.message = response.message;
+        localStorage.removeItem('User-login-uok-pms');
+      },
+      error: (error) => {
+        this.message = 'Logout failed. Please try again.';
+      }
+    });
+  }
+
 }

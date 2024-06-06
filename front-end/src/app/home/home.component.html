@@ -1,6 +1,17 @@
-<div *ngIf="isSignedIn; else notSignedIn">
-    <p>{{ message }}</p>
+<div class="container">
+    <div *ngIf="isSignedIn; else notSignedIn" class="signed-in">
+        <h2>Welcome {{ user.User }}</h2>
+        <h4>You are logged in as {{ user.UserType }}</h4>
+        <p>{{ message }}</p>
+        <button type="button" (click)="logout()">Logout</button>
+    </div>
+    <ng-template #notSignedIn>
+        <div class="not-signed-in">
+            <h4 id="NotSign-msg">{{ message }}</h4>
+            <div id="SignReg">
+                <a routerLink="/signin" class="btn-link">Sign in to your account</a>
+                <a routerLink="/signup" class="btn-link">Create a new account</a>
+            </div>
+        </div>
+    </ng-template>
 </div>
-<ng-template #notSignedIn>
-    <p>{{ message }}</p>
-</ng-template>

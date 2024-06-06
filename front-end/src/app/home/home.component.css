@@ -1,0 +1,79 @@
+.container {
+    margin-top: 8% !important;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.signed-in {
+    border: 3px solid #ccc;
+    padding: 30px;
+    background-color: #2980b9;
+    border-radius: 15px;
+}
+
+h2 {
+    color: red;
+    font-size: x-large;
+}
+
+h4 {
+    color: orange;
+    margin-top: 10px;
+}
+
+p {
+    color: darkblue;
+    margin-top: 10px;
+}
+
+button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 60%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.btn-link {
+    display: block;
+    margin: 10px 10px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.not-signed-in {
+    background-color: #2980b9;
+    border: 2px solid black;
+    padding: 15px;
+    border-radius: 13px;
+}
+
+.btn-link:hover {
+    background-color: #2980b9;
+}
+
+#SignReg {
+    display: flex;
+    justify-content: center;
+}
+
+#NotSign-msg {
+    text-align: center;
+    font-size: larger;
+    color: rgb(244, 233, 14);
+}

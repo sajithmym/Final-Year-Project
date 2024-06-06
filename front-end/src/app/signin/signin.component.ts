@@ -41,11 +41,11 @@ export class SigninComponent {
 
       this.http.post(apiUrl, postData, { withCredentials: true }).subscribe(
         (data: any) => {
-          console.log('Sign in successful:', data);
           this.apiData = data;
           this.message = 'Sign in successful';
           this.disableMessage();
           this.resetForm();
+          localStorage.setItem('User-login-uok-pms', JSON.stringify(this.apiData));
         },
         (error) => {
           this.message = 'Incorrect login information';
