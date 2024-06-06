@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryColumn, Column, BeforeInsert, PrimaryGeneratedColumn } from 'typeorm';
+import { Inject, Injectable } from '@nestjs/common';
 
 @Entity('patient')
 export class Patient {
@@ -16,4 +17,5 @@ export class Patient {
 
   @Column({ nullable: false })
   password: string;
+
 }

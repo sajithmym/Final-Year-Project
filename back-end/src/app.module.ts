@@ -18,6 +18,7 @@ import { Pharmacy } from './DB_Models/Pharmacy.entity';
 
 import { JwtModule } from '@nestjs/jwt';
 import { configure } from 'config';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -55,6 +56,7 @@ import { configure } from 'config';
     PharmacyService,
     LoginService,
     SignupService,
+    JwtAuthGuard,
   ],
 
 })

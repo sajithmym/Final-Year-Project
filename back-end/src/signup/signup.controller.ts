@@ -42,6 +42,7 @@ export class SignupController {
           User: result.Username,
           ID: result.ID,
           UserType: 'Patient',
+          Number: result.Number
         });
       } else {
         throw new BadRequestException('Sign in failed');
