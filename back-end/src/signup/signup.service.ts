@@ -29,14 +29,8 @@ export class SignupService {
         },
       ],
     };
-
-    console.log("Message");
-    console.log(message);
-
     this.otpStore.set(phone_number, otp);
-
     console.log("OTP Store", this.otpStore.get(phone_number));
-
 
     // try {
     //   const response = await axios.post(

@@ -34,7 +34,6 @@ export class SignupController {
   async signInToSystem(@Body() data: any, @Res() res: any): Promise<any> {
     try {
       const result: any = await this.signupService.signInToSystem(data);
-      console.log('Sign in data:', data);
       if (result) {
         res.cookie('token-Uok-PMS', result.access_token, { httpOnly: true, maxAge: 60 * 60 * 1000, sameSite: 'lax', secure: true }); // expire in 1 hour
         return res.status(HttpStatus.OK).send({
