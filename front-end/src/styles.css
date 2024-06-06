@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-body{
-    color: rgb(1, 1, 49);
-    background-color: rgba(3, 40, 40, 0.538) !important;
+body {
+    color: black;
+    font-size: medium;
+    background-color: lightsteelblue;
     margin: 0;
     padding: 0;
-    background-color: rgba(0, 0, 0, 0.095);
 }

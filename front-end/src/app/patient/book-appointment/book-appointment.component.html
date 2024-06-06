@@ -1,1 +1,15 @@
-<p>book-appointment works!</p>
+<div>
+    <select [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
+        <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+    </select>
+
+    <select [(ngModel)]="selectedDoctor" (change)="onDoctorChange()">
+        <option *ngFor="let doctor of doctors" [value]="doctor.id">{{doctor.name}}</option>
+    </select>
+
+    <select [(ngModel)]="selectedTime">
+        <option *ngFor="let time of times" [value]="time">{{time}}</option>
+    </select>
+
+    <button (click)="bookAppointment()">Book Appointment</button>
+</div>

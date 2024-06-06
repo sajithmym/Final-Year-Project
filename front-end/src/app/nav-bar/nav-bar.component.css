@@ -5,8 +5,8 @@ body {
 }
 
 h2 {
-    color: lightskyblue;
-    font-size: xx-large;
+    color: rgb(166, 214, 244);
+    font-size: x-large;
 }
 
 .site-header {
@@ -17,7 +17,8 @@ h2 {
 }
 
 .logo img {
-    width: 100px; /* Adjust as needed */
+    width: 100px;
+    /* Adjust as needed */
     height: auto;
 }
 
@@ -28,7 +29,8 @@ h2 {
 }
 
 .main-nav li {
-    display: inline; /* Display li elements inline */
+    display: inline;
+    /* Display li elements inline */
     margin-right: 20px;
 }
 
@@ -39,17 +41,20 @@ h2 {
 }
 
 .main-nav a:hover {
-    color: #ffcc00; /* Change to your preferred hover color */
+    color: #ffcc00;
+    /* Change to your preferred hover color */
 }
 
 /* Responsive Styles */
 @media screen and (max-width: 768px) {
     .logo img {
-        width: 80px; /* Adjust as needed */
+        width: 80px;
+        /* Adjust as needed */
     }
 
     .main-nav li {
-        display: block; /* Display li elements as block */
+        display: block;
+        /* Display li elements as block */
         margin-right: 0;
         margin-bottom: 10px;
     }

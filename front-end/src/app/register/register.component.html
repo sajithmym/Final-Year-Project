@@ -1,92 +1,94 @@
-<div class="container">
-  <form id="userForm">
-    <h2>Register....</h2>
+<div class="signup">
+  <div class="container">
+    <form id="userForm">
+      <h2>Register....</h2>
 
-    <div class="form-control">
-      <input type="text" id="name" name="name" required [(ngModel)]="inputValue" />
-      <label>
-        <span style="transition-delay: 0ms">N</span>
-        <span style="transition-delay: 50ms">a</span>
-        <span style="transition-delay: 100ms">m</span>
-        <span style="transition-delay: 150ms">e</span>
-        <span style="transition-delay: 200ms">:</span>
-      </label>
+      <div class="form-control">
+        <input type="text" id="name" name="name" required [(ngModel)]="inputValue" />
+        <label>
+          <span style="transition-delay: 0ms">N</span>
+          <span style="transition-delay: 50ms">a</span>
+          <span style="transition-delay: 100ms">m</span>
+          <span style="transition-delay: 150ms">e</span>
+          <span style="transition-delay: 200ms">:</span>
+        </label>
+      </div>
+
+      <div class="form-control">
+        <input type="number" id="number" name="number" required [(ngModel)]="inputValueMobileNumber" />
+        <label>
+          <span style="transition-delay: 0ms">M</span>
+          <span style="transition-delay: 50ms">o</span>
+          <span style="transition-delay: 100ms">b</span>
+          <span style="transition-delay: 150ms">i</span>
+          <span style="transition-delay: 200ms">l</span>
+          <span style="transition-delay: 250ms">e</span>
+          <span style="transition-delay: 300ms">-</span>
+          <span style="transition-delay: 350ms">N</span>
+          <span style="transition-delay: 400ms">u</span>
+          <span style="transition-delay: 450ms">m</span>
+          <span style="transition-delay: 500ms">b</span>
+          <span style="transition-delay: 550ms">e</span>
+          <span style="transition-delay: 600ms">r</span>
+          <span style="transition-delay: 650ms">:</span>
+        </label>
+        <ul id="messageForFrontend">
+          <li>Please provide your personal mobile number.</li>
+          <li>Ensure to input your mobile number without the country code.</li>
+          <li>Only Sri Lankan mobile numbers are accepted.</li>
+          <li>For example: 0766450662</li>
+        </ul>
+      </div>
+
+      <div class="form-control">
+        <input type="text" id="address" name="address" required [(ngModel)]="inputValueAddress" />
+        <label>
+          <span style="transition-delay: 0ms">A</span>
+          <span style="transition-delay: 50ms">d</span>
+          <span style="transition-delay: 100ms">d</span>
+          <span style="transition-delay: 150ms">r</span>
+          <span style="transition-delay: 200ms">e</span>
+          <span style="transition-delay: 250ms">s</span>
+          <span style="transition-delay: 300ms">s</span>
+          <span style="transition-delay: 350ms">:</span>
+        </label>
+      </div>
+
+      <div class="form-control">
+        <input type="password" id="password" name="password" required [(ngModel)]="inputValuePassword" />
+        <label>
+          <span style="transition-delay: 0ms">P</span>
+          <span style="transition-delay: 50ms">a</span>
+          <span style="transition-delay: 100ms">s</span>
+          <span style="transition-delay: 150ms">s</span>
+          <span style="transition-delay: 200ms">w</span>
+          <span style="transition-delay: 250ms">o</span>
+          <span style="transition-delay: 300ms">r</span>
+          <span style="transition-delay: 350ms">d</span>
+          <span style="transition-delay: 400ms">:</span>
+        </label>
+        <ul id="messageForFrontend">
+          <li>Please create a secure password for your account.</li>
+          <li>Your password should be at least 8 characters long.</li>
+          <li>Include a mix of uppercase and lowercase letters, numbers, and special characters.</li>
+          <li>Do not use easily guessable information like your name or date of birth.</li>
+        </ul>
+      </div>
+
+      <button class="button2" type="button" (click)="sendOtp()">
+        - Register to System -
+      </button>
+      <b>{{ message }}</b>
+    </form>
+  </div>
+
+  <!-- OTP Popup -->
+  <div class="otp-popup" *ngIf="showOtpPopup">
+    <button class="close-btn" (click)="closeOtpPopup()">X</button>
+    <div class="otp-popup-content">
+      <h3>Enter OTP</h3>
+      <input type="text" [(ngModel)]="otp" placeholder="Enter OTP" />
+      <button (click)="verifyOtp()">Verify OTP</button>
     </div>
-
-    <div class="form-control">
-      <input type="number" id="number" name="number" required [(ngModel)]="inputValueMobileNumber" />
-      <label>
-        <span style="transition-delay: 0ms">M</span>
-        <span style="transition-delay: 50ms">o</span>
-        <span style="transition-delay: 100ms">b</span>
-        <span style="transition-delay: 150ms">i</span>
-        <span style="transition-delay: 200ms">l</span>
-        <span style="transition-delay: 250ms">e</span>
-        <span style="transition-delay: 300ms">-</span>
-        <span style="transition-delay: 350ms">N</span>
-        <span style="transition-delay: 400ms">u</span>
-        <span style="transition-delay: 450ms">m</span>
-        <span style="transition-delay: 500ms">b</span>
-        <span style="transition-delay: 550ms">e</span>
-        <span style="transition-delay: 600ms">r</span>
-        <span style="transition-delay: 650ms">:</span>
-      </label>
-      <ul id="messageForFrontend">
-        <li>Please provide your personal mobile number.</li>
-        <li>Ensure to input your mobile number without the country code.</li>
-        <li>Only Sri Lankan mobile numbers are accepted.</li>
-        <li>For example: 0766450662</li>
-      </ul>
-    </div>
-
-    <div class="form-control">
-      <input type="text" id="address" name="address" required [(ngModel)]="inputValueAddress" />
-      <label>
-        <span style="transition-delay: 0ms">A</span>
-        <span style="transition-delay: 50ms">d</span>
-        <span style="transition-delay: 100ms">d</span>
-        <span style="transition-delay: 150ms">r</span>
-        <span style="transition-delay: 200ms">e</span>
-        <span style="transition-delay: 250ms">s</span>
-        <span style="transition-delay: 300ms">s</span>
-        <span style="transition-delay: 350ms">:</span>
-      </label>
-    </div>
-
-    <div class="form-control">
-      <input type="password" id="password" name="password" required [(ngModel)]="inputValuePassword" />
-      <label>
-        <span style="transition-delay: 0ms">P</span>
-        <span style="transition-delay: 50ms">a</span>
-        <span style="transition-delay: 100ms">s</span>
-        <span style="transition-delay: 150ms">s</span>
-        <span style="transition-delay: 200ms">w</span>
-        <span style="transition-delay: 250ms">o</span>
-        <span style="transition-delay: 300ms">r</span>
-        <span style="transition-delay: 350ms">d</span>
-        <span style="transition-delay: 400ms">:</span>
-      </label>
-      <ul id="messageForFrontend">
-        <li>Please create a secure password for your account.</li>
-        <li>Your password should be at least 8 characters long.</li>
-        <li>Include a mix of uppercase and lowercase letters, numbers, and special characters.</li>
-        <li>Do not use easily guessable information like your name or date of birth.</li>
-      </ul>
-    </div>
-
-    <button class="button2" type="button" (click)="sendOtp()">
-      - Register to System -
-    </button>
-    <b>{{ message }}</b>
-  </form>
-</div>
-
-<!-- OTP Popup -->
-<div class="otp-popup" *ngIf="showOtpPopup">
-  <button class="close-btn" (click)="closeOtpPopup()">X</button>
-  <div class="otp-popup-content">
-    <h3>Enter OTP</h3>
-    <input type="text" [(ngModel)]="otp" placeholder="Enter OTP" />
-    <button (click)="verifyOtp()">Verify OTP</button>
   </div>
 </div>
