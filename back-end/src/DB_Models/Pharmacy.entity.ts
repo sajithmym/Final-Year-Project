@@ -1,5 +1,7 @@
 // Pharmacy.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Patient } from './Patient.entity';
+import { Doctor } from './Doctor.entity';
 
 @Entity('pharmacy')
 export class Pharmacy {
@@ -18,4 +20,9 @@ export class Pharmacy {
   @Column({ unique: true, nullable: false })
   phone_number: number;
 
+  @OneToMany(() => Patient, patient => patient.pharmacy)
+  patients: Patient[];
+
+  @OneToMany(() => Doctor, doctor => doctor.pharmacy)
+  doctors: Doctor[];
 }

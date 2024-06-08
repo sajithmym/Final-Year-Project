@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
       error: (error) => {
         this.isSignedIn = false;
         this.message = 'User is not signed in';
+        localStorage.removeItem('User-login-uok-pms');
       }
     });
   }

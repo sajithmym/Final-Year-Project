@@ -1,10 +1,13 @@
 import { Injectable, InternalServerErrorException, BadRequestException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { Patient } from './../DB_Models/Patient.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { configure } from 'config';
 import { JwtService } from '@nestjs/jwt';
+
+import { Pharmacy } from 'src/DB_Models/Pharmacy.entity';
+import { Doctor } from './../DB_Models/Doctor.entity';
+import { Patient } from './../DB_Models/Patient.entity';
 
 @Injectable()
 export class SignupService {
@@ -13,6 +16,8 @@ export class SignupService {
   constructor(
     @InjectRepository(Patient)
     private readonly patientRepository: Repository<Patient>,
+    private readonly DoctorRepository: Repository<Doctor>,
+    private readonly pharmacyRepository: Repository<Pharmacy>,
     private jwtService: JwtService,
   ) {
     this.otpStore = new Map();
@@ -86,6 +91,26 @@ export class SignupService {
         Username: user.name,
         ID: user.id,
         Number: user.phone_number,
+      };
+    }
+    const doc = await this.DoctorRepository.findOne({ where: { phone_number: data.phone_number } });
+    if (doc && bcrypt.compareSync(data.password, doc.password)) {
+      let payload = { sub: doc.id, User: doc.name, UserType: "Doctor", MobileNumber: doc.phone_number };
+      return {
+        access_token: this.jwtService.sign(payload),
+        Username: doc.name,
+        ID: doc.id,
+        Number: doc.phone_number,
+      };
+    }
+    const Phar = await this.pharmacyRepository.findOne({ where: { phone_number: data.phone_number } });
+    if (Phar && bcrypt.compareSync(data.password, Phar.password)) {
+      let payload = { sub: Phar.id, User: Phar.name, UserType: "Pharmacy", MobileNumber: Phar.phone_number };
+      return {
+        access_token: this.jwtService.sign(payload),
+        Username: Phar.name,
+        ID: Phar.id,
+        Number: Phar.phone_number,
       };
     }
     throw new BadRequestException('Invalid phone number or password');
