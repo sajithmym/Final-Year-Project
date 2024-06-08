@@ -1,1 +1,10 @@
-<p>view-patient-information works!</p>
+<div class="allUsers">
+    <h1>Patient List</h1>
+    <div class="user" *ngFor="let user of users; let count = index">
+        <div class="user__name">{{ count + 1 }}. {{ user.name }}</div>
+        <div class="user__email">{{ user.phone_number }}</div>
+        <div class="user__address">{{ user.address }}</div>
+    </div>
+    <br /> <br />
+    <h1>{{message}}</h1>
+</div>

@@ -1,0 +1,72 @@
+.allUsers {
+    margin: 2% 8%;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    background-color: rgba(20, 44, 75, 0.836);
+    box-shadow: 0 0 5px rgb(217, 217, 217);
+    height: 540px;
+    align-items: center;
+    overflow: auto;
+    padding: 2%;
+}
+
+.user {
+    margin: 2%;
+    padding: 2%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgba(174, 188, 205, 0.936);
+    box-shadow: 0 0 5px rgb(217, 217, 217);
+    text-align: center;
+    font-size: medium;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 1s ease-in-out;
+}
+
+.user:hover {
+    background-color: black;
+
+    .user__email,
+    .user__name,
+    .user__address {
+        color: whitesmoke;
+    }
+}
+
+.user__email,
+.user__name,
+.user__address {
+    color: darkblue;
+    font-weight: bolder;
+    font-size: larger;
+    margin: 5px;
+}
+
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .allUsers {
+        margin: 2% 4%;
+    }
+
+    .user {
+        margin: 2%;
+        padding: 2%;
+        font-size: small;
+    }
+
+    .user__name {
+        font-size: 1.2em;
+    }
+
+    .user__email {
+        font-size: 0.8em;
+    }
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    margin-top: 2%;
+}

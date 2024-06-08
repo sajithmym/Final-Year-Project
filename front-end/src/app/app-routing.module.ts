@@ -10,6 +10,10 @@ import { PharmacyComponent } from './pharmacy/pharmacy.component';
 import { RegisterComponent } from './register/register.component';
 import { SigninComponent } from './signin/signin.component';
 import { BookAppointmentComponent } from './patient/book-appointment/book-appointment.component';
+import { ScheduleComponent } from './doctor/schedule/schedule.component';
+import { PrescribeMedicationComponent } from './doctor/prescribe-medication/prescribe-medication.component';
+import { ViewAppointmentComponent } from './doctor/view-appointment/view-appointment.component';
+import { InventoryComponent } from './pharmacy/inventory/inventory.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,10 +22,18 @@ const routes: Routes = [
   { path: 'pharmacy', component: PharmacyComponent },
   { path: 'signup', component: RegisterComponent },
   { path: 'signin', component: SigninComponent },
+
   { path: 'bookAppointment', component: BookAppointmentComponent },
   { path: 'viewMedicalHistory', component: ViewMedicalHistoryComponent },
   { path: 'viewPrescription', component: ViewPrescriptionComponent },
+
   { path: 'viewPatient', component: ViewPatientInformationComponent },
+  { path: 'Schedule', component: ScheduleComponent },
+  { path: 'PrescribeMedication', component: PrescribeMedicationComponent },
+  { path: 'ViewAppointment', component: ViewAppointmentComponent },
+
+  { path: 'Inventory', component: InventoryComponent },
+  { path: 'ViewPrescription', component: ViewPrescriptionComponent }
 ];
 
 @NgModule({
