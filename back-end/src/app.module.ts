@@ -35,7 +35,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
       password: configure.DB_Pass,
       database: configure.DB_Name,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      synchronize: false,
     }),
     TypeOrmModule.forFeature([Patient, Doctor, Pharmacy]),
   ],

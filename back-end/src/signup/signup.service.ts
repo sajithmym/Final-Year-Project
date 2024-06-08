@@ -16,7 +16,9 @@ export class SignupService {
   constructor(
     @InjectRepository(Patient)
     private readonly patientRepository: Repository<Patient>,
+    @InjectRepository(Doctor)
     private readonly DoctorRepository: Repository<Doctor>,
+    @InjectRepository(Pharmacy)
     private readonly pharmacyRepository: Repository<Pharmacy>,
     private jwtService: JwtService,
   ) {
@@ -90,6 +92,7 @@ export class SignupService {
         access_token: this.jwtService.sign(payload),
         Username: user.name,
         ID: user.id,
+        Type: "Patient",
         Number: user.phone_number,
       };
     }
@@ -100,7 +103,8 @@ export class SignupService {
         access_token: this.jwtService.sign(payload),
         Username: doc.name,
         ID: doc.id,
-        Number: doc.phone_number,
+        Type: "Doctor",
+        Number: doc.phone_number
       };
     }
     const Phar = await this.pharmacyRepository.findOne({ where: { phone_number: data.phone_number } });
@@ -110,10 +114,10 @@ export class SignupService {
         access_token: this.jwtService.sign(payload),
         Username: Phar.name,
         ID: Phar.id,
+        Type: "Pharmacy",
         Number: Phar.phone_number,
       };
     }
     throw new BadRequestException('Invalid phone number or password');
   }
-
 }

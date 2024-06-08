@@ -40,7 +40,7 @@ export class SignupController {
           message: 'Sign in successful',
           User: result.Username,
           ID: result.ID,
-          UserType: 'Patient',
+          UserType: result.Type,
           Number: result.Number
         });
       } else {
