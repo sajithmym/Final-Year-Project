@@ -1,1 +1,18 @@
-<p>schedule works!</p>
+<form [formGroup]="scheduleForm" (ngSubmit)="onSubmit()">
+    <h5>You can set your available time slot here</h5>
+    <div>
+        <label for="date">Date:</label>
+        <select formControlName="date">
+            <option *ngFor="let date of dates" [value]="date">{{ date }}</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="time">Time:</label>
+        <select formControlName="time">
+            <option *ngFor="let time of times" [value]="time">{{ time }}</option>
+        </select>
+    </div>
+
+    <button type="submit">Submit</button>
+</form>
