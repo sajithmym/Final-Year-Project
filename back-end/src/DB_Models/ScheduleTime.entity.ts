@@ -7,7 +7,11 @@ export class ScheduleTime {
     @PrimaryGeneratedColumn()
     id: number;
 
-    // Add other columns as per your requirements
+    @Column({ nullable: true })
+    date: string;
+
+    @Column({ nullable: true })
+    time_slot: string;
 
     @ManyToOne(() => Doctor, doctor => doctor.scheduleTimes)
     doctor: Doctor;

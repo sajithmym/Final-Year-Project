@@ -6,6 +6,9 @@ import { ScheduleTime } from './ScheduleTime.entity';
 
 @Entity('doctor')
 export class Doctor {
+  create(doctorData: any) {
+    throw new Error('Method not implemented.');
+  }
   @PrimaryGeneratedColumn()
   id: number;
 

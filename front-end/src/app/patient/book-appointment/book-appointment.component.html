@@ -1,14 +1,14 @@
 <div class="appointment">
     <h2>Book an Appointment</h2>
 
-    <label>Select Category:</label>
-    <select [(ngModel)]="selectedCategory" (change)="onCategoryChange()" class="select-input">
-        <option *ngFor="let category of categories" [value]="category">{{category}}</option>
-    </select>
-
     <label>Select Doctor:</label>
     <select [(ngModel)]="selectedDoctor" (change)="onDoctorChange()" class="select-input">
         <option *ngFor="let doctor of doctors" [value]="doctor.id">{{doctor.name}}</option>
+    </select>
+
+    <label>Select Date:</label>
+    <select [(ngModel)]="selectedTime" class="select-input">
+        <option *ngFor="let time of times" [value]="time">{{time}}</option>
     </select>
 
     <label>Select Time:</label>
