@@ -7,13 +7,13 @@
     </select>
 
     <label>Select Date:</label>
-    <select [(ngModel)]="selectedTime" class="select-input">
-        <option *ngFor="let time of times" [value]="time">{{time}}</option>
+    <select [(ngModel)]="selectDate" class="select-input" (change)="onChangeDate()">
+        <option *ngFor="let eachdate of dates" [value]="eachdate">{{eachdate}}</option>
     </select>
 
     <label>Select Time:</label>
     <select [(ngModel)]="selectedTime" class="select-input">
-        <option *ngFor="let time of times" [value]="time">{{time}}</option>
+        <option *ngFor="let time of times" [value]="time">{{time.time_slot}}</option>
     </select>
 
     <button (click)="bookAppointment()" class="book-btn">Book Appointment</button>

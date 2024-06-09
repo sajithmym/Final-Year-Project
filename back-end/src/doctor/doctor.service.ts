@@ -7,6 +7,7 @@ import { Doctor } from 'src/DB_Models/Doctor.entity';
 
 @Injectable()
 export class DoctorService {
+
     constructor(
         @InjectRepository(ScheduleTime)
         private readonly scheduleTimeRepository: Repository<ScheduleTime>,
@@ -43,4 +44,18 @@ export class DoctorService {
 
         return this.scheduleTimeRepository.save(newScheduleTime);
     }
+
+    getDoctors(): any {
+        return this.doctorRepository.find();
+    }
+
+    getDoctorsFreeTimes(obj: any): any {
+        return this.scheduleTimeRepository.find({
+            where: {
+                date: obj.Date,
+                doctor: obj.doctorId
+            }
+        });
+    }
+
 }

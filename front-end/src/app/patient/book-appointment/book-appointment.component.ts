@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from './dataService';
 
 @Component({
@@ -6,31 +6,46 @@ import { DataService } from './dataService';
   templateUrl: './book-appointment.component.html',
   styleUrls: ['./book-appointment.component.css']
 })
-export class BookAppointmentComponent {
+export class BookAppointmentComponent implements OnInit {
   categories = ['General', 'Pediatric', 'Cardiology'];
   selectedCategory: string = '';
   doctors: any = [];
   selectedDoctor: string = '';
-  times = [];
+  times: any = [];
   selectedTime: string = '';
+  selectDate: string = '';
+  dates: any = [];
 
   constructor(private dataService: DataService) { }
 
-  onCategoryChange() {
+  ngOnInit() {
     this.dataService.getDoctors(this.selectedCategory).subscribe((doctors) => {
       this.doctors = doctors;
     });
   }
 
   onDoctorChange() {
-    this.dataService.getTimes(this.selectedDoctor).subscribe((times) => {
-      this.times = times;
+    // save the next 7 days in the dates array include today date
+    for (let i = 0; i < 7; i++) {
+      let date = new Date();
+      date.setDate(date.getDate() + i);
+      this.dates.push(date.toISOString().split('T')[0]);
+    }
+  }
+
+  onChangeDate() {
+    this.dataService.getTimes(this.selectDate, this.selectedDoctor).subscribe((res: any) => {
+      this.times = res;
     });
   }
 
   bookAppointment() {
-    this.dataService.bookAppointment(this.selectedDoctor, this.selectedTime).subscribe((response) => {
-      console.log(response);
-    });
+    if ((this.selectedDoctor != '') && (this.selectedTime != '') && (this.selectDate != '')) {
+      this.dataService.bookAppointment(this.selectedDoctor, this.selectedTime, this.selectDate).subscribe((response) => {
+        console.log(response);
+      });
+    } else {
+      alert('Please select all fields');
+    }
   }
 }
