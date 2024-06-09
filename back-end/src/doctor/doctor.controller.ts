@@ -1,5 +1,5 @@
 // doctor.controller.ts
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { DoctorService } from './doctor.service';
 
 @Controller('doctor')
@@ -20,5 +20,11 @@ export class DoctorController {
     @Post('doctors-free-times')
     async getDoctorsFreeTimes(@Body() BodyData: any): Promise<any> {
         return this.docService.getDoctorsFreeTimes(BodyData);
+    }
+
+    // Fetches a single doctor's details using their ID
+    @Get('get-Single-details/:doctorId')
+    async getDoctorDetails(@Param('doctorId') doctorId: string): Promise<any> {
+        return this.docService.getSingleDoctor(doctorId);
     }
 }

@@ -19,7 +19,7 @@ export class DoctorService {
         if (!scheduleTimeData.doctor || !scheduleTimeData.doctor.id) {
             throw new Error('Doctor id not provided');
         }
-        const doctor = await this.doctorRepository.findOneBy(scheduleTimeData.doctor.id);
+        const doctor = this.getSingleDoctor(scheduleTimeData.doctor.id);
         if (!doctor) {
             throw new Error('Doctor not found');
         }
@@ -50,12 +50,17 @@ export class DoctorService {
     }
 
     getDoctorsFreeTimes(obj: any): any {
+        const doctor = this.getSingleDoctor(obj.doctorId);
         return this.scheduleTimeRepository.find({
             where: {
-                date: obj.Date,
-                doctor: obj.doctorId
+                time_slot: obj.Date,
+                doctor: doctor,
             }
         });
+    }
+
+    getSingleDoctor(doctorId: any): any {
+        return this.doctorRepository.findOneBy(doctorId);
     }
 
 }
