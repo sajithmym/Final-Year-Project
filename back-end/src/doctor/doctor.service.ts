@@ -1,4 +1,3 @@
-// doctor.service.ts
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -16,13 +15,7 @@ export class DoctorService {
     ) { }
 
     async create(scheduleTimeData: any): Promise<any> {
-        if (!scheduleTimeData.doctor || !scheduleTimeData.doctor.id) {
-            throw new Error('Doctor id not provided');
-        }
-        const doctor = this.getSingleDoctor(scheduleTimeData.doctor.id);
-        if (!doctor) {
-            throw new Error('Doctor not found');
-        }
+        const doctor = await this.getSingleDoctor(scheduleTimeData.doctor.id);
         // Check if the same data exists
         const existingScheduleTime = await this.scheduleTimeRepository.findOne({
             where: {
@@ -42,25 +35,28 @@ export class DoctorService {
             doctor: doctor,
         });
 
-        return this.scheduleTimeRepository.save(newScheduleTime);
+        return await this.scheduleTimeRepository.save(newScheduleTime);
     }
 
-    getDoctors(): any {
-        return this.doctorRepository.find();
+    async getDoctors(): Promise<Doctor[]> {
+        return await this.doctorRepository.find();
     }
 
-    getDoctorsFreeTimes(obj: any): any {
-        const doctor = this.getSingleDoctor(obj.doctorId);
-        return this.scheduleTimeRepository.find({
+    async getDoctorsFreeTimes(obj: any): Promise<ScheduleTime[]> {
+        if (!obj.doctorId) {
+            throw new Error('Doctor id not provided');
+        }
+        const doctor = await this.getSingleDoctor(obj.doctorId);
+        return await this.scheduleTimeRepository.find({
             where: {
-                time_slot: obj.Date,
+                date: obj.Date,
                 doctor: doctor,
             }
         });
     }
 
-    getSingleDoctor(doctorId: any): any {
-        return this.doctorRepository.findOneBy(doctorId);
+    async getSingleDoctor(doctorId: any): Promise<Doctor> {
+        return await this.doctorRepository.findOneBy({ id: doctorId });
     }
 
 }

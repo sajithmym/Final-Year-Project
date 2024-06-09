@@ -48,4 +48,5 @@ export class BookAppointmentComponent implements OnInit {
       alert('Please select all fields');
     }
   }
+
 }
