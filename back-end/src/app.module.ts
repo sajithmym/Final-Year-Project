@@ -20,6 +20,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { configure } from 'config';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { ScheduleTime } from './DB_Models/ScheduleTime.entity';
+import { Appointment } from './DB_Models/Appointment.entity';
 
 @Module({
   imports: [
@@ -38,7 +39,7 @@ import { ScheduleTime } from './DB_Models/ScheduleTime.entity';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: false,
     }),
-    TypeOrmModule.forFeature([Patient, Doctor, Pharmacy, ScheduleTime]),
+    TypeOrmModule.forFeature([Patient, Doctor, Pharmacy, ScheduleTime, Appointment]),
   ],
 
   controllers: [

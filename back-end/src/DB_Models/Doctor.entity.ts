@@ -1,14 +1,12 @@
 // Doctor.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
 import { Patient } from './Patient.entity';
 import { Pharmacy } from './Pharmacy.entity';
 import { ScheduleTime } from './ScheduleTime.entity';
+import { Appointment } from './Appointment.entity';
 
 @Entity('doctor')
 export class Doctor {
-  create(doctorData: any) {
-    throw new Error('Method not implemented.');
-  }
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -24,8 +22,8 @@ export class Doctor {
   @Column({ nullable: false })
   specialization: string;
 
-  @ManyToMany(() => Patient, patient => patient.doctors)
-  patients: Patient[];
+  @OneToMany(() => Appointment, appointment => appointment.doctor)
+  appointments: Appointment[];
 
   @ManyToOne(() => Pharmacy, pharmacy => pharmacy.doctors)
   pharmacy: Pharmacy;

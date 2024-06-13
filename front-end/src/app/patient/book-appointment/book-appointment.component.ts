@@ -16,6 +16,8 @@ export class BookAppointmentComponent implements OnInit {
   selectDate: string = '';
   dates: any = [];
 
+  user: any = JSON.parse(localStorage.getItem('User-login-uok-pms') || '{}');
+
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
@@ -41,9 +43,14 @@ export class BookAppointmentComponent implements OnInit {
 
   bookAppointment() {
     if ((this.selectedDoctor != '') && (this.selectedTime != '') && (this.selectDate != '')) {
-      this.dataService.bookAppointment(this.selectedDoctor, this.selectedTime, this.selectDate).subscribe((response) => {
-        console.log(response);
-      });
+      this.dataService.bookAppointment(this.user.ID, this.selectedDoctor, this.selectedTime, this.selectDate).subscribe(
+        (response) => {
+          alert(response.message);
+        },
+        (error) => {
+          alert(`${error.error.message}; may be the appointment already exists `);
+        }
+      );
     } else {
       alert('Please select all fields');
     }

@@ -1,7 +1,7 @@
 // Patient.entity.ts
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable, ManyToOne } from 'typeorm';
-import { Doctor } from './Doctor.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm';
 import { Pharmacy } from './Pharmacy.entity';
+import { Appointment } from './Appointment.entity';
 
 @Entity('patient')
 export class Patient {
@@ -20,9 +20,8 @@ export class Patient {
   @Column({ nullable: false })
   password: string;
 
-  @ManyToMany(() => Doctor, doctor => doctor.patients)
-  @JoinTable()
-  doctors: Doctor[];
+  @OneToMany(() => Appointment, appointment => appointment.patient)
+  appointments: Appointment[];
 
   @ManyToOne(() => Pharmacy, pharmacy => pharmacy.patients)
   pharmacy: Pharmacy;

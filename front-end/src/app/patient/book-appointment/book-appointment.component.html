@@ -13,7 +13,7 @@
 
     <label>Select Time:</label>
     <select [(ngModel)]="selectedTime" class="select-input">
-        <option *ngFor="let time of times" [value]="time">{{time.time_slot}}</option>
+        <option *ngFor="let time of times" [value]="time.time_slot">{{time.time_slot}}</option>
     </select>
 
     <button (click)="bookAppointment()" class="book-btn">Book Appointment</button>
