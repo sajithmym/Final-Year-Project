@@ -1,1 +1,18 @@
-<p>view-appointment works!</p>
+<div class="appointments">
+    <h1>Your Appointments</h1>
+    <ul>
+        <li *ngFor="let appointment of appointments">
+            <div id="loop">
+                <p><span>Patient:</span> {{appointment.patient.name}}</p>
+                <p><span>Patient Mobile Number:</span> {{appointment.patient.phone_number}}</p>
+                <p><span>Appointment Date:</span> {{appointment.appointmentDate | date:'short'}}</p>
+                <p><span>Appointment Time:</span> {{appointment.appointmentTime}}</p>
+
+                <div class="buttons">
+                    <button class="accept">Accept</button>
+                    <button class="reject">Reject</button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

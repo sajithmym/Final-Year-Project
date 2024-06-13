@@ -27,4 +27,10 @@ export class DoctorController {
     async getDoctorDetails(@Param('doctorId') doctorId: string): Promise<any> {
         return this.docService.getSingleDoctor(doctorId);
     }
+
+    // get apoinments for a doctor
+    @Get('appointments/:id')
+    getAppointmentsForDoctor(@Param('id') id: string) {
+        return this.docService.getAppointmentsForDoctor(id);
+    }
 }

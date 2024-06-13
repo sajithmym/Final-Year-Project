@@ -37,7 +37,7 @@ import { Appointment } from './DB_Models/Appointment.entity';
       password: configure.DB_Pass,
       database: configure.DB_Name,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: false,
+      synchronize: true,
     }),
     TypeOrmModule.forFeature([Patient, Doctor, Pharmacy, ScheduleTime, Appointment]),
   ],
