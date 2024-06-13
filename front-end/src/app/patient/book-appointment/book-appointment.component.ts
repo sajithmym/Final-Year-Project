@@ -36,6 +36,7 @@ export class BookAppointmentComponent implements OnInit {
   }
 
   onChangeDate() {
+    this.selectedTime = '';
     this.dataService.getTimes(this.selectDate, this.selectedDoctor).subscribe((res: any) => {
       this.times = res;
     });

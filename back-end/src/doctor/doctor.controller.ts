@@ -1,5 +1,5 @@
 // doctor.controller.ts
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Delete } from '@nestjs/common';
 import { DoctorService } from './doctor.service';
 
 @Controller('doctor')
@@ -28,9 +28,27 @@ export class DoctorController {
         return this.docService.getSingleDoctor(doctorId);
     }
 
-    // get apoinments for a doctor
-    @Get('appointments/:id')
-    getAppointmentsForDoctor(@Param('id') id: string) {
-        return this.docService.getAppointmentsForDoctor(id);
+    // get Not_Accept_appointments for a doctor
+    @Get('Not_Accept_appointments/:id')
+    Not_Accept_appointmentsDoctor(@Param('id') id: string) {
+        return this.docService.getNotAcceptedAppoinments(id);
+    }
+
+    // get Accept_appointments for a doctor
+    @Get('Accept_appointments/:id')
+    getAccept_appointmentsDoctor(@Param('id') id: string) {
+        return this.docService.getAcceptedAppoinments(id);
+    }
+
+    // update the appoinment Isaccepted status to true
+    @Post('accept-appointment')
+    async acceptAppointment(@Body() bodyData: any): Promise<any> {
+        return this.docService.acceptAppointment(bodyData);
+    }
+
+    // Delete a appoinment Record
+    @Delete('delete-appointment/:id')
+    async deleteAppointment(@Param('id') id: string): Promise<any> {
+        return this.docService.deleteAppointment(id);
     }
 }

@@ -62,19 +62,21 @@ export class DoctorService {
         return await this.doctorRepository.findOneBy({ id: doctorId });
     }
 
-    async getAppointmentsForDoctor(doctorId: any): Promise<any> {
+    async getNotAcceptedAppoinments(doctorId: any): Promise<any> {
         const doctor = await this.getSingleDoctor(doctorId);
 
         if (!doctor) {
             throw new Error('Doctor not found');
         }
 
-        const appointments = await this.appointmentRepository.find({ where: { doctor: doctor }, relations: ["patient"] });
+        const appointments = await this.appointmentRepository.find({ where: { doctor: doctor, Isaccepted: false }, relations: ["patient"] });
 
         return appointments.map(appointment => ({
             id: appointment.id,
             appointmentDate: appointment.appointmentDate,
             appointmentTime: appointment.appointmentTime,
+            Isaccepted: appointment.Isaccepted,
+            medician: appointment.medician,
             patient: {
                 id: appointment.patient.id,
                 name: appointment.patient.name,
@@ -82,6 +84,49 @@ export class DoctorService {
                 address: appointment.patient.address
             }
         }));
+    }
+
+    async getAcceptedAppoinments(doctorId: any): Promise<any> {
+        const doctor = await this.getSingleDoctor(doctorId);
+
+        if (!doctor) {
+            throw new Error('Doctor not found');
+        }
+
+        const appointments = await this.appointmentRepository.find({ where: { doctor: doctor, Isaccepted: true }, relations: ["patient"] });
+
+        return appointments.map(appointment => ({
+            id: appointment.id,
+            appointmentDate: appointment.appointmentDate,
+            appointmentTime: appointment.appointmentTime,
+            Isaccepted: appointment.Isaccepted,
+            medician: appointment.medician,
+            patient: {
+                id: appointment.patient.id,
+                name: appointment.patient.name,
+                phone_number: appointment.patient.phone_number,
+                address: appointment.patient.address
+            }
+        }));
+    }
+
+    async acceptAppointment(bodyData: any): Promise<any> {
+        const appointment: any = await this.appointmentRepository.findOne({ where: { id: bodyData.appointmentId } });
+        if (!appointment) {
+            throw new Error('Appointment not found');
+        }
+        appointment.Isaccepted = true;
+        await this.appointmentRepository.save(appointment);
+        return { status: 'success' }
+    }
+
+    async deleteAppointment(id: any): Promise<any> {
+        const appointment: any = await this.appointmentRepository.find({ where: { id: id } });
+        if (!appointment) {
+            throw new Error('Appointment not found');
+        }
+        await this.appointmentRepository.remove(appointment);
+        return { status: 'success' };
     }
 
 }

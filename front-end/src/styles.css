@@ -5,4 +5,5 @@ body {
     background-color: lightsteelblue;
     margin: 0;
     padding: 0;
+    background-image: url('./assets/bg.webp');
 }
