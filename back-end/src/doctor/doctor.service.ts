@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { ScheduleTime } from 'src/DB_Models/ScheduleTime.entity';
 import { Doctor } from 'src/DB_Models/Doctor.entity';
 import { Appointment } from 'src/DB_Models/Appointment.entity';
+import { json } from 'stream/consumers';
 
 @Injectable()
 export class DoctorService {
@@ -124,8 +125,18 @@ export class DoctorService {
         return { status: 'success' }
     }
 
+    async finishAppointment(bodyData: any): Promise<any> {
+        const appointment: any = await this.appointmentRepository.findOne({ where: { id: bodyData.appointmentId } });
+        if (!appointment) {
+            throw new Error('Appointment not found');
+        }
+        appointment.Isaccepted = 'Finesh';
+        await this.appointmentRepository.save(appointment);
+        return { status: 'success' }
+    }
+
     async deleteAppointment(id: any): Promise<any> {
-        const appointment: any = await this.appointmentRepository.find({ where: { id: id } });
+        const appointment: any = await this.appointmentRepository.findOne({ where: { id: id } });
         if (!appointment) {
             throw new Error('Appointment not found');
         }
@@ -134,12 +145,24 @@ export class DoctorService {
     }
 
     async setMedichine(bodyData: any): Promise<any> {
-        const appointment: any = await this.appointmentRepository.find({ where: { id: bodyData.id } });
+        const appointment: any = await this.appointmentRepository.findOne({ where: { id: bodyData.id } });
         if (!appointment) {
             throw new Error('Appointment not found');
         }
         appointment.medician = bodyData.medichine;
+        console.log(appointment);
         await this.appointmentRepository.save(appointment);
     }
 
+    async getMedichine(id: number): Promise<any> {
+        const appointment: any = await this.appointmentRepository.findOne({ where: { id: id } });
+        if (!appointment) {
+            throw new Error('Appointment not found');
+        }
+
+        if (appointment.medician === '') {
+            throw new Error('No medician found');
+        }
+        return JSON.parse(appointment.medician);
+    }
 }

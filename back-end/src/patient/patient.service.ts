@@ -7,6 +7,7 @@ import { Doctor } from 'src/DB_Models/Doctor.entity';
 
 @Injectable()
 export class PatientService {
+
     constructor(
         @InjectRepository(Appointment)
         private appointmentRepository: Repository<Appointment>,
@@ -44,5 +45,26 @@ export class PatientService {
         appointment.appointmentTime = `${data.time}`;
 
         return await this.appointmentRepository.save(appointment);
+    }
+
+    async getFineshAcceptedAppoinments(id: number): Promise<any> {
+        const patient = await this.patientRepository.findOneBy({ id: id });
+
+        if (!patient) {
+            throw new Error('patient not found');
+        }
+
+        const appointments = await this.appointmentRepository.find({ where: { patient: patient, Isaccepted: 'Finesh' }, relations: ["patient"] });
+
+        return appointments.map(appointment => ({
+            id: appointment.id,
+            appointmentDate: appointment.appointmentDate,
+            appointmentTime: appointment.appointmentTime,
+            Isaccepted: appointment.Isaccepted,
+            medician: appointment.medician,
+            doctor: {
+                name: appointment.doctor.name
+            }
+        }));
     }
 }

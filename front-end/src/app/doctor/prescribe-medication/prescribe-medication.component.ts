@@ -11,7 +11,7 @@ export class PrescribeMedicationComponent implements OnInit {
   appointments: any[] = [];
   showPopup = false;
   prescribedMedicine = '';
-  medichine: string[] = [];
+  medichine: any[] = [];
   user = JSON.parse(localStorage.getItem('User-login-uok-pms') || '{}');
   popup_appointment_id: number = 0;
 
@@ -22,6 +22,16 @@ export class PrescribeMedicationComponent implements OnInit {
   }
 
   openPopup(id: number): void {
+    // get medichine for the appointment
+    this.http.get(`${settings.APIURL}/doctor/get-medichine/${id}`).subscribe({
+      next: (medichine: any) => {
+        this.medichine = medichine;
+      },
+      error: (error) => {
+        console.error('Error fetching medichine:', error);
+        alert('There was an error fetching medichine. Please try again later.');
+      }
+    });
     this.popup_appointment_id = id;
     this.showPopup = true;
   }
@@ -58,19 +68,10 @@ export class PrescribeMedicationComponent implements OnInit {
     }
   }
 
-  acceptAppointment(appointmentId: number): void {
-    if (confirm('Are you sure you want to accept this appointment?')) {
-      this.http.post(`${settings.APIURL}/doctor/accept-appointment`, { appointmentId }).subscribe({
-        next: () => this.loadAppointments(),
-        error: (error) => {
-          console.error('Error accepting appointment:', error);
-          alert('There was an error accepting the appointment. Please try again later.');
-        }
-      });
-    }
-  }
-
   prescribeMedicine(): void {
+    console.log(this.prescribedMedicine);
+    console.log(this.medichine);
+
     if (this.prescribedMedicine != '' && this.medichine.includes(this.prescribedMedicine) == false) {
       this.medichine.push(this.prescribedMedicine);
       this.prescribedMedicine = '';
@@ -89,20 +90,29 @@ export class PrescribeMedicationComponent implements OnInit {
 
   Prescribe() {
     if (this.medichine.length != 0) {
-      alert('Medicine prescribed successfully ' + this.popup_appointment_id);
       this.http.post(`${settings.APIURL}/doctor/set-medichine`, { id: this.popup_appointment_id, medichine: JSON.stringify(this.medichine) }).subscribe({
-        next: () => {
-          this.loadAppointments();
-          this.closePopup();
-        },
         error: (error) => {
           console.error('Error prescribing medicine:', error);
           alert('There was an error prescribing medicine. Please try again later.');
         }
       });
+      this.medichine = [];
+      alert('Medicine prescribed successfully ');
       this.closePopup();
     } else {
       alert('Please add some medicine to prescribe');
+    }
+  }
+
+  Finesh(appointmentId: Number) {
+    if (confirm('Are you sure you want to Finesh this appointment?')) {
+      this.http.post(`${settings.APIURL}/doctor/finish-appointment`, { appointmentId }).subscribe({
+        next: () => this.loadAppointments(),
+        error: (error) => {
+          console.error('Error accepting appointment:', error);
+          alert('There was an error accepting the appointment. Please try again later.');
+        }
+      });
     }
   }
 }

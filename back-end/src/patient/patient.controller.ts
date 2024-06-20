@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { PatientService } from './patient.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Patient } from 'src/DB_Models/Patient.entity';
@@ -21,5 +21,11 @@ export class PatientController {
     async setAppointments(@Body() DatafromFrontend: any): Promise<any> {
         await this.patientService.setAppointments(DatafromFrontend);
         return { message: 'Appointment set successfully' };
+    }
+
+    // get Finesh_Accept_appointments for a patient
+    @Get('Finesh_appointments/:id')
+    Finesh_Accept_appointmentsDoctor(@Param('id') id: number) {
+        return this.patientService.getFineshAcceptedAppoinments(id);
     }
 }

@@ -39,10 +39,16 @@ export class DoctorController {
         return this.docService.getAcceptedAppoinments(id);
     }
 
-    // update the appoinment Isaccepted status to true
+    // update the appoinment Isaccepted status to Accept
     @Post('accept-appointment')
     async acceptAppointment(@Body() bodyData: any): Promise<any> {
         return this.docService.acceptAppointment(bodyData);
+    }
+
+    // update the appoinment Isaccepted status to Finesh
+    @Post('finish-appointment')
+    async finishAppointment(@Body() bodyData: any): Promise<any> {
+        return this.docService.finishAppointment(bodyData);
     }
 
     // Delete a appoinment Record
@@ -56,5 +62,12 @@ export class DoctorController {
     async setMedichine(@Body() bodyData: any): Promise<any> {
         this.docService.setMedichine(bodyData);
         return { message: 'Medichine set successfully' };
+    }
+
+    // get priscrived medichine
+    @Get('get-medichine/:id')
+    async getMedichine(@Param('id') id: number): Promise<any> {
+        const response = this.docService.getMedichine(id)
+        return response;
     }
 }

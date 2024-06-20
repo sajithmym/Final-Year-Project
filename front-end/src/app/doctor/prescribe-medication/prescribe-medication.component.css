@@ -111,6 +111,7 @@ button {
 }
 
 .accept,
+.Finesh,
 .reject {
     margin: 5px;
     padding: 10px 20px;
@@ -123,6 +124,13 @@ button {
 .accept:hover {
     background-color: #008000;
     /* Green */
+    color: #FFFFFF;
+    /* White */
+}
+
+.Finesh:hover {
+    background-color: orange;
+    /* Blue */
     color: #FFFFFF;
     /* White */
 }

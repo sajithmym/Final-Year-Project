@@ -1,1 +1,19 @@
-<p>view-prescription works!</p>
+<div class="appointments">
+    <h1> Appointments Prescription</h1>
+    <ul>
+        <li *ngFor="let appointment of appointments">
+            <div id="loop">
+                <p><span>Patient:</span> {{appointment.patient.name}}</p>
+                <p><span>Patient Mobile Number:</span> {{appointment.patient.phone_number}}</p>
+                <p><span>Appointment Date:</span> {{appointment.appointmentDate}}</p>
+                <p><span>Appointment Time:</span> {{appointment.appointmentTime}}</p>
+                <p><span>Appointment Status:</span> {{appointment.Isaccepted}}</p>
+
+                <div class="buttons">
+                    <button class="accept" (click)="Accept_appointment(appointment.id)">Accept Appointment</button>
+                    <button class="reject" (click)="Reject_appointment(appointment.id)">Reject Appointment</button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
