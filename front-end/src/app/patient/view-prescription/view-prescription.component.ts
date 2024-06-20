@@ -9,6 +9,8 @@ import { settings } from 'Static_values';
 })
 export class ViewPrescriptionComponent implements OnInit {
   appointments: any = [];
+  checkout: boolean = false;
+  appoinmentID: number = 0;
   user: any = JSON.parse(localStorage.getItem('User-login-uok-pms') || '{}');
 
   constructor(private http: HttpClient) { }
@@ -17,10 +19,24 @@ export class ViewPrescriptionComponent implements OnInit {
     this.initialize()
   }
 
+  ONCheckout(id: number) {
+    this.appoinmentID = id;
+    this.checkout = true;
+  }
+
+  OffCheckout() {
+    this.checkout = false;
+  }
+
   initialize() {
     this.getAppointmentsForDoctor().subscribe(
-      (appointments) => {
+      (appointments: any) => {
+        // change each appoinment.medician values
+        appointments.forEach((appointment: any) => {
+          appointment.medician = JSON.parse(appointment.medician);
+        });
         this.appointments = appointments;
+        console.log(this.appointments);
       },
       (error) => {
         console.error(error);
@@ -35,34 +51,9 @@ export class ViewPrescriptionComponent implements OnInit {
     return this.http.get(`${settings.APIURL}/patient/Finesh_appointments/${PatientId}`);
   }
 
-  Reject_appointment(Id: any) {
-    if (confirm('Are you sure you want to reject this appointment?')) {
-      this.http.delete(`${settings.APIURL}/doctor/delete-appointment/${Id}`).subscribe(
-        () => {
-          this.initialize()
-        },
-        (error) => {
-          console.error(error);
-          alert('There was an error rejecting the appointment. Please try again later.');
-        }
-      );
-    }
-  }
-
-  Accept_appointment(Id: any) {
+  Buy_appointment(Id: any) {
     if (confirm('Are you sure you want to accept this appointment?')) {
-      this.http.post(`${settings.APIURL}/doctor/accept-appointment`, {
-        appointmentId: Id
-      }).subscribe(
-        () => {
-          this.initialize()
-        },
-        (error) => {
-          console.error(error);
-          alert('There was an error accepting the appointment. Please try again later.');
-        }
-      );
+      console.log(Id);
     }
   }
-
 }

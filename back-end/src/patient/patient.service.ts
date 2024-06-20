@@ -53,15 +53,11 @@ export class PatientService {
         if (!patient) {
             throw new Error('patient not found');
         }
-        console.log(patient);
-
-
         const appointments = await this.appointmentRepository.find({ where: { patient: patient, Isaccepted: 'Finesh' }, relations: ["doctor"] });
 
         if (!appointments) {
             throw new Error('No appointments found');
         }
-        console.log(appointments);
 
         return appointments.map(appointment => ({
             id: appointment.id,

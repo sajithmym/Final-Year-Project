@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { ScheduleTime } from 'src/DB_Models/ScheduleTime.entity';
 import { Doctor } from 'src/DB_Models/Doctor.entity';
 import { Appointment } from 'src/DB_Models/Appointment.entity';
-import { json } from 'stream/consumers';
 
 @Injectable()
 export class DoctorService {
