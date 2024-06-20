@@ -7,7 +7,6 @@ import { Appointment } from 'src/DB_Models/Appointment.entity';
 
 @Injectable()
 export class DoctorService {
-
     constructor(
         @InjectRepository(ScheduleTime)
         private readonly scheduleTimeRepository: Repository<ScheduleTime>,
@@ -132,6 +131,15 @@ export class DoctorService {
         }
         await this.appointmentRepository.remove(appointment);
         return { status: 'success' };
+    }
+
+    async setMedichine(bodyData: any): Promise<any> {
+        const appointment: any = await this.appointmentRepository.find({ where: { id: bodyData.id } });
+        if (!appointment) {
+            throw new Error('Appointment not found');
+        }
+        appointment.medician = bodyData.medichine;
+        await this.appointmentRepository.save(appointment);
     }
 
 }

@@ -8,61 +8,101 @@ import { settings } from 'Static_values';
   styleUrls: ['./prescribe-medication.component.css']
 })
 export class PrescribeMedicationComponent implements OnInit {
-  appointments: any = [];
-  user: any = JSON.parse(localStorage.getItem('User-login-uok-pms') || '{}');
+  appointments: any[] = [];
+  showPopup = false;
+  prescribedMedicine = '';
+  medichine: string[] = [];
+  user = JSON.parse(localStorage.getItem('User-login-uok-pms') || '{}');
+  popup_appointment_id: number = 0;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.initialize()
+    this.loadAppointments();
   }
 
-  initialize() {
-    this.getAppointmentsForDoctor().subscribe(
-      (appointments) => {
-        this.appointments = appointments;
-      },
-      (error) => {
-        console.error(error);
+  openPopup(id: number): void {
+    this.popup_appointment_id = id;
+    this.showPopup = true;
+  }
+
+  closePopup(): void {
+    this.popup_appointment_id = 0;
+    this.showPopup = false;
+  }
+
+  loadAppointments(): void {
+    this.fetchAppointmentsForDoctor().subscribe({
+      next: (appointments) => this.appointments = appointments,
+      error: (error) => {
+        console.error('Error fetching appointments:', error);
         alert('There was an error fetching appointments. Please try again later.');
       }
-    );
+    });
   }
 
-  getAppointmentsForDoctor() {
-    // Replace with your actual API endpoint
+  fetchAppointmentsForDoctor() {
     const doctorId = this.user.ID;
-    return this.http.get(`${settings.APIURL}/doctor/Accept_appointments/${doctorId}`);
+    return this.http.get<any[]>(`${settings.APIURL}/doctor/Accept_appointments/${doctorId}`);
   }
 
-  Reject_appointment(Id: any) {
+  rejectAppointment(appointmentId: number): void {
     if (confirm('Are you sure you want to reject this appointment?')) {
-      this.http.delete(`${settings.APIURL}/doctor/delete-appointment/${Id}`).subscribe(
-        () => {
-          this.initialize()
-        },
-        (error) => {
-          console.error(error);
+      this.http.delete(`${settings.APIURL}/doctor/delete-appointment/${appointmentId}`).subscribe({
+        next: () => this.loadAppointments(),
+        error: (error) => {
+          console.error('Error rejecting appointment:', error);
           alert('There was an error rejecting the appointment. Please try again later.');
         }
-      );
+      });
     }
   }
 
-  Accept_appointment(Id: any) {
+  acceptAppointment(appointmentId: number): void {
     if (confirm('Are you sure you want to accept this appointment?')) {
-      this.http.post(`${settings.APIURL}/doctor/accept-appointment`, {
-        appointmentId: Id
-      }).subscribe(
-        () => {
-          this.initialize()
-        },
-        (error) => {
-          console.error(error);
+      this.http.post(`${settings.APIURL}/doctor/accept-appointment`, { appointmentId }).subscribe({
+        next: () => this.loadAppointments(),
+        error: (error) => {
+          console.error('Error accepting appointment:', error);
           alert('There was an error accepting the appointment. Please try again later.');
         }
-      );
+      });
     }
   }
 
+  prescribeMedicine(): void {
+    if (this.prescribedMedicine != '' && this.medichine.includes(this.prescribedMedicine) == false) {
+      this.medichine.push(this.prescribedMedicine);
+      this.prescribedMedicine = '';
+    } else {
+      alert('Please enter a valid medicine name');
+    }
+  }
+
+  deletmedi(_t38: string) {
+    // delete element from array by value
+    const index = this.medichine.indexOf(_t38);
+    if (index > -1) {
+      this.medichine.splice(index, 1);
+    }
+  }
+
+  Prescribe() {
+    if (this.medichine.length != 0) {
+      alert('Medicine prescribed successfully ' + this.popup_appointment_id);
+      this.http.post(`${settings.APIURL}/doctor/set-medichine`, { id: this.popup_appointment_id, medichine: JSON.stringify(this.medichine) }).subscribe({
+        next: () => {
+          this.loadAppointments();
+          this.closePopup();
+        },
+        error: (error) => {
+          console.error('Error prescribing medicine:', error);
+          alert('There was an error prescribing medicine. Please try again later.');
+        }
+      });
+      this.closePopup();
+    } else {
+      alert('Please add some medicine to prescribe');
+    }
+  }
 }

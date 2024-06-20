@@ -2,15 +2,19 @@
     margin: 2% 8%;
     border: 1px solid #ccc;
     border-radius: 15px;
-    background-color: rgb(43, 4, 79);
-    box-shadow: 0 0 5px rgb(217, 217, 217);
+    background-color: #2B044F;
+    /* Dark purple */
+    box-shadow: 0 0 5px #D9D9D9;
+    /* Light grey shadow */
     padding: 2%;
     overflow: auto;
     color: yellow;
+    /* Text color */
 }
 
 .appointments h1 {
-    color: white;
+    color: #FFFFFF;
+    /* White */
     text-align: center;
     margin-top: 2%;
 }
@@ -25,8 +29,10 @@
     padding: 2%;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: rgba(174, 188, 205, 0.936);
-    box-shadow: 0 0 5px rgb(217, 217, 217);
+    background-color: #AEBCCD;
+    /* Light blue-grey */
+    box-shadow: 0 0 5px #D9D9D9;
+    /* Light grey shadow */
     text-align: center;
     font-size: medium;
     font-weight: bold;
@@ -35,11 +41,58 @@
 }
 
 .appointments li:hover {
-    background-color: black;
+    background-color: #1B4D38;
+    /* Dark green */
 }
 
 .appointments li:hover p span {
-    color: whitesmoke;
+    color: #F5F5F5;
+    /* Off-white */
+}
+
+button {
+    background-color: #2B044F;
+    /* Dark purple */
+    color: yellow;
+    /* Text color */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 2px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#Prescribe-btn {
+    width: 60%;
+    padding: 1%;
+    border-radius: 15px;
+    margin-left: 25%;
+    font-size: larger;
+    margin-top: 2%;
+}
+
+#Prescribe-btn:hover {
+    background-color: #0b3322;
+    /* Dark green */
+}
+
+#delete-btn {
+    padding: 3px;
+    border-radius: 5px;
+    margin-left: 1%;
+    background-color: red;
+    color: white;
+}
+
+#delete-btn:hover {
+    background-color: #28056e;
+    /* Red */
+}
+
+#koko {
+    color: teal;
+    font-weight: bolder;
 }
 
 .appointments p {
@@ -47,7 +100,8 @@
 }
 
 .appointments p span {
-    color: darkblue;
+    color: #00008B;
+    /* Dark blue */
     font-weight: bolder;
     font-size: larger;
 }
@@ -67,13 +121,60 @@
 }
 
 .accept:hover {
-    background-color: green;
-    color: white;
+    background-color: #008000;
+    /* Green */
+    color: #FFFFFF;
+    /* White */
 }
 
 .reject:hover {
-    background-color: red;
-    color: white;
+    background-color: #FF0000;
+    /* Red */
+    color: #FFFFFF;
+    /* White */
+}
+
+.popup {
+    position: fixed;
+    inset: 0;
+    /* Modern approach to setting top, right, bottom, left to 0 */
+    z-index: 1;
+    /* Ensure it sits on top */
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Black with opacity */
+}
+
+.popup-content {
+    background-color: #FFFFFF;
+    /* White */
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    /* Could be more or less, depending on screen size */
+}
+
+.close {
+    color: #AAAAAA;
+    /* Light grey */
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000000;
+    /* Black */
+    text-decoration: none;
+    cursor: pointer;
 }
 
 /* Responsive Styles */

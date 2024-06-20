@@ -23,6 +23,6 @@ export class Appointment {
     @Column({ default: 'Pending' })
     Isaccepted: string;
 
-    @Column()
+    @Column({ nullable: true })
     medician: string;
 }

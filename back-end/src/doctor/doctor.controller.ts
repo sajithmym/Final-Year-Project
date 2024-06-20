@@ -50,4 +50,11 @@ export class DoctorController {
     async deleteAppointment(@Param('id') id: string): Promise<any> {
         return this.docService.deleteAppointment(id);
     }
+
+    // set medichine to the appoinment
+    @Post('set-medichine')
+    async setMedichine(@Body() bodyData: any): Promise<any> {
+        this.docService.setMedichine(bodyData);
+        return { message: 'Medichine set successfully' };
+    }
 }
