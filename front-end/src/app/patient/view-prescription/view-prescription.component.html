@@ -3,11 +3,20 @@
     <ul>
         <li *ngFor="let appointment of appointments">
             <div id="loop">
-                <p><span>Patient:</span> {{appointment.patient.name}}</p>
-                <p><span>Patient Mobile Number:</span> {{appointment.patient.phone_number}}</p>
+                <p><span>Patient Name : </span> {{appointment.patient_name}}</p>
+                <p><span>Doctor Name : </span> {{appointment.doctor_name}}</p>
                 <p><span>Appointment Date:</span> {{appointment.appointmentDate}}</p>
                 <p><span>Appointment Time:</span> {{appointment.appointmentTime}}</p>
                 <p><span>Appointment Status:</span> {{appointment.Isaccepted}}</p>
+
+                <div class="medi">
+                    <h2>Your Medicine List</h2>
+                    <ul type="circle">
+                        <li *ngFor="let medicine of JSON.parse(appointment.medicine)">
+                            <p><span>Medicine Name:</span> {{medicine}}</p>
+                        </li>
+                    </ul>
+                </div>
 
                 <div class="buttons">
                     <button class="accept" (click)="Accept_appointment(appointment.id)">Accept Appointment</button>
