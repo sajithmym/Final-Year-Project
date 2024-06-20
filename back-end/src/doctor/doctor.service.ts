@@ -18,6 +18,10 @@ export class DoctorService {
     ) { }
 
     async create(scheduleTimeData: any): Promise<any> {
+        if (scheduleTimeData.date === '' || scheduleTimeData.time === '') {
+            console.log('Fill all the fields');
+            throw new Error('Fill all the fields');
+        }
         const doctor = await this.getSingleDoctor(scheduleTimeData.doctor.id);
         // Check if the same data exists
         const existingScheduleTime = await this.scheduleTimeRepository.findOne({
@@ -29,6 +33,7 @@ export class DoctorService {
         });
 
         if (existingScheduleTime) {
+            console.log('The same schedule time already exists');
             throw new Error('The same schedule time already exists');
         }
 
@@ -69,7 +74,7 @@ export class DoctorService {
             throw new Error('Doctor not found');
         }
 
-        const appointments = await this.appointmentRepository.find({ where: { doctor: doctor, Isaccepted: false }, relations: ["patient"] });
+        const appointments = await this.appointmentRepository.find({ where: { doctor: doctor, Isaccepted: 'Pending' }, relations: ["patient"] });
 
         return appointments.map(appointment => ({
             id: appointment.id,
@@ -93,7 +98,7 @@ export class DoctorService {
             throw new Error('Doctor not found');
         }
 
-        const appointments = await this.appointmentRepository.find({ where: { doctor: doctor, Isaccepted: true }, relations: ["patient"] });
+        const appointments = await this.appointmentRepository.find({ where: { doctor: doctor, Isaccepted: 'Accepted' }, relations: ["patient"] });
 
         return appointments.map(appointment => ({
             id: appointment.id,
@@ -115,7 +120,7 @@ export class DoctorService {
         if (!appointment) {
             throw new Error('Appointment not found');
         }
-        appointment.Isaccepted = true;
+        appointment.Isaccepted = 'Accepted';
         await this.appointmentRepository.save(appointment);
         return { status: 'success' }
     }

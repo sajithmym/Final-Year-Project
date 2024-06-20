@@ -1,13 +1,13 @@
 <form [formGroup]="scheduleForm" (ngSubmit)="onSubmit()">
     <h5>You can set your available time slot here</h5>
-    <div>
+    <div class="dropdown-selection">
         <label for="date">Date:</label>
         <select formControlName="date">
             <option *ngFor="let date of dates" [value]="date">{{ date }}</option>
         </select>
     </div>
 
-    <div>
+    <div class="dropdown-selection">
         <label for="time">Time:</label>
         <select formControlName="time">
             <option *ngFor="let time of times" [value]="time">{{ time }}</option>

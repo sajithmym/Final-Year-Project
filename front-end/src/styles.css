@@ -7,3 +7,51 @@ body {
     padding: 0;
     background-image: url('./assets/bg.webp');
 }
+
+/* Track */
+::-webkit-scrollbar {
+    width: 11px;
+    /* width of the scrollbar */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: red;
+    /* color of the scrollbar handle */
+    border-radius: 6px;
+    /* roundness of the scrollbar handle */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: black;
+    /* color of the scrollbar handle on hover */
+}
+
+
+/* Style for select element */
+.dropdown-selection select {
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    color: black;
+    transition: border-color 0.3s ease;
+}
+
+/* Style for select element on focus */
+.dropdown-selection select:focus {
+    outline: none;
+    border-color: #66afe9;
+    box-shadow: 0 0 5px #66afe9;
+}
+
+/* Style for options */
+.dropdown-selection option {
+    padding: 5px;
+    font-size: 16px;
+    color: white;
+    background-color: #637483;
+}

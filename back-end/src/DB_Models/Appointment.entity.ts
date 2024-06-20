@@ -20,8 +20,8 @@ export class Appointment {
     @Column()
     appointmentTime: string;
 
-    @Column({ default: false })
-    Isaccepted: boolean;
+    @Column({ default: 'Pending' })
+    Isaccepted: string;
 
     @Column()
     medician: string;

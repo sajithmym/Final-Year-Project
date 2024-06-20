@@ -8,7 +8,6 @@ export class DoctorController {
 
     @Post('create_doctor_shedule_time')
     async create(@Body() scheduleTimeData: any): Promise<any> {
-        console.log(scheduleTimeData);
         return this.docService.create(scheduleTimeData);
     }
 

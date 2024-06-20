@@ -35,6 +35,8 @@ export class ScheduleComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log(this.scheduleForm.value);
+    console.log(this.scheduleForm.value.date);
     this.scheduleForm.patchValue({
       doctor: {
         id: this.Doctor.ID
@@ -43,7 +45,7 @@ export class ScheduleComponent implements OnInit {
     this.http.post(`${settings.APIURL}/doctor/create_doctor_shedule_time`, this.scheduleForm.value)
       .subscribe(
         (response) => alert(`Schedule Added successfully...`),
-        (error) => alert(`The same schedule time already exists or Doctor not found`)
+        (error) => alert(`Error Found while adding Schedule...`)
       );
   }
 }
