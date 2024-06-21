@@ -8,6 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Pharmacy } from 'src/DB_Models/Pharmacy.entity';
 import { Doctor } from './../DB_Models/Doctor.entity';
 import { Patient } from './../DB_Models/Patient.entity';
+import axios from 'axios';
 
 @Injectable()
 export class SignupService {
@@ -25,42 +26,36 @@ export class SignupService {
     this.otpStore = new Map();
   }
 
-  async sendOtp(phone_number: string): Promise<void> {
+  async sendOtp(phoneNumber: string): Promise<void> {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const message = {
-      messages: [
-        {
-          from: configure.CLICKSEND_FROM_PHONE,
-          to: `+94${phone_number}`, // Sri Lanka country code is +94
-          body: `From Patient Management System... - Your OTP code is ${otp} - Do not share this with anyone.`,
-        },
-      ],
+    const smsContent = {
+      messages: [{
+        from: "Uok_PMS",
+        destinations: [{ to: `+94${phoneNumber}` }], // Prefixing with Sri Lanka's country code +94
+        text: `Your OTP for Patient Management System is: ${otp}. Please do not share it with anyone.`
+      }]
     };
-    this.otpStore.set(phone_number, otp);
-    console.log("OTP Store", this.otpStore.get(phone_number));
 
-    // try {
-    //   const response = await axios.post(
-    //     'https://rest.clicksend.com/v3/sms/send',
-    //     message,
-    //     {
-    //       auth: {
-    //         username: configure.CLICKSEND_USERNAME,
-    //         password: configure.CLICKSEND_API_KEY,
-    //       },
-    //     },
-    //   );
+    this.otpStore.set(phoneNumber, otp);
+    console.log("OTP for", phoneNumber, "is", this.otpStore.get(phoneNumber));
 
-    //   console.log(response.data);
+    try {
+      const response = await axios.post('https://rge44p.api.infobip.com/sms/2/text/advanced', smsContent, {
+        headers: {
+          'Authorization': `App ${configure.api_key_for_infobip}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      });
 
-    //   if (response.data.http_code === 200) {
-    //     this.otpStore.set(phone_number, otp);
-    //   } else {
-    //     throw new InternalServerErrorException('Failed to send OTP. Please try again later.');
-    //   }
-    // } catch (error) {
-    //   throw new InternalServerErrorException(`Error sending OTP via ClickSend: ${error.message}`);
-    // }
+      if (response.status !== 200) {
+        throw new Error('Infobip API responded with non-200 status code.');
+      }
+      console.log("Infobip response:", response.data);  // Debugging
+    } catch (error) {
+      console.error("Error sending OTP with Infobip:", error.message);
+      throw new InternalServerErrorException('Sending OTP failed. Please try again later.');
+    }
   }
 
   async verifyOtpAndCreate(data: any): Promise<boolean> {

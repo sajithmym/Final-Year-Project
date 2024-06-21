@@ -9,9 +9,7 @@ export const configure = {
   DB_Pass: process.env.DB_PASS || '',
   DB_Name: process.env.DB_NAME || 'patient_management_system',
 
-  CLICKSEND_USERNAME: process.env.CLICKSEND_USERNAME,
-  CLICKSEND_API_KEY: process.env.CLICKSEND_API_KEY,
-  CLICKSEND_FROM_PHONE: process.env.CLICKSEND_FROM_PHONE,
+  api_key_for_infobip: process.env.infobip_api_key,
 
   JWTsecret: process.env.JWTsecret,
 };
