@@ -25,7 +25,11 @@ export class PrescribeMedicationComponent implements OnInit {
     // get medichine for the appointment
     this.http.get(`${settings.APIURL}/doctor/get-medichine/${id}`).subscribe({
       next: (medichine: any) => {
-        this.medichine = medichine;
+        if (medichine == null) {
+          this.medichine = [];
+        } else {
+          this.medichine = medichine;
+        }
       },
       error: (error) => {
         console.error('Error fetching medichine:', error);
