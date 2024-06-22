@@ -23,6 +23,6 @@ export class Patient {
   @OneToMany(() => Appointment, appointment => appointment.patient)
   appointments: Appointment[];
 
-  @ManyToOne(() => Pharmacy, pharmacy => pharmacy.patients)
+  @ManyToOne(() => Pharmacy, pharmacy => pharmacy.patients, { onDelete: 'CASCADE' })
   pharmacy: Pharmacy;
 }

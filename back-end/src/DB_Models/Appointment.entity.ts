@@ -8,10 +8,10 @@ export class Appointment {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => Patient, patient => patient.appointments)
+    @ManyToOne(() => Patient, patient => patient.appointments, { onDelete: 'CASCADE' })
     patient: Patient;
 
-    @ManyToOne(() => Doctor, doctor => doctor.appointments)
+    @ManyToOne(() => Doctor, doctor => doctor.appointments, { onDelete: 'CASCADE' })
     doctor: Doctor;
 
     @Column()

@@ -13,6 +13,6 @@ export class ScheduleTime {
     @Column({ nullable: true })
     time_slot: string;
 
-    @ManyToOne(() => Doctor, doctor => doctor.scheduleTimes)
+    @ManyToOne(() => Doctor, doctor => doctor.scheduleTimes, { onDelete: 'CASCADE' })
     doctor: Doctor;
 }

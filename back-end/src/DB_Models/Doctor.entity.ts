@@ -22,12 +22,12 @@ export class Doctor {
   @Column({ nullable: false })
   specialization: string;
 
-  @OneToMany(() => Appointment, appointment => appointment.doctor)
+  @OneToMany(() => Appointment, appointment => appointment.doctor, { onDelete: 'CASCADE' })
   appointments: Appointment[];
 
   @ManyToOne(() => Pharmacy, pharmacy => pharmacy.doctors)
   pharmacy: Pharmacy;
 
-  @OneToMany(() => ScheduleTime, scheduleTime => scheduleTime.doctor)
+  @OneToMany(() => ScheduleTime, scheduleTime => scheduleTime.doctor, { onDelete: 'CASCADE' })
   scheduleTimes: ScheduleTime[];
 }

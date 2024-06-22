@@ -1,9 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Patient } from 'src/DB_Models/Patient.entity';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ScheduleTime } from 'src/DB_Models/ScheduleTime.entity';
 import { Doctor } from 'src/DB_Models/Doctor.entity';
 import { Appointment } from 'src/DB_Models/Appointment.entity';
+import axios from 'axios';
+import { configure } from 'Config';
 
 @Injectable()
 export class DoctorService {
@@ -47,6 +50,34 @@ export class DoctorService {
 
     async getDoctors(): Promise<Doctor[]> {
         return await this.doctorRepository.find();
+    }
+
+    async sendSMS(phoneNumber: string, message: string): Promise<void> {
+        const smsContent = {
+            messages: [{
+                from: "Uok_PMS_Doc",
+                destinations: [{ to: `+94${phoneNumber}` }], // Prefixing with Sri Lanka's country code +94
+                text: message
+            }]
+        };
+
+        try {
+            const response = await axios.post('https://rge44p.api.infobip.com/sms/2/text/advanced', smsContent, {
+                headers: {
+                    'Authorization': `App ${configure.api_key_for_infobip}`,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.status !== 200) {
+                throw new Error('Infobip API responded with non-200 status code.');
+            }
+            // console.log("Infobip response:", response.data);  // Debugging
+        } catch (error) {
+            console.error("Error sending OTP with Infobip:", error.message);
+            throw new InternalServerErrorException('Sending SMS failed. Please try again later.');
+        }
     }
 
     async getDoctorsFreeTimes(obj: any): Promise<ScheduleTime[]> {
@@ -115,22 +146,35 @@ export class DoctorService {
     }
 
     async acceptAppointment(bodyData: any): Promise<any> {
-        const appointment: any = await this.appointmentRepository.findOne({ where: { id: bodyData.appointmentId } });
+        const appointment: any = await this.appointmentRepository.findOne({ where: { id: bodyData.appointmentId }, relations: ["doctor", "patient"] });
         if (!appointment) {
             throw new Error('Appointment not found');
         }
         appointment.Isaccepted = 'Accepted';
         await this.appointmentRepository.save(appointment);
+
+        let message = `Your appointment is confirmed:
+                    \n\t Date: ${appointment.appointmentDate}
+                    \n\t Time: ${appointment.appointmentTime}
+                    \n\t Doctor: ${appointment.doctor.name} `
+
+        this.sendSMS(appointment.patient.phone_number, message)
+
         return { status: 'success' }
     }
 
     async finishAppointment(bodyData: any): Promise<any> {
-        const appointment: any = await this.appointmentRepository.findOne({ where: { id: bodyData.appointmentId } });
+        const appointment: any = await this.appointmentRepository.findOne({ where: { id: bodyData.appointmentId }, relations: ["doctor", "patient"] });
         if (!appointment) {
             throw new Error('Appointment not found');
         }
         appointment.Isaccepted = 'Finesh';
         await this.appointmentRepository.save(appointment);
+
+        let message = `${appointment.doctor.name} has prescribed medication. You can view the details in our web application.`
+
+        this.sendSMS(appointment.patient.phone_number, message)
+
         return { status: 'success' }
     }
 

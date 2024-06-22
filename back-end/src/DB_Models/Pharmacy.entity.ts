@@ -20,9 +20,9 @@ export class Pharmacy {
   @Column({ unique: true, nullable: false })
   phone_number: number;
 
-  @OneToMany(() => Patient, patient => patient.pharmacy)
+  @OneToMany(() => Patient, patient => patient.pharmacy, { onDelete: 'CASCADE' })
   patients: Patient[];
 
-  @OneToMany(() => Doctor, doctor => doctor.pharmacy)
+  @OneToMany(() => Doctor, doctor => doctor.pharmacy, { onDelete: 'CASCADE' })
   doctors: Doctor[];
 }
