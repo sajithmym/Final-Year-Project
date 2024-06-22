@@ -193,7 +193,7 @@ export class DoctorService {
             throw new Error('Appointment not found');
         }
         appointment.medician = bodyData.medichine;
-        console.log(appointment);
+        // console.log(appointment);
         await this.appointmentRepository.save(appointment);
     }
 
