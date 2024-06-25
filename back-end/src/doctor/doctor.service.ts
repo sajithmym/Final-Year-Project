@@ -62,7 +62,7 @@ export class DoctorService {
         };
 
         try {
-            const response = await axios.post('https://rge44p.api.infobip.com/sms/2/text/advanced', smsContent, {
+            const response = await axios.post('https://qy825m.api.infobip.com/sms/2/text/advanced', smsContent, {
                 headers: {
                     'Authorization': `App ${configure.api_key_for_infobip}`,
                     'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ export class DoctorService {
             if (response.status !== 200) {
                 throw new Error('Infobip API responded with non-200 status code.');
             }
-            // console.log("Infobip response:", response.data);  // Debugging
+            console.log("Infobip response:", response.data);  // Debugging
         } catch (error) {
             console.error("Error sending OTP with Infobip:", error.message);
             throw new InternalServerErrorException('Sending SMS failed. Please try again later.');
