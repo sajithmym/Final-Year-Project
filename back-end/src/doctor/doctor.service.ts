@@ -63,6 +63,9 @@ export class DoctorService {
             ],
         };
 
+        console.log(' ` ` '.repeat(20));
+        console.log(SMS);
+
         try {
             const response = await axios.post(
                 'https://rest.clicksend.com/v3/sms/send',
@@ -153,10 +156,7 @@ export class DoctorService {
         appointment.Isaccepted = 'Accepted';
         await this.appointmentRepository.save(appointment);
 
-        let message = `Your appointment is confirmed:
-                    \n\t Date: ${appointment.appointmentDate}
-                    \n\t Time: ${appointment.appointmentTime}
-                    \n\t Doctor: ${appointment.doctor.name} `
+        let message = `Your appointment with ${appointment.doctor.name} has been confirmed for ${appointment.appointmentDate}, ${appointment.appointmentTime}`
 
         this.sendSMS(appointment.patient.phone_number, message)
 
