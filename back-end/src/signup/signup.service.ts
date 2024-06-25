@@ -26,35 +26,41 @@ export class SignupService {
     this.otpStore = new Map();
   }
 
-  async sendOtp(phoneNumber: string): Promise<void> {
+  async sendOtp(phone_number: string): Promise<void> {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const smsContent = {
-      messages: [{
-        from: "Uok_PMS",
-        destinations: [{ to: `+94${phoneNumber}` }], // Prefixing with Sri Lanka's country code +94
-        text: `Your OTP for Patient Management System is: ${otp}. Please do not share it with anyone.`
-      }]
+    const message = {
+      messages: [
+        {
+          from: configure.CLICKSEND_FROM_PHONE,
+          to: `+94${phone_number}`, // Sri Lanka country code is +94
+          body: `From Patient Management System... - Your OTP code is ${otp} - Do not share this with anyone.`,
+        },
+      ],
     };
-
-    this.otpStore.set(phoneNumber, otp);
-    console.log("OTP for", phoneNumber, "is", this.otpStore.get(phoneNumber));
+    this.otpStore.set(phone_number, otp);
+    console.log("OTP Store", this.otpStore.get(phone_number));
 
     try {
-      const response = await axios.post('https://qy825m.api.infobip.com/sms/2/text/advanced', smsContent, {
-        headers: {
-          'Authorization': `App ${configure.api_key_for_infobip}`,
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-      });
+      const response = await axios.post(
+        'https://rest.clicksend.com/v3/sms/send',
+        message,
+        {
+          auth: {
+            username: configure.CLICKSEND_USERNAME,
+            password: configure.CLICKSEND_API_KEY,
+          },
+        },
+      );
 
-      if (response.status !== 200) {
-        throw new Error('Infobip API responded with non-200 status code.');
+      console.log(response.data);
+
+      if (response.data.http_code === 200) {
+        this.otpStore.set(phone_number, otp);
+      } else {
+        throw new InternalServerErrorException('Failed to send OTP. Please try again later.');
       }
-      console.log("Infobip response:", response.data);  // Debugging
     } catch (error) {
-      console.error("Error sending OTP with Infobip:", error.message);
-      throw new InternalServerErrorException('Sending OTP failed. Please try again later.');
+      throw new InternalServerErrorException(`Error sending OTP via ClickSend: ${error.message}`);
     }
   }
 

@@ -53,30 +53,30 @@ export class DoctorService {
     }
 
     async sendSMS(phoneNumber: string, message: string): Promise<void> {
-        const smsContent = {
-            messages: [{
-                from: "Uok_PMS_Doc",
-                destinations: [{ to: `+94${phoneNumber}` }], // Prefixing with Sri Lanka's country code +94
-                text: message
-            }]
+        const SMS = {
+            messages: [
+                {
+                    from: configure.CLICKSEND_FROM_PHONE,
+                    to: `+94${phoneNumber}`, // Sri Lanka country code is +94
+                    body: message,
+                },
+            ],
         };
 
         try {
-            const response = await axios.post('https://qy825m.api.infobip.com/sms/2/text/advanced', smsContent, {
-                headers: {
-                    'Authorization': `App ${configure.api_key_for_infobip}`,
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (response.status !== 200) {
-                throw new Error('Infobip API responded with non-200 status code.');
-            }
-            console.log("Infobip response:", response.data);  // Debugging
+            const response = await axios.post(
+                'https://rest.clicksend.com/v3/sms/send',
+                SMS,
+                {
+                    auth: {
+                        username: configure.CLICKSEND_USERNAME,
+                        password: configure.CLICKSEND_API_KEY,
+                    },
+                },
+            );
+            console.log(response.data);
         } catch (error) {
-            console.error("Error sending OTP with Infobip:", error.message);
-            throw new InternalServerErrorException('Sending SMS failed. Please try again later.');
+            throw new InternalServerErrorException(`Error sending via ClickSend: ${error.message}`);
         }
     }
 
