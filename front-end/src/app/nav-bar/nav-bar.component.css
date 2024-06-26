@@ -5,15 +5,20 @@ body {
 }
 
 h2 {
-    color: rgb(166, 214, 244);
-    font-size: x-large;
+    color: #FFFFFF;
+    /* Pure white for better readability */
+    font-size: xx-large;
 }
 
 .site-header {
-    background-color: #333;
-    color: #fff;
+    background-color: #2E113A;
+    /* Deep purple for a rich, elegant look */
+    color: #FFFFFF;
+    /* Pure white for contrast */
     padding: 10px;
     text-align: center;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 0 100px black;
 }
 
 .logo img {
@@ -36,13 +41,14 @@ h2 {
 
 .main-nav a {
     text-decoration: none;
-    color: #fff;
+    color: #41ED9D;
+    /* Vibrant mint green for a lively, inviting feel */
     font-weight: bold;
 }
 
 .main-nav a:hover {
-    color: #ffcc00;
-    /* Change to your preferred hover color */
+    color: #FFCC00;
+    /* Sunny yellow for a warm, welcoming hover effect */
 }
 
 /* Responsive Styles */

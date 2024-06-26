@@ -1,72 +1,105 @@
 .allUsers {
-    margin: 2% 8%;
-    border: 1px solid #ccc;
+    margin: 2% 5%;
+    /* Adjusted for a balanced look */
+    border: none;
+    /* Modern designs often forego borders */
     border-radius: 15px;
-    background-color: rgb(57, 12, 35);
-    box-shadow: 0 0 5px rgb(217, 217, 217);
-    height: 540px;
+    background-color: #393E46;
+    /* Updated to a modern, neutral dark shade */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* More pronounced shadow for depth */
+    height: auto;
+    /* Adjusted for content flexibility */
+    display: flex;
+    flex-direction: column;
+    /* Align items in a column */
     align-items: center;
     overflow: auto;
-    padding: 2%;
+    padding: 20px;
+    box-shadow: 0 0 30px black;
+    /* Increased padding for better spacing */
 }
 
 .user {
-    margin: 2%;
-    padding: 2%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: rgba(174, 188, 205, 0.936);
-    box-shadow: 0 0 5px rgb(217, 217, 217);
+    margin: 10px;
+    /* Increased margin for better separation */
+    padding: 20px;
+    /* Increased padding for a more spacious look */
+    border-radius: 10px;
+    /* Smoother edges */
+    background-color: #A5B1C2;
+    /* Lighter, modern shade */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Subtler shadow */
     text-align: center;
-    font-size: medium;
+    font-size: 1rem;
+    /* Responsive font size */
     font-weight: bold;
     cursor: pointer;
-    transition: all 1s ease-in-out;
+    transition: transform 0.3s ease-in-out;
+    width: 70%;
+    /* Smoother transition effect */
 }
 
 .user:hover {
-    background-color: darkred;
+    transform: scale(1.05);
+    /* Modern hover effect using scale */
+    background-color: #641E16;
+    /* Dark red for contrast */
 
-    .user__email,
-    .user__name,
-    .user__address {
-        color: whitesmoke;
-    }
+    /* Moved hover styles for child elements outside to ensure proper CSS syntax */
+}
+
+.user:hover .user__email,
+.user:hover .user__name,
+.user:hover .user__address {
+    color: #F4F4F2;
+    /* Light color for contrast on hover */
 }
 
 .user__email,
 .user__name,
 .user__address {
-    color: darkblue;
-    font-weight: bolder;
-    font-size: larger;
+    color: #102A43;
+    /* Updated to a darker blue for better readability */
+    font-weight: bold;
+    /* Ensured consistency in font weight */
+    font-size: 1rem;
+    /* Standardized font size for consistency */
     margin: 5px;
 }
-
 
 /* Responsive Styles */
 @media screen and (max-width: 768px) {
     .allUsers {
-        margin: 2% 4%;
+        margin: 2% 3%;
+        /* Reduced margin for smaller screens */
     }
 
     .user {
-        margin: 2%;
-        padding: 2%;
-        font-size: small;
+        margin: 5px;
+        /* Reduced margin for compact layout */
+        padding: 10px;
+        /* Reduced padding for space efficiency */
+        font-size: 0.9rem;
+        /* Adjusted font size for readability */
     }
 
     .user__name {
-        font-size: 1.2em;
+        font-size: 1.1em;
+        /* Slightly larger for emphasis */
     }
 
-    .user__email {
-        font-size: 0.8em;
+    .user__email,
+    .user__address {
+        font-size: 0.9em;
+        /* Adjusted for balance and readability */
     }
 }
 
 h1 {
-    color: white;
+    color: #EAEAEA;
+    /* Light grey for better visibility */
     text-align: center;
     margin-top: 2%;
 }

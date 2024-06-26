@@ -1,124 +1,146 @@
 .appointments {
-    margin: 2% 8%;
-    border: 1px solid #ccc;
+    margin: 2% auto;
+    /* Centered with auto margins */
+    border: none;
+    /* Modern designs often omit borders */
     border-radius: 15px;
-    background-color: #2B044F;
-    /* Dark purple */
-    box-shadow: 0 0 5px #D9D9D9;
-    /* Light grey shadow */
-    padding: 2%;
+    background-color: #322659;
+    /* Updated to a deeper purple for modern aesthetics */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* More pronounced shadow for depth */
+    padding: 20px;
+    /* Increased padding for better spacing */
     overflow: auto;
-    color: yellow;
-    /* Text color */
+    color: #FFD700;
+    /* Golden text color for better readability */
 }
 
 .appointments h1 {
     color: #FFFFFF;
-    /* White */
+    /* Maintained white for clarity */
     text-align: center;
-    margin-top: 2%;
+    margin-top: 20px;
+    /* Increased margin for better visual separation */
 }
 
 .appointments ul {
-    list-style-type: none;
+    list-style: none;
+    /* Modern lists often don't use bullets */
     padding: 0;
 }
 
 .appointments li {
-    margin: 2%;
-    padding: 2%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    margin: 20px;
+    /* Increased margin for better separation */
+    padding: 20px;
+    /* Increased padding for a more spacious look */
+    border-radius: 10px;
+    /* Smoother edges */
     background-color: #AEBCCD;
-    /* Light blue-grey */
-    box-shadow: 0 0 5px #D9D9D9;
-    /* Light grey shadow */
+    /* Light blue-grey, kept for a soft contrast */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Subtler shadow */
     text-align: center;
-    font-size: medium;
+    font-size: 1rem;
+    /* Responsive font size */
     font-weight: bold;
     cursor: pointer;
-    transition: all 1s ease-in-out;
+    transition: transform 0.3s ease-in-out;
+    /* Smoother transition effect */
 }
 
 .appointments li:hover {
-    background-color: #1B4D38;
-    /* Dark green */
+    transform: scale(1.05);
+    /* Modern hover effect using scale */
+    background-color: #022f31;
+    /* Dark green for contrast */
 }
 
 .appointments li:hover p span {
     color: #F5F5F5;
-    /* Off-white */
+    /* Off-white for readability */
 }
 
 button {
-    background-color: #2B044F;
-    /* Dark purple */
-    color: yellow;
-    /* Text color */
+    background-color: #322659;
+    /* Harmonized with appointments background */
+    color: #FFD700;
+    /* Golden text color for consistency */
     border: none;
     border-radius: 5px;
-    padding: 5px;
-    margin: 2px 0;
+    padding: 10px 20px;
+    /* Increased padding for better touch area */
+    margin: 5px 0;
+    /* Adjusted margin for spacing */
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 #Prescribe-btn {
-    width: 60%;
-    padding: 1%;
+    width: auto;
+    /* Adjusted for content size */
+    padding: 10px 20px;
+    /* Standardized padding */
     border-radius: 15px;
-    margin-left: 25%;
-    font-size: larger;
-    margin-top: 2%;
-}
-
-#Prescribe-btn:hover {
-    background-color: #0b3322;
-    /* Dark green */
+    font-size: 1rem;
+    /* Responsive font size */
+    margin: 2px auto;
+    /* Centered with auto margins */
+    display: block;
+    /* Ensure it's block level for auto margins to work */
 }
 
 #delete-btn {
+    background-color: #FF0000;
+    /* Red for a distinct delete action */
+    margin: 0;
     padding: 3px;
-    border-radius: 5px;
-    margin-left: 1%;
-    background-color: red;
-    color: white;
 }
 
+#Prescribe-btn:hover,
 #delete-btn:hover {
-    background-color: #28056e;
-    /* Red */
+    background-color: #0b3322;
+    /* Unified hover effect */
 }
 
 #koko {
-    color: teal;
-    font-weight: bolder;
+    color: black;
+    font-weight: bold;
+    font-size: 1.2rem;
+    /* Consistency in font weight */
 }
 
 .appointments p {
-    margin: 5px;
+    margin: 10px;
+    /* Increased margin for better spacing */
 }
 
 .appointments p span {
     color: #00008B;
-    /* Dark blue */
-    font-weight: bolder;
-    font-size: larger;
+    /* Dark blue, kept for contrast */
+    font-weight: bold;
+    /* Consistency in font weight */
+    font-size: 1rem;
+    /* Standardized font size */
 }
 
 .buttons {
-    margin-top: 10px;
+    margin-top: 20px;
+    /* Increased spacing */
 }
 
 .accept,
 .Finesh,
 .reject {
-    margin: 5px;
+    margin: 10px;
+    /* Increased margin for better separation */
     padding: 10px 20px;
+    /* Increased padding for a more substantial feel */
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
+    /* Added color transition for a smoother effect */
 }
 
 .accept:hover {
@@ -130,7 +152,7 @@ button {
 
 .Finesh:hover {
     background-color: orange;
-    /* Blue */
+    /* Orange for a distinct finish action */
     color: #FFFFFF;
     /* White */
 }
@@ -145,33 +167,28 @@ button {
 .popup {
     position: fixed;
     inset: 0;
-    /* Modern approach to setting top, right, bottom, left to 0 */
-    z-index: 1;
-    /* Ensure it sits on top */
-    width: 100%;
-    /* Full width */
-    height: 100%;
-    /* Full height */
-    overflow: auto;
-    /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.8);
-    /* Black with opacity */
+    /* Modern approach for full screen */
+    z-index: 10;
+    /* Ensured it's sufficiently high */
+    background-color: rgba(0, 0, 0, 0.85);
+    /* Semi-transparent black */
 }
 
 .popup-content {
     background-color: #FFFFFF;
-    /* White */
     margin: 15% auto;
-    /* 15% from the top and centered */
+    /* Centered with margin */
     padding: 20px;
-    border: 1px solid #888;
-    width: 40%;
-    /* Could be more or less, depending on screen size */
+    border: none;
+    /* Borders are often omitted in modern designs */
+    width: 80%;
+    /* Responsive width */
+    max-width: 500px;
+    /* Maximum width to maintain readability */
 }
 
 .close {
     color: #AAAAAA;
-    /* Light grey */
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -180,24 +197,21 @@ button {
 .close:hover,
 .close:focus {
     color: #000000;
-    /* Black */
+    /* Black for clear interaction feedback */
     text-decoration: none;
     cursor: pointer;
 }
 
-/* Responsive Styles */
 @media screen and (max-width: 768px) {
-    .appointments {
-        margin: 2% 4%;
-    }
 
-    .appointments li {
-        margin: 2%;
-        padding: 2%;
-        font-size: small;
-    }
-
+    .appointments,
+    .appointments li,
     .appointments p span {
-        font-size: 1.2em;
+        margin: 5px;
+        /* Reduced margin for smaller screens */
+        padding: 10px;
+        /* Adjusted padding for space efficiency */
+        font-size: 0.9rem;
+        /* Smaller font size for compact display */
     }
 }

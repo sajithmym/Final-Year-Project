@@ -1,79 +1,91 @@
 .container {
     margin-top: 8% !important;
+    /* Updated for a more modern look */
     max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    box-shadow: 10px 12px 20px rgb(0, 0, 0);
+    /* Added shadow for depth */
+    border-radius: 10px;
+    /* Smoothed edges */
 }
 
-.signed-in {
-    border: 3px solid #ccc;
+.signed-in,
+.not-signed-in {
     padding: 30px;
-    background-color: #2980b9;
+    background-color: #042135;
+    /* Unified color for consistency */
+    border: none;
+    /* Removed border for a cleaner look */
     border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Added subtle shadow */
+}
+
+h2,
+h4,
+p {
+    margin-top: 10px;
 }
 
 h2 {
-    color: yellow;
-    font-size: x-large;
+    color: #ffd700;
+    /* Gold color for emphasis */
+    font-size: 1.5rem;
+    /* Responsive font size */
 }
 
 h4 {
-    color: orange;
-    margin-top: 10px;
+    color: #ffa500;
+    /* Orange color for a vibrant look */
+    font-size: 1.2rem;
+    /* Responsive font size */
 }
 
 p {
-    color: darkblue;
-    margin-top: 10px;
+    color: #56dee1;
+    /* Dark blue for readability */
+    font-size: 1rem;
+    /* Standard font size */
 }
 
-button {
-    background-color: #3498db;
+button,
+.btn-link {
+    background-color: #0d4870;
     color: #fff;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
-    width: 60%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-button:hover {
-    background-color: #2980b9;
-}
-
-.btn-link {
-    display: block;
-    margin: 10px 10px;
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: #fff;
+    text-align: center;
     text-decoration: none;
-    border-radius: 5px;
-    cursor: pointer;
+    /* Unified styles for buttons and links */
+    display: inline-block;
+    /* Adjusted for better alignment */
+    width: 95%;
+    /* Auto width for content adjustment */
+    margin-left: 20px;
+    margin-top: 10px;
+    /* Consistent margin */
 }
 
-.not-signed-in {
-    background-color: #2980b9;
-    border: 2px solid black;
-    padding: 15px;
-    border-radius: 13px;
-}
-
+button:hover,
 .btn-link:hover {
-    background-color: #2980b9;
+    background-color: black;
+    /* Darker shade on hover for interaction feedback */
 }
 
 #SignReg {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    /* Wrap items for better responsiveness */
 }
 
 #NotSign-msg {
     text-align: center;
     font-size: larger;
-    color: rgb(244, 233, 14);
+    color: #f4e90e;
+    /* Bright yellow for visibility */
 }
