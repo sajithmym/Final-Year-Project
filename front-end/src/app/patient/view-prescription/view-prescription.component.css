@@ -1,18 +1,19 @@
 .appointments {
     margin: 2% 8%;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 15px;
-    background-color: rgb(3, 71, 69);
-    box-shadow: 0 0 5px rgb(217, 217, 217);
+    background-color: #f4f4f4;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 2%;
     overflow: auto;
-    color: yellow;
+    color: #333333;
 }
 
 .appointments h1 {
-    color: white;
+    color: #003366;
     text-align: center;
     margin-top: 2%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .appointments ul {
@@ -21,25 +22,26 @@
 }
 
 .appointments li {
-    margin: 2%;
-    padding: 2%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: gray;
-    box-shadow: 0 0 5px rgb(217, 217, 217);
+    margin: 1% 0;
+    padding: 1.5%;
+    border: 10px solid #5d0303;
+    border-radius: 10px;
+    background-color: rgb(27, 2, 27);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
-    font-size: medium;
+    font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: all 1s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 .appointments li:hover {
-    background-color: black;
+    background-color: rgb(51, 3, 51);
+    color: #f4f4f4;
 }
 
 .appointments li:hover p span {
-    color: whitesmoke;
+    color: #ff6f61;
 }
 
 .appointments p {
@@ -47,13 +49,14 @@
 }
 
 .appointments p span {
-    color: darkblue;
+    color: #003366;
     font-weight: bolder;
-    font-size: larger;
+    font-size: 1.2rem;
 }
 
 .buttons {
     margin-top: 10px;
+    text-align: center;
 }
 
 .accept,
@@ -63,14 +66,27 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: larger;
+    font-size: 1rem;
     font-weight: bolder;
     transition: background-color 0.3s;
 }
 
+.accept {
+    background-color: #003366;
+    color: #f4f4f4;
+}
+
+.reject {
+    background-color: #ff6f61;
+    color: #f4f4f4;
+}
+
 .accept:hover {
-    background-color: darkblue;
-    color: white;
+    background-color: #002244;
+}
+
+.reject:hover {
+    background-color: #ff4c41;
 }
 
 /* Responsive Styles */
@@ -82,11 +98,16 @@
     .appointments li {
         margin: 2%;
         padding: 2%;
-        font-size: small;
+        font-size: 0.875rem;
     }
 
     .appointments p span {
-        font-size: 1.2em;
+        font-size: 1.1rem;
+    }
+
+    .accept,
+    .reject {
+        font-size: 0.875rem;
     }
 }
 
@@ -94,16 +115,21 @@ th {
     text-align: left;
     color: whitesmoke;
     padding: 5px;
-    font-size: large;
+    font-size: 1.25rem;
     font-weight: bold;
 }
 
 table {
     margin-left: auto;
     margin-right: auto;
-    background-color: gray;
+    background-color: inherit;
     padding: 2%;
     border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#loop {
+    color: whitesmoke;
 }
 
 /* Body */

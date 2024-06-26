@@ -13,6 +13,7 @@
     overflow: auto;
     color: #FFD700;
     /* Golden text color for better readability */
+    width: 95%;
 }
 
 .appointments h1 {
@@ -47,6 +48,9 @@
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
     /* Smoother transition effect */
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .appointments li:hover {
@@ -54,6 +58,7 @@
     /* Modern hover effect using scale */
     background-color: #022f31;
     /* Dark green for contrast */
+    border: 5px solid whitesmoke;
 }
 
 .appointments li:hover p span {
