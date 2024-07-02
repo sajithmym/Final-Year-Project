@@ -183,3 +183,23 @@ button {
         font-size: 0.9rem;
     }
 }
+
+.suggestions {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    max-height: 100px;
+    overflow-y: auto;
+    background-color: #fff;
+}
+
+.suggestions li {
+    padding: 4px;
+    cursor: pointer;
+    font-size: small;
+}
+
+.suggestions li:hover {
+    background-color: #f0f0f0;
+}

@@ -15,10 +15,142 @@ export class PrescribeMedicationComponent implements OnInit {
   user = JSON.parse(localStorage.getItem('User-login-uok-pms') || '{}');
   popup_appointment_id: number = 0;
 
+  allMedicines: string[] = [
+    'Aspirin',
+    'Ibuprofen',
+    'Acetaminophen',
+    'Diphenhydramine',
+    'Amoxicillin',
+    'Ciprofloxacin',
+    'Doxycycline',
+    'Metformin',
+    'Atorvastatin',
+    'Lisinopril',
+    'Amlodipine',
+    'Metoprolol',
+    'Omeprazole',
+    'Simvastatin',
+    'Losartan',
+    'Levothyroxine',
+    'Hydrochlorothiazide',
+    'Albuterol',
+    'Gabapentin',
+    'Sertraline',
+    'Furosemide',
+    'Cetirizine',
+    'Prednisone',
+    'Zolpidem',
+    'Citalopram',
+    'Trazodone',
+    'Clonazepam',
+    'Tramadol',
+    'Oxycodone',
+    'Naproxen',
+    'Azithromycin',
+    'Clarithromycin',
+    'Fluconazole',
+    'Lorazepam',
+    'Bupropion',
+    'Sildenafil',
+    'Pantoprazole',
+    'Ranitidine',
+    'Montelukast',
+    'Rosuvastatin',
+    'Duloxetine',
+    'Paroxetine',
+    'Venlafaxine',
+    'Escitalopram',
+    'Lamotrigine',
+    'Quetiapine',
+    'Aripiprazole',
+    'Risperidone',
+    'Olanzapine',
+    'Hydrocodone',
+    'Gabapentin',
+    'Dexamethasone',
+    'Clopidogrel',
+    'Warfarin',
+    'Insulin Glargine',
+    'Insulin Aspart',
+    'Metronidazole',
+    'Dicyclomine',
+    'Ondansetron',
+    'Methotrexate',
+    'Cyclobenzaprine',
+    'Duloxetine',
+    'Amitriptyline',
+    'Propranolol',
+    'Alprazolam',
+    'Diazepam',
+    'Esomeprazole',
+    'Famotidine',
+    'Tamsulosin',
+    'Finasteride',
+    'Spironolactone',
+    'Carvedilol',
+    'Enalapril',
+    'Nifedipine',
+    'Verapamil',
+    'Diltiazem',
+    'Labetalol',
+    'Fluticasone',
+    'Budesonide',
+    'Formoterol',
+    'Salmeterol',
+    'Ipratropium',
+    'Tiotropium',
+    'Mometasone',
+    'Beclomethasone',
+    'Prednisolone',
+    'Methotrexate',
+    'Hydroxychloroquine',
+    'Sulfasalazine',
+    'Adalimumab',
+    'Etanercept',
+    'Infliximab',
+    'Golimumab',
+    'Certolizumab',
+    'Abatacept',
+    'Rituximab',
+    'Tofacitinib',
+    'Baricitinib',
+    'Ustekinumab',
+    'Secukinumab',
+    'Ixekizumab',
+    'Apremilast',
+    'Omalizumab',
+    'Mepolizumab',
+    'Dupilumab'
+  ];
+
+  filteredMedicines: string[] = [];
+
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.loadAppointments();
+  }
+
+  // Filter medicines based on user input
+  filterMedicines(event: any): void {
+    const query = event.target.value.toLowerCase();
+    if (query) {
+      this.filteredMedicines = this.allMedicines.filter(medicine =>
+        medicine.toLowerCase().includes(query)
+      );
+    } else {
+      this.filteredMedicines = [...this.allMedicines]; // Show all if the query is empty
+    }
+  }
+
+  // Show all medicines when the input field is focused
+  showAllMedicines(): void {
+    this.filteredMedicines = [...this.allMedicines];
+  }
+
+  // Hide suggestions when the input field is not in focus
+  hideSuggestions(): void {
+    setTimeout(() => this.filteredMedicines = [], 200); // Small delay to allow click event on suggestion
   }
 
   openPopup(id: number): void {

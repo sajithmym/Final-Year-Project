@@ -1,5 +1,4 @@
 <div class="appointments">
-
     <h1>Accepted Appointments</h1>
     <ul>
         <li *ngFor="let appointment of appointments">
@@ -9,7 +8,6 @@
                 <p><span>Appointment Date:</span> {{appointment.appointmentDate}}</p>
                 <p><span>Appointment Time:</span> {{appointment.appointmentTime}}</p>
                 <p><span>Appointment Status:</span> {{appointment.Isaccepted}}</p>
-
                 <div class="buttons">
                     <button class="accept" (click)="openPopup(appointment.id)">Prescribe Medicine</button>
                     <button class="Finesh" (click)="Finesh(appointment.id)">Finish Appointment</button>
@@ -27,11 +25,22 @@
         <div id="koko">
             <h2>Prescribe Medicine</h2>
             <label for="medicine">Medicine:</label>
-            <input type="text" id="medicine" [(ngModel)]="prescribedMedicine">
+            <input type="text" id="medicine" [(ngModel)]="prescribedMedicine" (focus)="showAllMedicines()"
+                (input)="filterMedicines($event)" (focusout)="hideSuggestions()">
             <button (click)="prescribeMedicine()">- Add -</button>
+
+            <!-- Suggestion List -->
+            <ul *ngIf="filteredMedicines.length > 0" class="suggestions">
+                <li *ngFor="let medicine of filteredMedicines"
+                    (click)="prescribedMedicine = medicine; filteredMedicines = []">
+                    {{medicine}}
+                </li>
+            </ul>
+
             <ul type="circle">
-                <li *ngFor="let medi of medichine">{{medi}} <button id="delete-btn"
-                        (click)="deletmedi(medi)">Delete</button> </li>
+                <li *ngFor="let medi of medichine">{{medi}}
+                    <button id="delete-btn" (click)="deletmedi(medi)">Delete</button>
+                </li>
             </ul>
             <button id="Prescribe-btn" (click)="Prescribe()">Prescribe</button>
         </div>
