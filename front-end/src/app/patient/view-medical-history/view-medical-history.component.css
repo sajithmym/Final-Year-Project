@@ -1,0 +1,94 @@
+.appointments {
+    margin: 2% 8%;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    background-color: rgba(5, 40, 49, 0.485);
+    box-shadow: 0 0 5px rgb(217, 217, 217);
+    padding: 2%;
+    overflow: auto;
+    color: yellow;
+}
+
+.appointments h1 {
+    color: white;
+    text-align: center;
+    margin-top: 2%;
+}
+
+.appointments ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.appointments li {
+    margin: 2%;
+    padding: 2%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgba(174, 188, 205, 0.936);
+    box-shadow: 0 0 5px rgb(217, 217, 217);
+    text-align: center;
+    font-size: medium;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 1s ease-in-out;
+}
+
+.appointments li:hover {
+    background-color: black;
+}
+
+.appointments li:hover p span {
+    color: whitesmoke;
+}
+
+.appointments p {
+    margin: 5px;
+}
+
+.appointments p span {
+    color: darkblue;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.buttons {
+    margin-top: 10px;
+}
+
+.accept,
+.reject {
+    margin: 5px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.accept:hover {
+    background-color: green;
+    color: white;
+}
+
+.reject:hover {
+    background-color: red;
+    color: white;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .appointments {
+        margin: 2% 4%;
+    }
+
+    .appointments li {
+        margin: 2%;
+        padding: 2%;
+        font-size: small;
+    }
+
+    .appointments p span {
+        font-size: 1.2em;
+    }
+}
