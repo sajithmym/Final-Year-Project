@@ -8,12 +8,33 @@ import { settings } from 'Static_values';
   styleUrls: ['./view-prescriptions.component.css']
 })
 export class ViewPrescriptionsComponent implements OnInit {
+
+  constructor(private http: HttpClient) { }
+
   appointments: any = [];
   checkout: boolean = false;
   appoinmentID: number = 0;
+  appoinmentPrice: number = 0;
   user: any = JSON.parse(localStorage.getItem('User-login-uok-pms') || '{}');
 
-  constructor(private http: HttpClient) { }
+  showPopup: boolean = false;
+  currentAppointment: any = null;
+
+  openSetSubTotalPopup(appointment: any) {
+    this.currentAppointment = appointment;
+    this.showPopup = true;
+  }
+
+  // Method to close the popup
+  closePopup() {
+    this.showPopup = false;
+  }
+
+  // Method to set the sub total
+  setSubTotal(price: number) {
+    this.currentAppointment.subTotal = price;
+    this.closePopup();
+  }
 
   ngOnInit(): void {
     this.initialize()
@@ -21,7 +42,13 @@ export class ViewPrescriptionsComponent implements OnInit {
 
   ONCheckout(id: number) {
     this.appoinmentID = id;
+    this.showPopup = true;
     this.checkout = true;
+
+    let current = this.appointments.find((appointment: any) => appointment.id == id);
+
+    this.currentAppointment = current;
+
   }
 
   OffCheckout() {
@@ -46,9 +73,8 @@ export class ViewPrescriptionsComponent implements OnInit {
   }
 
   getAppointmentsForDoctor() {
-    // Replace with your actual API endpoint
-    const PatientId = this.user.ID;
-    return this.http.get(`${settings.APIURL}/patient/Finesh_appointments/${PatientId}`);
+    // Request to get all appointments for a doctor
+    return this.http.get(`${settings.APIURL}/pharmacy/Finesh_appointments`);
   }
 
   Buy_appointment(Id: any) {
