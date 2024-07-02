@@ -27,7 +27,7 @@ export class PatientService {
 
         const existingAppointment = await this.appointmentRepository.findOne({
             where: {
-                patient: patient,
+                // patient: patient,
                 doctor: doctor,
                 appointmentDate: `${data.date}`,
                 appointmentTime: `${data.time}`

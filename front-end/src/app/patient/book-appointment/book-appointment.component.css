@@ -4,7 +4,7 @@
     /* Centered more accurately */
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 320px;
+    width: 420px;
     /* Slightly wider for modern aesthetics */
     background-color: rgba(245, 245, 245, 0.304);
     /* Pure white for a cleaner look */
