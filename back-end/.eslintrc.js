@@ -10,7 +10,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
-  root: true,
+  root: fals,
   env: {
     node: true,
     jest: true,
@@ -24,6 +24,8 @@ module.exports = {
     'prettier/prettier': 'off',
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
-    'prefer-const': 'off'
+    'prefer-const': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@ts-ignore': 'off'
   },
 };
