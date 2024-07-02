@@ -1,17 +1,17 @@
 <div class="appointment dropdown-selection">
-    <h2>Book an Appointment</h2>
+    <h2 id="head">Book an Appointment</h2>
 
-    <label>Select Doctor:</label>
+    <label id="label">Select Doctor:</label>
     <select [(ngModel)]="selectedDoctor" (change)="onDoctorChange()" class="select-input">
         <option *ngFor="let doctor of doctors" [value]="doctor.id">{{doctor.name}}</option>
     </select>
 
-    <label>Select Date:</label>
+    <label id="label">Select Date:</label>
     <select [(ngModel)]="selectDate" class="select-input" (change)="onChangeDate()">
         <option *ngFor="let eachdate of dates" [value]="eachdate">{{eachdate}}</option>
     </select>
 
-    <label>Select Time:</label>
+    <label id="label">Select Time:</label>
     <select [(ngModel)]="selectedTime" class="select-input">
         <option *ngFor="let time of times" [value]="time.time_slot">{{time.time_slot}}</option>
     </select>

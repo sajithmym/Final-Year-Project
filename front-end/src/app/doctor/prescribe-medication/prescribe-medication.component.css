@@ -25,7 +25,7 @@
     margin: 20px;
     padding: 20px;
     border-radius: 10px;
-    background-color: #AEBCCD;
+    background-color: rgb(126, 78, 78);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
     font-size: 1rem;
@@ -38,8 +38,8 @@
 }
 
 .appointments li:hover {
-    transform: scale(1.05);
-    background-color: #022f31;
+    /* transform: scale(1.05); */
+    background-color: #2f1801;
     border: 5px solid whitesmoke;
 }
 
@@ -75,7 +75,7 @@ button {
 
 #Prescribe-btn:hover,
 #delete-btn:hover {
-    background-color: #0b3322;
+    background-color: #130b33;
 }
 
 #koko {
@@ -115,7 +115,7 @@ button {
 }
 
 .Finesh:hover {
-    background-color: orange;
+    background-color: black;
     color: #FFFFFF;
 }
 
@@ -152,10 +152,6 @@ button {
     color: #000000;
     text-decoration: none;
     cursor: pointer;
-}
-
-::ng-deep .cdk-overlay-container {
-    z-index: 1001;
 }
 
 @media screen and (max-width: 768px) {

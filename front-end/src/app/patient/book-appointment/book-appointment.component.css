@@ -1,46 +1,96 @@
 .appointment {
     position: absolute;
-    top: 60%;
+    top: 61%;
+    /* Centered more accurately */
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 300px;
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
+    width: 320px;
+    /* Slightly wider for modern aesthetics */
+    background-color: rgba(245, 245, 245, 0.304);
+    /* Pure white for a cleaner look */
+    padding: 25px;
+    /* More padding for a spacious feel */
+    border-radius: 8px;
+    /* Rounded corners for a softer look */
+    box-shadow: 0 14px 26px rgba(0, 0, 0, 0.1);
+    /* Softer shadow for depth */
+    font-family: 'Segoe UI', Arial, sans-serif;
+    /* Modern font */
 }
 
 .appointment h2 {
     margin-bottom: 20px;
     color: #343a40;
+    font-size: 1.5rem;
+    /* Larger for emphasis */
+    font-weight: 600;
+    /* Bold for modern UI */
 }
 
 .appointment label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    /* More space for clarity */
     color: #495057;
+    font-size: 0.95rem;
+    /* Slightly smaller for subtlety */
+    font-weight: 600;
+    /* Bold for emphasis */
 }
 
 .select-input {
     width: 100%;
-    padding: 5px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ced4da;
+    padding: 10px;
+    /* More padding for easier interaction */
+    margin-bottom: 25px;
+    /* More space to breathe */
+    border-radius: 8px;
+    /* Consistent rounded corners */
+    border: 2px solid #ced4da;
+    /* Slightly thicker border for prominence */
+    background-color: #f8f9fa;
+    /* Slight background color for depth */
+    font-size: 0.95rem;
+    /* Adjusted for readability */
+    color: #495057;
+    /* Text color for contrast */
+    -webkit-appearance: none;
+    /* Removes default styling */
+    -moz-appearance: none;
+    appearance: none;
+    /* Ensures custom styling */
 }
 
 .book-btn {
     display: block;
     width: 100%;
-    padding: 10px;
+    padding: 12px;
+    /* More padding for a better click area */
     background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
+    /* Consistent rounded corners */
     cursor: pointer;
+    font-size: 1rem;
+    /* Larger text for readability */
+    font-weight: 600;
+    /* Bold for emphasis */
+    transition: background-color 0.2s;
+    /* Smooth transition for hover effect */
 }
 
 .book-btn:hover {
     background-color: #0056b3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Added shadow for depth */
+}
+
+#label {
+    color: darkblue;
+    font-weight: bolder;
+}
+
+#head {
+    color: purple;
 }
