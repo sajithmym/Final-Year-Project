@@ -28,4 +28,10 @@ export class PatientController {
     Finesh_Accept_appointmentsDoctor(@Param('id') id: number) {
         return this.patientService.getFineshAcceptedAppoinments(id);
     }
+
+    // get My_appointments for a patient
+    @Get('get_My_appointments/:id')
+    get_My_appointments(@Param('id') id: string) {
+        return this.patientService.getMyAppoinments(id);
+    }
 }

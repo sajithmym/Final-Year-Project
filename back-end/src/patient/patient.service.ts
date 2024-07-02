@@ -69,4 +69,29 @@ export class PatientService {
             patient_name: patient.name
         }));
     }
+
+    async getMyAppoinments(patientId: any): Promise<any> {
+        const patient = await this.patientRepository.findOneBy({ id: patientId });
+
+        if (!patient) {
+            throw new Error('patient not found');
+        }
+
+        const appointments = await this.appointmentRepository.find({ where: { patient: patient }, relations: ["doctor"] });
+
+        return appointments.map(appointment => ({
+            id: appointment.id,
+            appointmentDate: appointment.appointmentDate,
+            appointmentTime: appointment.appointmentTime,
+            Isaccepted: appointment.Isaccepted,
+            medician: appointment.medician,
+            doctor: {
+                id: appointment.doctor.id,
+                name: appointment.doctor.name,
+                phone_number: appointment.doctor.phone_number,
+                specialization: appointment.doctor.specialization
+            }
+
+        }));
+    }
 }
