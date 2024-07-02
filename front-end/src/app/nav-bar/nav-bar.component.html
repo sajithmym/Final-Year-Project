@@ -9,8 +9,8 @@
             <li><a routerLink="/" href="#">Home</a></li>
 
             <li *ngIf="Type === 'Patient'"><a routerLink="/bookAppointment">Book-Appointment</a></li>
-            <li *ngIf="Type === 'Patient'"><a routerLink="/viewMedicalHistory">Medical</a></li>
-            <li *ngIf="Type === 'Patient'"><a routerLink="/viewPrescription">Prescription</a></li>
+            <li *ngIf="Type === 'Patient'"><a routerLink="/viewMedicalHistory">My-Appointments</a></li>
+            <li *ngIf="Type === 'Patient'"><a routerLink="/viewPrescription">Payment</a></li>
 
             <li *ngIf="Type === 'Doctor'"><a routerLink="/viewPatient">view-Patients</a></li>
             <li *ngIf="Type === 'Doctor'"><a routerLink="/Schedule">Schedule</a></li>
