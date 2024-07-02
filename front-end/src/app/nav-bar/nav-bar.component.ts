@@ -22,10 +22,11 @@ export class NavBarComponent implements OnInit {
     this.authService.checkSignIn().subscribe({
       next: (response) => {
         this.UserName = this.user.User;
-        this.Type = this.user.UserType;
+        this.Type = `Sign in as ${this.user.UserType}`;
       },
       error: (error) => {
-        this.Type = '';
+        this.Type = 'You are not signed in';
+        localStorage.removeItem('User-login-uok-pms');
       }
     });
   }

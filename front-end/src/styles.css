@@ -51,9 +51,7 @@ body {
 /* Style for options */
 .dropdown-selection option {
     padding: 5px;
-    font-size: 16px;
+    font-size: 18px;
     color: white;
     background-color: #637483;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

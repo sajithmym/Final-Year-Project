@@ -8,21 +8,24 @@
 
             <li><a routerLink="/" href="#">Home</a></li>
 
-            <li *ngIf="Type === 'Patient'"><a routerLink="/bookAppointment">Book-Appointment</a></li>
-            <li *ngIf="Type === 'Patient'"><a routerLink="/viewMedicalHistory">My-Appointments</a></li>
-            <li *ngIf="Type === 'Patient'"><a routerLink="/viewPrescription">Payment</a></li>
+            <li *ngIf="Type === 'Sign in as Patient'"><a routerLink="/bookAppointment">Book-Appointment</a></li>
+            <li *ngIf="Type === 'Sign in as Patient'"><a routerLink="/viewMedicalHistory">My-Appointments</a></li>
+            <li *ngIf="Type === 'Sign in as Patient'"><a routerLink="/viewPrescription">Payment</a></li>
 
-            <li *ngIf="Type === 'Doctor'"><a routerLink="/viewPatient">view-Patients</a></li>
-            <li *ngIf="Type === 'Doctor'"><a routerLink="/Schedule">Schedule</a></li>
-            <li *ngIf="Type === 'Doctor'"><a routerLink="/PrescribeMedication">Accepted-Appoinments</a></li>
-            <li *ngIf="Type === 'Doctor'"><a routerLink="/ViewAppointment">Pending-Appointments</a></li>
+            <li *ngIf="Type === 'Sign in as Doctor'"><a routerLink="/viewPatient">view-Patients</a></li>
+            <li *ngIf="Type === 'Sign in as Doctor'"><a routerLink="/Schedule">Schedule</a></li>
+            <li *ngIf="Type === 'Sign in as Doctor'"><a routerLink="/PrescribeMedication">Accepted-Appoinments</a></li>
+            <li *ngIf="Type === 'Sign in as Doctor'"><a routerLink="/ViewAppointment">Pending-Appointments</a></li>
 
-            <li *ngIf="Type === 'Pharmacy'"><a routerLink="/Inventory">Inventory</a></li>
-            <li *ngIf="Type === 'Pharmacy'"><a routerLink="/Pharmacy-View-Prescription">View-Prescription</a></li>
+            <li *ngIf="Type === 'Sign in as Pharmacy'"><a routerLink="/Inventory">Inventory</a></li>
+            <li *ngIf="Type === 'Sign in as Pharmacy'"><a routerLink="/Pharmacy-View-Prescription">View-Prescription</a>
+            </li>
 
             <li><a routerLink="/signup">Register</a></li>
 
             <li><a routerLink="/signin">Sign-In</a></li>
+
+            <li id="type">{{Type}}</li>
 
         </ul>
     </nav>

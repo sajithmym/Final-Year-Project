@@ -1,6 +1,6 @@
 .appointment {
     position: absolute;
-    top: 61%;
+    top: 65%;
     /* Centered more accurately */
     left: 50%;
     transform: translate(-50%, -50%);
