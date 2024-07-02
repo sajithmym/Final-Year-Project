@@ -14,6 +14,7 @@ import { ScheduleComponent } from './doctor/schedule/schedule.component';
 import { PrescribeMedicationComponent } from './doctor/prescribe-medication/prescribe-medication.component';
 import { ViewAppointmentComponent } from './doctor/view-appointment/view-appointment.component';
 import { InventoryComponent } from './pharmacy/inventory/inventory.component';
+import { ViewPrescriptionsComponent } from './pharmacy/view-prescriptions/view-prescriptions.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -33,7 +34,7 @@ const routes: Routes = [
   { path: 'ViewAppointment', component: ViewAppointmentComponent },
 
   { path: 'Inventory', component: InventoryComponent },
-  { path: 'ViewPrescription', component: ViewPrescriptionComponent }
+  { path: 'Pharmacy-View-Prescription', component: ViewPrescriptionsComponent }
 ];
 
 @NgModule({
