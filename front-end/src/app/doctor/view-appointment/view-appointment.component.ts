@@ -32,12 +32,12 @@ export class ViewAppointmentComponent implements OnInit {
   getAppointmentsForDoctor() {
     // Replace with your actual API endpoint
     const doctorId = this.user.ID;
-    return this.http.get(`${settings.APIURL}/doctor/Not_Accept_appointments/${doctorId}`);
+    return this.http.get(`${settings.APIURL}/doctor/Not_Accept_appointments/${doctorId}`, { withCredentials: true });
   }
 
   Reject_appointment(Id: any) {
     if (confirm('Are you sure you want to reject this appointment?')) {
-      this.http.delete(`${settings.APIURL}/doctor/delete-appointment/${Id}`).subscribe(
+      this.http.delete(`${settings.APIURL}/doctor/delete-appointment/${Id}`, { withCredentials: true }).subscribe(
         () => {
           this.initialize()
         },
@@ -53,7 +53,7 @@ export class ViewAppointmentComponent implements OnInit {
     if (confirm('Are you sure you want to accept this appointment?')) {
       this.http.post(`${settings.APIURL}/doctor/accept-appointment`, {
         appointmentId: Id
-      }).subscribe(
+      }, { withCredentials: true }).subscribe(
         () => {
           this.initialize()
         },

@@ -20,7 +20,7 @@ export class ViewPatientInformationComponent implements OnInit {
   fetchUsers() {
     const apiUrl = `${settings.APIURL}/patient/getAllpatients`;
 
-    this.http.get(apiUrl).subscribe(
+    this.http.get(apiUrl, { withCredentials: true }).subscribe(
       (data: any) => {
         console.log('GET Request Response:', data);
         this.users = data;

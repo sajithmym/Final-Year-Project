@@ -42,7 +42,7 @@ export class ScheduleComponent implements OnInit {
         id: this.Doctor.ID
       }
     });
-    this.http.post(`${settings.APIURL}/doctor/create_doctor_shedule_time`, this.scheduleForm.value)
+    this.http.post(`${settings.APIURL}/doctor/create_doctor_shedule_time`, this.scheduleForm.value, { withCredentials: true })
       .subscribe(
         (response) => alert(`Schedule Added successfully...`),
         (error) => alert(`Error Found while adding Schedule...`)

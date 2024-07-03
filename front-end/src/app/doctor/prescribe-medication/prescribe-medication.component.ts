@@ -165,7 +165,7 @@ export class PrescribeMedicationComponent implements OnInit {
 
   openPopup(id: number): void {
     // get medichine for the appointment
-    this.http.get(`${settings.APIURL}/doctor/get-medichine/${id}`).subscribe({
+    this.http.get(`${settings.APIURL}/doctor/get-medichine/${id}`, { withCredentials: true }).subscribe({
       next: (medichine: any) => {
         if (medichine == null) {
           this.medichine = [];
@@ -199,12 +199,12 @@ export class PrescribeMedicationComponent implements OnInit {
 
   fetchAppointmentsForDoctor() {
     const doctorId = this.user.ID;
-    return this.http.get<any[]>(`${settings.APIURL}/doctor/Accept_appointments/${doctorId}`);
+    return this.http.get<any[]>(`${settings.APIURL}/doctor/Accept_appointments/${doctorId}`, { withCredentials: true });
   }
 
   rejectAppointment(appointmentId: number): void {
     if (confirm('Are you sure you want to reject this appointment?')) {
-      this.http.delete(`${settings.APIURL}/doctor/delete-appointment/${appointmentId}`).subscribe({
+      this.http.delete(`${settings.APIURL}/doctor/delete-appointment/${appointmentId}`, { withCredentials: true }).subscribe({
         next: () => this.loadAppointments(),
         error: (error) => {
           console.error('Error rejecting appointment:', error);
@@ -236,7 +236,7 @@ export class PrescribeMedicationComponent implements OnInit {
 
   Prescribe() {
     if (this.medichine.length != 0) {
-      this.http.post(`${settings.APIURL}/doctor/set-medichine`, { id: this.popup_appointment_id, medichine: JSON.stringify(this.medichine) }).subscribe({
+      this.http.post(`${settings.APIURL}/doctor/set-medichine`, { id: this.popup_appointment_id, medichine: JSON.stringify(this.medichine) }, { withCredentials: true }).subscribe({
         error: (error) => {
           console.error('Error prescribing medicine:', error);
           alert('There was an error prescribing medicine. Please try again later.');
@@ -252,7 +252,7 @@ export class PrescribeMedicationComponent implements OnInit {
 
   Finesh(appointmentId: Number) {
     if (confirm('Are you sure you want to Finesh this appointment?')) {
-      this.http.post(`${settings.APIURL}/doctor/finish-appointment`, { appointmentId }).subscribe({
+      this.http.post(`${settings.APIURL}/doctor/finish-appointment`, { appointmentId }, { withCredentials: true }).subscribe({
         next: () => this.loadAppointments(),
         error: (error) => {
           console.error('Error accepting appointment:', error);
