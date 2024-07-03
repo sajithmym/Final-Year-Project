@@ -86,6 +86,6 @@ export class InventoryComponent implements OnInit {
 
   get_Finish_Appointments() {
     // Request to get all appointments for a doctor
-    return this.http.get(`${settings.APIURL}/pharmacy/Finesh_appointments`, { withCredentials: true });
+    return this.http.get(`${settings.APIURL}/pharmacy/paid_appointments`, { withCredentials: true });
   }
 }
