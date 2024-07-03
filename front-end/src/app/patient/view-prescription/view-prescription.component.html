@@ -1,6 +1,6 @@
 <div class="appointments">
     <ul>
-        <h3 style="text-align: center;">- {{message}} - </h3>
+        <h5 style="text-align: center;"> {{message}} </h5>
         <li *ngFor="let appointment of appointments;let i = index">
             <div id="loop">
                 {{i+1}}. {{appointment.doctor_name}} ::: {{appointment.appointmentDate}} :::
