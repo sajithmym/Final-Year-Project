@@ -25,4 +25,7 @@ export class Appointment {
 
     @Column({ nullable: true })
     medician: string;
+
+    @Column({ nullable: true })
+    bill_amount: number;
 }

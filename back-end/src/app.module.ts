@@ -21,6 +21,7 @@ import { configure } from 'config';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { ScheduleTime } from './DB_Models/ScheduleTime.entity';
 import { Appointment } from './DB_Models/Appointment.entity';
+import { Documents } from './DB_Models/Report_document.entity';
 
 @Module({
   imports: [
@@ -37,9 +38,9 @@ import { Appointment } from './DB_Models/Appointment.entity';
       password: configure.DB_Pass,
       database: configure.DB_Name,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: false,
+      synchronize: true,
     }),
-    TypeOrmModule.forFeature([Patient, Doctor, Pharmacy, ScheduleTime, Appointment]),
+    TypeOrmModule.forFeature([Patient, Doctor, Pharmacy, ScheduleTime, Appointment, Documents]),
   ],
 
   controllers: [

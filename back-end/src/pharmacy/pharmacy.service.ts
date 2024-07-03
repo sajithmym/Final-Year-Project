@@ -7,6 +7,7 @@ import { Doctor } from 'src/DB_Models/Doctor.entity';
 
 @Injectable()
 export class PharmacyService {
+
     constructor(
         @InjectRepository(Appointment)
         private appointmentRepository: Repository<Appointment>,
@@ -34,5 +35,9 @@ export class PharmacyService {
             patient_name: appointment.patient.name,
             patient_phone_number: appointment.patient.phone_number,
         }));
+    }
+
+    setAmount_status_change(id: number, amount: number) {
+        throw new Error('Method not implemented.');
     }
 }

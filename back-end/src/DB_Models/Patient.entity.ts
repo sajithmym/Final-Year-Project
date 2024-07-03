@@ -1,6 +1,6 @@
+import { Documents } from './Report_document.entity';
 // Patient.entity.ts
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm';
-import { Pharmacy } from './Pharmacy.entity';
 import { Appointment } from './Appointment.entity';
 
 @Entity('patient')
@@ -20,9 +20,9 @@ export class Patient {
   @Column({ nullable: false })
   password: string;
 
-  @OneToMany(() => Appointment, appointment => appointment.patient)
+  @OneToMany(() => Appointment, appointment => appointment.patient, { onDelete: 'CASCADE' })
   appointments: Appointment[];
 
-  @ManyToOne(() => Pharmacy, pharmacy => pharmacy.patients, { onDelete: 'CASCADE' })
-  pharmacy: Pharmacy;
+  @OneToMany(() => Documents, document => document.patient, { onDelete: 'CASCADE' })
+  Documents: Documents[];
 }
