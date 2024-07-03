@@ -28,6 +28,9 @@ export class BookAppointmentComponent implements OnInit {
 
   onDoctorChange() {
     // save the next 7 days in the dates array include today date
+    this.dates = [];
+    this.selectDate = '';
+    this.selectedTime = '';
     for (let i = 0; i < 7; i++) {
       let date = new Date();
       date.setDate(date.getDate() + i);
