@@ -74,7 +74,7 @@ export class ViewPrescriptionsComponent implements OnInit {
 
   getAppointmentsForDoctor() {
     // Request to get all appointments for a doctor
-    return this.http.get(`${settings.APIURL}/pharmacy/Finesh_appointments`);
+    return this.http.get(`${settings.APIURL}/pharmacy/Finesh_appointments`, { withCredentials: true });
   }
 
   Buy_appointment(Id: any) {

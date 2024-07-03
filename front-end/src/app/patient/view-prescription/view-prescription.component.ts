@@ -48,7 +48,7 @@ export class ViewPrescriptionComponent implements OnInit {
   getAppointmentsForDoctor() {
     // Replace with your actual API endpoint
     const PatientId = this.user.ID;
-    return this.http.get(`${settings.APIURL}/patient/Finesh_appointments/${PatientId}`);
+    return this.http.get(`${settings.APIURL}/patient/Finesh_appointments/${PatientId}`, { withCredentials: true });
   }
 
   Buy_appointment(Id: any) {

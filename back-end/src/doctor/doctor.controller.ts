@@ -1,6 +1,7 @@
 // doctor.controller.ts
-import { Controller, Post, Body, Get, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Delete, UseGuards } from '@nestjs/common';
 import { DoctorService } from './doctor.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('doctor')
 export class DoctorController {
@@ -11,6 +12,7 @@ export class DoctorController {
         return this.docService.create(scheduleTimeData);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get('get-all-doctors')
     async getDoctors(): Promise<any> {
         return this.docService.getDoctors();

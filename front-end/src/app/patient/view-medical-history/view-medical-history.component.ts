@@ -32,12 +32,12 @@ export class ViewMedicalHistoryComponent implements OnInit {
   getAppointmentsForDoctor() {
     // Replace with your actual API endpoint
     const PatientId = this.user.ID;
-    return this.http.get(`${settings.APIURL}/patient/get_My_appointments/${PatientId}`);
+    return this.http.get(`${settings.APIURL}/patient/get_My_appointments/${PatientId}`, { withCredentials: true });
   }
 
   Reject_appointment(Id: any) {
     if (confirm('Are you sure you want to reject this appointment?')) {
-      this.http.delete(`${settings.APIURL}/doctor/delete-appointment/${Id}`).subscribe(
+      this.http.delete(`${settings.APIURL}/doctor/delete-appointment/${Id}`, { withCredentials: true }).subscribe(
         () => {
           this.initialize()
         },

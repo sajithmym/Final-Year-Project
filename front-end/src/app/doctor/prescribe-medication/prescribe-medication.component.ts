@@ -120,7 +120,17 @@ export class PrescribeMedicationComponent implements OnInit {
     'Apremilast',
     'Omalizumab',
     'Mepolizumab',
-    'Dupilumab'
+    'Dupilumab',
+    'Blood report',
+    'Urine report',
+    'X-ray report',
+    'CT Scan report',
+    'MRI report',
+    'ECG report',
+    'Ultrasound report',
+    'Endoscopy report',
+    'Colonoscopy report',
+    'Biopsy report'
   ];
 
   filteredMedicines: string[] = [];
