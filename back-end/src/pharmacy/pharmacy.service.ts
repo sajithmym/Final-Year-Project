@@ -37,7 +37,14 @@ export class PharmacyService {
         }));
     }
 
-    setAmount_status_change(id: number, amount: number) {
-        throw new Error('Method not implemented.');
+    async setAmount_status_change(id: number, amount: number) {
+        const appointment: any = await this.appointmentRepository.findOne({ where: { id: id }, relations: ["doctor", "patient"] });
+        if (!appointment) {
+            throw new Error('Appointment not found');
+        }
+        appointment.Isaccepted = "Payment Pending";
+        appointment.bill_amount = amount;
+        await this.appointmentRepository.save(appointment);
+        return appointment;
     }
 }

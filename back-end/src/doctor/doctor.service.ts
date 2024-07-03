@@ -150,12 +150,7 @@ export class DoctorService {
     }
 
     async acceptAppointment(bodyData: any): Promise<any> {
-        const appointment: any = await this.appointmentRepository.findOne({ where: { id: bodyData.appointmentId }, relations: ["doctor", "patient"] });
-        if (!appointment) {
-            throw new Error('Appointment not found');
-        }
-        appointment.Isaccepted = 'Accepted';
-        await this.appointmentRepository.save(appointment);
+        const appointment: any = await this.ChangeStatus(bodyData.appointmentId, "Accepted")
 
         let message = `Your appointment with ${appointment.doctor.name} has been confirmed for ${appointment.appointmentDate}, ${appointment.appointmentTime}`
 
@@ -175,7 +170,7 @@ export class DoctorService {
     }
 
     async finishAppointment(bodyData: any): Promise<any> {
-        const appointment: any = this.ChangeStatus(bodyData.appointmentId, "Finesh")
+        const appointment: any = await this.ChangeStatus(bodyData.appointmentId, "Finesh")
 
         let message = `${appointment.doctor.name} has prescribed medication. You can view the details in our web application.`
 

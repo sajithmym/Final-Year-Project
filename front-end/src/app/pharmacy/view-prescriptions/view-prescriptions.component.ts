@@ -31,8 +31,18 @@ export class ViewPrescriptionsComponent implements OnInit {
   }
 
   // Method to set the sub total
-  setSubTotal(price: number) {
-    this.currentAppointment.subTotal = price;
+  setSubTotal() {
+    this.http.post(`${settings.APIURL}/pharmacy/setAmount-status-change/${this.appoinmentID}`,
+      { amount: this.appoinmentPrice }, { withCredentials: true }).subscribe(
+        (response: any) => {
+          alert('invoice sent successfully...');
+        },
+        (error) => {
+          console.error(error);
+          alert('There was an error setting the Price. Please try again later...');
+        }
+      );
+
     this.closePopup();
   }
 
@@ -44,11 +54,8 @@ export class ViewPrescriptionsComponent implements OnInit {
     this.appoinmentID = id;
     this.showPopup = true;
     this.checkout = true;
-
     let current = this.appointments.find((appointment: any) => appointment.id == id);
-
     this.currentAppointment = current;
-
   }
 
   OffCheckout() {
@@ -56,7 +63,7 @@ export class ViewPrescriptionsComponent implements OnInit {
   }
 
   initialize() {
-    this.getAppointmentsForDoctor().subscribe(
+    this.get_Finish_Appointments().subscribe(
       (appointments: any) => {
         // change each appoinment.medician values
         appointments.forEach((appointment: any) => {
@@ -72,14 +79,8 @@ export class ViewPrescriptionsComponent implements OnInit {
     );
   }
 
-  getAppointmentsForDoctor() {
+  get_Finish_Appointments() {
     // Request to get all appointments for a doctor
     return this.http.get(`${settings.APIURL}/pharmacy/Finesh_appointments`, { withCredentials: true });
-  }
-
-  Buy_appointment(Id: any) {
-    if (confirm('Are you sure you want to accept this appointment?')) {
-      console.log(Id);
-    }
   }
 }
