@@ -28,9 +28,9 @@ export class PatientController {
 
     // get Finesh_Accept_appointments for a patient
     @UseGuards(JwtAuthGuard)
-    @Get('Finesh_appointments/:id')
-    Finesh_Accept_appointmentsDoctor(@Param('id') id: number) {
-        return this.patientService.getFineshAcceptedAppoinments(id);
+    @Get('Payment_Pending_appointments/:id')
+    Payment_Pending_appointmentsDoctor(@Param('id') id: number) {
+        return this.patientService.get_Payment_Pending_Appoinments(id);
     }
 
     // get My_appointments for a patient

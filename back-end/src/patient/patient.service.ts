@@ -47,7 +47,7 @@ export class PatientService {
         return await this.appointmentRepository.save(appointment);
     }
 
-    async getFineshAcceptedAppoinments(id: number): Promise<any> {
+    async get_Payment_Pending_Appoinments(id: number): Promise<any> {
         const patient = await this.patientRepository.findOneBy({ id: id });
 
         if (!patient) {

@@ -14,7 +14,7 @@ export class ViewPrescriptionsComponent implements OnInit {
   appointments: any = [];
   checkout: boolean = false;
   appoinmentID: number = 0;
-  appoinmentPrice: number = 0;
+  appointmentPrice: number | undefined;
   user: any = JSON.parse(localStorage.getItem('User-login-uok-pms') || '{}');
 
   showPopup: boolean = false;
@@ -33,7 +33,7 @@ export class ViewPrescriptionsComponent implements OnInit {
   // Method to set the sub total
   setSubTotal() {
     this.http.post(`${settings.APIURL}/pharmacy/setAmount-status-change/${this.appoinmentID}`,
-      { amount: this.appoinmentPrice }, { withCredentials: true }).subscribe(
+      { amount: this.appointmentPrice }, { withCredentials: true }).subscribe(
         (response: any) => {
           alert('invoice sent successfully...');
         },

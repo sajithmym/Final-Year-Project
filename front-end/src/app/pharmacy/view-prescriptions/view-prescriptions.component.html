@@ -44,7 +44,7 @@
             </table>
         </ul>
 
-        <input type="number" (ngmodel)="appoinmentPrice" placeholder="Enter The Price for this Prescription...">
+        <input type="number" [(ngModel)]="appointmentPrice" placeholder="Enter The Price for this Prescription...">
         <button (click)="setSubTotal()">Send invoice to patient</button>
     </div>
 </div>

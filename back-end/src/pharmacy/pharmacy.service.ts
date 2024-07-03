@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { Appointment } from './../DB_Models/Appointment.entity';
 import { Patient } from 'src/DB_Models/Patient.entity';
 import { Doctor } from 'src/DB_Models/Doctor.entity';
@@ -19,7 +19,7 @@ export class PharmacyService {
 
     // get Finesh_Accept_appointments for a patient
     async getFineshAcceptedAppoinments() {
-        const appointments = await this.appointmentRepository.find({ where: { Isaccepted: 'Finesh' }, relations: ["doctor", "patient"] });
+        const appointments = await this.appointmentRepository.find({ where: { Isaccepted: In(['Finesh']) }, relations: ["doctor", "patient"] });
 
         if (!appointments) {
             throw new Error('No appointments found');
