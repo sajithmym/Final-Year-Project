@@ -1,11 +1,12 @@
 <div class="appointments">
     <ul>
-        <li *ngFor="let appointment of appointments">
+        <li *ngFor="let appointment of appointments;let i = index">
             <div id="loop">
-                {{appointment.doctor_name}} ::: {{appointment.appointmentDate}} ::: {{appointment.appointmentTime}}
+                {{i+1}}. {{appointment.doctor_name}} ::: {{appointment.appointmentDate}} :::
+                {{appointment.appointmentTime}}
                 <div class="medi">
-                    <h2>::: Your-Medicine-List :::</h2>
-                    <ul type="circle">
+                    <h2>::: Your Bill Amount is {{appointment.bill}} Rupees. :::</h2>
+                    <!-- <ul type="circle">
                         <table border="1">
                             <caption></caption>
                             <tr *ngFor="let medicine of appointment.medician; let i = index">
@@ -13,11 +14,11 @@
                                 <th>{{medicine}}</th>
                             </tr>
                         </table>
-                    </ul>
+                    </ul> -->
                 </div>
 
                 <div class="buttons">
-                    <button class="accept" (click)="ONCheckout(appointment.id)">Click Buy All medichines</button>
+                    <button class="accept" (click)="ONCheckout(appointment.id)">Click to Make Payment</button>
                 </div>
             </div>
         </li>
@@ -31,9 +32,9 @@
         <div class="steps">
             <div class="step">
                 <div>
-                    <span>SHIPPING</span>
-                    <p>221B Baker Street, W1U 8ED</p>
-                    <p>Colombo, Srilanka</p>
+                    <span>Delivery Address</span>
+                    <p>{{selected_Appointment.address}}</p>
+                    <p> Srilanka</p>
                 </div>
                 <hr>
                 <div>
@@ -54,11 +55,11 @@
                     <span>PAYMENT</span>
                     <div class="details">
                         <span>Subtotal:</span>
-                        <span>$240.00</span>
-                        <span>Shipping:</span>
-                        <span>$10.00</span>
+                        <span>{{selected_Appointment.bill}}.00</span>
+                        <span>Doctor Fee:</span>
+                        <span>500.00</span>
                         <span>Tax:</span>
-                        <span>$30.40</span>
+                        <span>200.00</span>
                     </div>
                 </div>
             </div>
@@ -67,7 +68,7 @@
 
     <div class="card checkout" id="final">
         <div class="footer">
-            <label class="price">$280.40</label>
+            <label class="price">Rs. {{selected_Appointment.bill+700}}</label>
             <button class="checkout-btn">Checkout</button>
         </div>
     </div>

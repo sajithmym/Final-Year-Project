@@ -13,6 +13,8 @@ export class ViewPrescriptionComponent implements OnInit {
   appoinmentID: number = 0;
   user: any = JSON.parse(localStorage.getItem('User-login-uok-pms') || '{}');
 
+  selected_Appointment: any;
+
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -22,6 +24,7 @@ export class ViewPrescriptionComponent implements OnInit {
   ONCheckout(id: number) {
     this.appoinmentID = id;
     this.checkout = true;
+    this.selected_Appointment = this.appointments.find((appointment: any) => appointment.id === id);
   }
 
   OffCheckout() {
@@ -48,7 +51,7 @@ export class ViewPrescriptionComponent implements OnInit {
   getAppointmentsForDoctor() {
     // Replace with your actual API endpoint
     const PatientId = this.user.ID;
-    return this.http.get(`${settings.APIURL}/patient/Finesh_appointments/${PatientId}`, { withCredentials: true });
+    return this.http.get(`${settings.APIURL}/patient/Payment_Pending_appointments/${PatientId}`, { withCredentials: true });
   }
 
   Buy_appointment(Id: any) {
