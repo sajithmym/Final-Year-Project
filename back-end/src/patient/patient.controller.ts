@@ -4,11 +4,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Patient } from 'src/DB_Models/Patient.entity';
 import { Repository } from 'typeorm';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { DoctorService } from 'src/doctor/doctor.service';
 
 @Controller('patient')
 export class PatientController {
     constructor(
         private readonly patientService: PatientService,
+        private readonly doctorService: DoctorService,
         @InjectRepository(Patient)
         private readonly patientRepository: Repository<Patient>
     ) { }
@@ -38,5 +40,12 @@ export class PatientController {
     @Get('get_My_appointments/:id')
     get_My_appointments(@Param('id') id: string) {
         return this.patientService.getMyAppoinments(id);
+    }
+
+    // appoinments set status to payment done
+    @UseGuards(JwtAuthGuard)
+    @Post('appoinment_status_Payment_done/:id')
+    Payment_done(@Param('id') id: number) {
+        this.doctorService.ChangeStatus(id, 'Payment Done');
     }
 }

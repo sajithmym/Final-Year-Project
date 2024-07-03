@@ -12,6 +12,7 @@ export class ViewPrescriptionComponent implements OnInit {
   checkout: boolean = false;
   appoinmentID: number = 0;
   user: any = JSON.parse(localStorage.getItem('User-login-uok-pms') || '{}');
+  message: string = '';
 
   selected_Appointment: any;
 
@@ -39,10 +40,12 @@ export class ViewPrescriptionComponent implements OnInit {
           appointment.medician = JSON.parse(appointment.medician);
         });
         this.appointments = appointments;
-        console.log(this.appointments);
+        if (appointments.length === 0) {
+          this.message = 'No appointments found';
+        }
       },
       (error) => {
-        console.error(error);
+        this.message = 'There was an error fetching appointments. Please try again later.';
         alert('There was an error fetching appointments. Please try again later.');
       }
     );
@@ -54,9 +57,19 @@ export class ViewPrescriptionComponent implements OnInit {
     return this.http.get(`${settings.APIURL}/patient/Payment_Pending_appointments/${PatientId}`, { withCredentials: true });
   }
 
-  Buy_appointment(Id: any) {
-    if (confirm('Are you sure you want to accept this appointment?')) {
-      console.log(Id);
+  Payment(Id: any) {
+    if (confirm('Are you sure you want to proceed with the payment?')) {
+      // call appoinment_status_Payment_done/:id post method to change status to payment done
+      this.http.post(`${settings.APIURL}/patient/appoinment_status_Payment_done/${Id}`, {}, { withCredentials: true }).subscribe(
+        (response: any) => {
+          alert('Payment successful');
+          this.initialize();
+        },
+        (error) => {
+          console.error(error);
+          alert('There was an error processing the payment. Please try again later.');
+        }
+      );
     }
   }
 }

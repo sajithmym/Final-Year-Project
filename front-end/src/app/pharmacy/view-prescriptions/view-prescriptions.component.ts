@@ -17,6 +17,8 @@ export class ViewPrescriptionsComponent implements OnInit {
   appointmentPrice: number | undefined;
   user: any = JSON.parse(localStorage.getItem('User-login-uok-pms') || '{}');
 
+  message: string = '';
+
   showPopup: boolean = false;
   currentAppointment: any = null;
 
@@ -35,6 +37,7 @@ export class ViewPrescriptionsComponent implements OnInit {
     this.http.post(`${settings.APIURL}/pharmacy/setAmount-status-change/${this.appoinmentID}`,
       { amount: this.appointmentPrice }, { withCredentials: true }).subscribe(
         (response: any) => {
+          this.initialize();
           alert('invoice sent successfully...');
         },
         (error) => {
@@ -70,10 +73,12 @@ export class ViewPrescriptionsComponent implements OnInit {
           appointment.medician = JSON.parse(appointment.medician);
         });
         this.appointments = appointments;
-        console.log(this.appointments);
+        if (appointments.length === 0) {
+          this.message = 'No appointments found';
+        }
       },
       (error) => {
-        console.error(error);
+        this.message = 'There was an error fetching appointments. Please try again later.';
         alert('There was an error fetching appointments. Please try again later.');
       }
     );

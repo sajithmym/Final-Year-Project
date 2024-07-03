@@ -1,5 +1,6 @@
 <div class="appointments">
     <ul>
+        <h3 style="text-align: center;">- {{message}} - </h3>
         <li *ngFor="let appointment of appointments;let i = index">
             <div id="loop">
                 {{i+1}}. {{appointment.doctor_name}} ::: {{appointment.appointmentDate}} :::
@@ -68,8 +69,8 @@
 
     <div class="card checkout" id="final">
         <div class="footer">
-            <label class="price">Rs. {{selected_Appointment.bill+700}}</label>
-            <button class="checkout-btn">Checkout</button>
+            <label class="price">Total: Rs. {{selected_Appointment.bill+700}}</label>
+            <button class="checkout-btn" (click)="Payment(selected_Appointment.id)" id="checkout-btn">Checkout</button>
         </div>
     </div>
     i

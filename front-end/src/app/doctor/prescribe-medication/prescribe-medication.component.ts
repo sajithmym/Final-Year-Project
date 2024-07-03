@@ -15,6 +15,8 @@ export class PrescribeMedicationComponent implements OnInit {
   user = JSON.parse(localStorage.getItem('User-login-uok-pms') || '{}');
   popup_appointment_id: number = 0;
 
+  message: string = '';
+
   allMedicines: string[] = [
     'Aspirin',
     'Ibuprofen',
@@ -189,9 +191,13 @@ export class PrescribeMedicationComponent implements OnInit {
 
   loadAppointments(): void {
     this.fetchAppointmentsForDoctor().subscribe({
-      next: (appointments) => this.appointments = appointments,
+      next: (appointments) => {
+        this.appointments = appointments
+        if (this.appointments.length === 0)
+          this.message = 'No appointments found.';
+      },
       error: (error) => {
-        console.error('Error fetching appointments:', error);
+        this.message = 'There was an error fetching appointments. Please try again later.';
         alert('There was an error fetching appointments. Please try again later.');
       }
     });

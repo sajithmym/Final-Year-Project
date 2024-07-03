@@ -11,6 +11,8 @@ export class ViewAppointmentComponent implements OnInit {
   appointments: any = [];
   user: any = JSON.parse(localStorage.getItem('User-login-uok-pms') || '{}');
 
+  message: string = '';
+
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -21,9 +23,12 @@ export class ViewAppointmentComponent implements OnInit {
     this.getAppointmentsForDoctor().subscribe(
       (appointments) => {
         this.appointments = appointments;
+        if (this.appointments.length === 0) {
+          this.message = 'No appointments found.';
+        }
       },
       (error) => {
-        console.error(error);
+        this.message = 'There was an error fetching appointments. Please try again later.';
         alert('There was an error fetching appointments. Please try again later.');
       }
     );

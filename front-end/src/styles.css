@@ -55,3 +55,9 @@ body {
     color: white;
     background-color: #637483;
 }
+
+h5 {
+    color: black;
+    font-size: 28px;
+    font-weight: bold;
+}

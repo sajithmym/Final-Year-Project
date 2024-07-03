@@ -346,3 +346,7 @@ hr {
 #final {
     border-radius: 0 0 10px 10px;
 }
+
+#checkout-btn:hover {
+    background-color: #ff4c41;
+}
