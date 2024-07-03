@@ -64,6 +64,7 @@ export class ViewPrescriptionComponent implements OnInit {
         (response: any) => {
           alert('Payment successful');
           this.initialize();
+          this.OffCheckout();
         },
         (error) => {
           console.error(error);
