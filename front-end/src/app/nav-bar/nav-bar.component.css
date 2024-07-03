@@ -28,7 +28,7 @@ h2 {
     /* Subtle shadow for depth */
     position: relative;
     /* Needed for animation */
-    animation: slideDown 1s ease-out;
+    animation: slideDown 2s ease-out;
     /* Smooth slide down animation */
 }
 

@@ -5,8 +5,7 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   width: 45%;
   height: fit-content;
-  margin-top: 20%;
-  margin-bottom: 2%;
+  margin-top: 17%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -14,7 +13,7 @@
 }
 
 .signup {
-  height: 130vh;
+  height: 122vh;
   background-image: url('../../assets/register.jpg');
   background-repeat: no-repeat;
   background-size: cover;
