@@ -1,1 +1,40 @@
-<p>inventory works!</p>
+<div class="appointments">
+    <ul>
+        <h5 style="text-align: center;"> {{message}} </h5>
+        <li *ngFor="let appointment of appointments;let i = index">
+            <div id="loop">
+                {{i+1}}. {{appointment.doctor_name}} ::: {{appointment.appointmentDate}} :::
+                {{appointment.appointmentTime}}
+                <p id="patient">Patient Name : {{appointment.patient_name}}</p>
+                <p id="patient">Patient Mobile Number : {{appointment.patient_phone_number}}</p>
+                <div class="buttons">
+                    <button class="accept" (click)="ONCheckout(appointment.id)">View Subtotal for Prescription</button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div *ngIf="showPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" (click)="closePopup()">&times;</span>
+        <h2>Patient {{currentAppointment?.patient_name}} Prescription</h2>
+
+        <h3 id="docdetails"> {{currentAppointment.doctor_name}} ::: {{currentAppointment.appointmentDate}} :::
+            {{currentAppointment.appointmentTime}}</h3>
+
+        <h3 id="table-head">::: Prescriptions :::</h3>
+        <ul type="circle">
+            <table border="1">
+                <tr *ngFor="let medicine of currentAppointment?.medician; let i = index">
+                    <th id="p_data"> {{i + 1}}. </th>
+                    <th id="p_data">{{medicine}}</th>
+                </tr>
+            </table>
+        </ul>
+
+        <h4>Bill amout: {{currentAppointment.bill}}</h4>
+        <!-- <input type="number" [(ngModel)]="appointmentPrice" placeholder="Enter The Price for this Prescription...">
+        <button (click)="setSubTotal()">Send invoice to patient</button> -->
+    </div>
+</div>

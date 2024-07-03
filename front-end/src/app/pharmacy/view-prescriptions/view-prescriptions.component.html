@@ -30,7 +30,7 @@
 <div *ngIf="showPopup" class="popup">
     <div class="popup-content">
         <span class="close" (click)="closePopup()">&times;</span>
-        <h2>Set Sub Total for {{currentAppointment?.patient_name}}</h2>
+        <h2>Patient {{currentAppointment?.patient_name}} Prescription</h2>
 
         <h3 id="docdetails"> {{currentAppointment.doctor_name}} ::: {{currentAppointment.appointmentDate}} :::
             {{currentAppointment.appointmentTime}}</h3>

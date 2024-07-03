@@ -22,4 +22,11 @@ export class PharmacyController {
     setAmount(@Param('id') id: number, @Body('amount') amount: number) {
         return this.pharmacyService.setAmount_status_change(id, amount);
     }
+
+    // get payment done appoinments
+    @UseGuards(JwtAuthGuard)
+    @Get('paid_appointments')
+    Payment_done_appointmentsDoctor() {
+        return this.pharmacyService.Get_payment_done_Appoinments();
+    }
 }
