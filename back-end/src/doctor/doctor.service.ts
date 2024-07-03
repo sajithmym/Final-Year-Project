@@ -7,6 +7,7 @@ import { Doctor } from 'src/DB_Models/Doctor.entity';
 import { Appointment } from 'src/DB_Models/Appointment.entity';
 import axios from 'axios';
 import { configure } from 'Config';
+import { promises } from 'dns';
 
 @Injectable()
 export class DoctorService {
@@ -163,13 +164,18 @@ export class DoctorService {
         return { status: 'success' }
     }
 
-    async finishAppointment(bodyData: any): Promise<any> {
-        const appointment: any = await this.appointmentRepository.findOne({ where: { id: bodyData.appointmentId }, relations: ["doctor", "patient"] });
+    async ChangeStatus(id: number, status: string): Promise<any> {
+        const appointment: any = await this.appointmentRepository.findOne({ where: { id: id }, relations: ["doctor", "patient"] });
         if (!appointment) {
             throw new Error('Appointment not found');
         }
-        appointment.Isaccepted = 'Finesh';
+        appointment.Isaccepted = status;
         await this.appointmentRepository.save(appointment);
+        return appointment;
+    }
+
+    async finishAppointment(bodyData: any): Promise<any> {
+        const appointment: any = this.ChangeStatus(bodyData.appointmentId, "Finesh")
 
         let message = `${appointment.doctor.name} has prescribed medication. You can view the details in our web application.`
 
