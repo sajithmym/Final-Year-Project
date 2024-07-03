@@ -38,7 +38,7 @@ import { Documents } from './DB_Models/Report_document.entity';
       password: configure.DB_Pass,
       database: configure.DB_Name,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      synchronize: false,
     }),
     TypeOrmModule.forFeature([Patient, Doctor, Pharmacy, ScheduleTime, Appointment, Documents]),
   ],
