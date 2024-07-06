@@ -4,10 +4,6 @@ import { Logger } from '@nestjs/common';
 import { configure } from 'config';
 import * as cookieParser from 'cookie-parser';
 
-// import { JwtAuthGuard } from './auth/jwt-auth.guard';
-// import { JwtService } from '@nestjs/jwt'; // Add this line
-// import { request } from 'http';
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -17,10 +13,6 @@ async function bootstrap() {
     origin: 'http://localhost:2222',
     credentials: true,
   });
-
-  // Correctly instantiate JwtAuthGuard with JwtService
-  // const jwtService = app.get(JwtService);
-  // app.useGlobalGuards(new JwtAuthGuard(jwtService));
 
 
   await app.listen(configure.port);

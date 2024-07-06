@@ -65,12 +65,30 @@ export class PharmacyService {
         return appointment;
     }
 
-    async saveReport(id: number, Data: any) {
+    async saveReport(
+        id: number,
+        Data: {
+            fieldname: string,
+            originalname: string,
+            encoding: string,
+            mimetype: string,
+            destination: string,
+            filename: string,
+            path: string,
+            size: number
+        }
+    ) {
         const appointment: any = await this.appointmentRepository.findOne({ where: { id: id }, relations: ["doctor", "patient"] });
         if (!appointment) {
             throw new Error('Appointment not found');
         }
-        return Data;
+        const document = new Documents();
+        document.appinment = appointment;
+        document.document_name = Data.originalname.replace('.pdf', '');
+        document.document_path = Data.path;
+
+        await this.documentRepository.save(document);
+        return { message: 'Report uploaded successfully' };
     }
 
 }

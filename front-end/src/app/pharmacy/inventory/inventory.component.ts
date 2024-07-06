@@ -99,18 +99,18 @@ export class InventoryComponent implements OnInit {
       // Adjust the URL to match your API endpoint
       this.http.post(`${settings.APIURL}/pharmacy/UploadReport/${Appointment_ID}`, formData, {
         withCredentials: true,
-        reportProgress: true, // If you want to track the upload progress
-        observe: 'events' // If you want to receive events, including the progress
+        reportProgress: true, //  track the upload progress
+        observe: 'events' //  receive events, including the progress
       }).subscribe(
         response => {
-          console.log('Upload successful', response);
+          alert(response);
         },
         error => {
-          console.error('Upload failed', error);
+          alert('Upload failed');
         }
       );
     } else {
-      console.error('No file selected');
+      alert('No file selected');
     }
   }
 }
