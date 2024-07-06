@@ -8,7 +8,6 @@ import { settings } from 'Static_values';
   styleUrls: ['./inventory.component.css']
 })
 export class InventoryComponent implements OnInit {
-
   constructor(private http: HttpClient) { }
 
   appointments: any = [];
@@ -87,5 +86,31 @@ export class InventoryComponent implements OnInit {
   get_Finish_Appointments() {
     // Request to get all appointments for a doctor
     return this.http.get(`${settings.APIURL}/pharmacy/paid_appointments`, { withCredentials: true });
+  }
+
+  Upload_Report(Appointment_ID: number, event: any) {
+    const element = event.target as HTMLInputElement;
+    const files = element.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      const formData = new FormData();
+      formData.append('report', file, file.name);
+
+      // Adjust the URL to match your API endpoint
+      this.http.post(`${settings.APIURL}/pharmacy/UploadReport/${Appointment_ID}`, formData, {
+        withCredentials: true,
+        reportProgress: true, // If you want to track the upload progress
+        observe: 'events' // If you want to receive events, including the progress
+      }).subscribe(
+        response => {
+          console.log('Upload successful', response);
+        },
+        error => {
+          console.error('Upload failed', error);
+        }
+      );
+    } else {
+      console.error('No file selected');
+    }
   }
 }

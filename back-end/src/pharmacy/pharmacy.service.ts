@@ -65,13 +65,13 @@ export class PharmacyService {
         return appointment;
     }
 
-    async saveReport(id: number, report: string) {
+    async saveReport(id: number, Data: any) {
         const appointment: any = await this.appointmentRepository.findOne({ where: { id: id }, relations: ["doctor", "patient"] });
         if (!appointment) {
             throw new Error('Appointment not found');
         }
 
-        console.log(appointment);
-        console.log(report);
+        console.log(Data);
+        return Data;
     }
 }

@@ -11,6 +11,9 @@
                 <p id="patient">appointment Status : {{appointment.Isaccepted}}</p>
                 <div class="buttons">
                     <button class="accept" (click)="ONCheckout(appointment.id)">Click to View Details</button>
+                    <input type="file" #fileInput hidden (change)="Upload_Report(appointment.id, $event)"
+                        accept="application/pdf">
+                    <button class="accept" (click)="fileInput.click()">Upload Scanned Report (PDF)</button>
                 </div>
             </div>
         </li>
