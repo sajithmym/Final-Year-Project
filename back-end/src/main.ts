@@ -3,7 +3,6 @@ import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common';
 import { configure } from 'config';
 import * as cookieParser from 'cookie-parser';
-import { ConfigModule } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,8 +13,6 @@ async function bootstrap() {
     origin: 'http://localhost:2222',
     credentials: true,
   });
-
-  console.log(ConfigModule);
 
   await app.listen(configure.port);
 

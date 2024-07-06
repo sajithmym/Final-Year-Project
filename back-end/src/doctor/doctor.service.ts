@@ -80,7 +80,7 @@ export class DoctorService {
             );
             console.log(response.data);
         } catch (error) {
-            throw new InternalServerErrorException(`Error sending via ClickSend: ${error.message}`);
+            console.log(error.message);
         }
     }
 

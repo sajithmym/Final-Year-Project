@@ -13,5 +13,5 @@ export const configure = {
   CLICKSEND_USERNAME: 'tihicll.com',
   CLICKSEND_API_KEY: '588499',
 
-  JWTsecret: process.env.JWTsecret,
+  JWTsecret: process.env.JWTsecret || 'qTAJ/qSat/MJ7Zj1Il0Q30JWVwXEyLEF6QwnH4jMsVk=',
 };
