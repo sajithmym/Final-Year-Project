@@ -9,11 +9,9 @@ export const configure = {
   DB_Pass: process.env.DB_PASS || '',
   DB_Name: process.env.DB_NAME || 'patient_management_system',
 
-  api_key_for_infobip: process.env.infobip_api_key,
-
   CLICKSEND_FROM_PHONE: '+94729735575',
   CLICKSEND_USERNAME: 'tihic74706@luravell.com',
   CLICKSEND_API_KEY: '58849E5B-CE92-C4DD-81F9-E8CF38B32169',
 
-  JWTsecret: process.env.JWTsecret,
+  JWTsecret: process.env.JWTsecret || 'qTAJ/qSat/MJ7Zj1Il0Q30JWVwXEyLEF6QwnH4jMsVk=',
 };
