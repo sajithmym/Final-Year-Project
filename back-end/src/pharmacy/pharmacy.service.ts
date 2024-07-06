@@ -16,7 +16,7 @@ export class PharmacyService {
 
     // get Finesh_Accept_appointments for a patient
     async getFineshAcceptedAppoinments() {
-        const appointments = await this.appointmentRepository.find({ where: { Isaccepted: In(['Finesh']) }, relations: ["doctor", "patient"] });
+        const appointments = await this.appointmentRepository.find({ where: { Isaccepted: 'Finesh' }, relations: ["doctor", "patient"] });
 
         if (!appointments) {
             throw new Error('No appointments found');
