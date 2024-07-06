@@ -105,8 +105,12 @@ export class PharmacyService {
         //delete the document
         await this.documentRepository.delete({ id: id });
 
-        // delete from Backend folder document_path
-        fs.unlinkSync(path);
+        try {
+            // delete from Backend folder document_path
+            fs.unlinkSync(path);
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 
 }
