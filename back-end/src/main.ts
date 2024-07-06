@@ -14,6 +14,7 @@ async function bootstrap() {
     credentials: true,
   });
 
+  console.log(configure);
 
   await app.listen(configure.port);
 

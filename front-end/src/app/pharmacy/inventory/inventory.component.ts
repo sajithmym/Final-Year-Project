@@ -103,7 +103,6 @@ export class InventoryComponent implements OnInit {
         observe: 'events' //  receive events, including the progress
       }).subscribe(
         (response: any) => {
-          alert(response.body.message);
           this.initialize();
         },
         error => {
@@ -116,9 +115,12 @@ export class InventoryComponent implements OnInit {
   }
 
   deleteReport(ReportID: any) {
+    // Ask the user to confirm the deletion
+    if (!confirm('Are you sure you want to delete this report?')) {
+      return;
+    }
     this.http.delete(`${settings.APIURL}/pharmacy/DeleteReport/${ReportID}`, { withCredentials: true }).subscribe(
       (response: any) => {
-        alert('Report deleted successfully');
         this.initialize();
       },
       (error) => {

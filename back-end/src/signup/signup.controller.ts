@@ -47,7 +47,8 @@ export class SignupController {
         throw new BadRequestException('Sign in failed');
       }
     } catch (error) {
-      throw new InternalServerErrorException('Sign in failed. Please try again later.');
+      console.log(error);
+      throw new InternalServerErrorException('Sign in failed.');
     }
   }
 
