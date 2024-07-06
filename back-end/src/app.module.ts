@@ -22,9 +22,11 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { ScheduleTime } from './DB_Models/ScheduleTime.entity';
 import { Appointment } from './DB_Models/Appointment.entity';
 import { Documents } from './DB_Models/Report_document.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     JwtModule.register({
       secret: configure.JWTsecret,
       signOptions: { expiresIn: '60m' },

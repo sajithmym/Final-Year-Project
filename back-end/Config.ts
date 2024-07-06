@@ -13,5 +13,5 @@ export const configure = {
   CLICKSEND_USERNAME: 'tihic74706@luravell.com',
   CLICKSEND_API_KEY: '58849E5B-CE92-C4DD-81F9-E8CF38B32169',
 
-  JWTsecret: process.env.JWTsecret || 'qTAJ/qSat/MJ7Zj1Il0Q30JWVwXEyLEF6QwnH4jMsVk=',
+  JWTsecret: process.env.JWTsecret ,
 };
