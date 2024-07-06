@@ -48,7 +48,7 @@
                     <span>HAVE A PROMO CODE?</span>
                     <form class="form">
                         <input class="input_field" placeholder="Enter a Promo Code" type="text">
-                        <button>Apply</button>
+                        <button id="checkout-btn">Apply</button>
                     </form>
                 </div>
                 <hr>
@@ -69,7 +69,7 @@
 
     <div class="card checkout" id="final">
         <div class="footer">
-            <label class="price">Total: Rs. {{selected_Appointment.bill+700}}</label>
+            <label class="price">Total: {{selected_Appointment.bill+700}} LKR.</label>
             <button class="checkout-btn" (click)="Payment(selected_Appointment.id)" id="checkout-btn">Checkout</button>
         </div>
     </div>

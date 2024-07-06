@@ -34,6 +34,11 @@ export class ViewPrescriptionsComponent implements OnInit {
 
   // Method to set the sub total
   setSubTotal() {
+    if (this.appointmentPrice == undefined || this.appointmentPrice <= 0) {
+      alert('Please enter a valid amount');
+      return;
+    }
+
     this.http.post(`${settings.APIURL}/pharmacy/setAmount-status-change/${this.appoinmentID}`,
       { amount: this.appointmentPrice }, { withCredentials: true }).subscribe(
         (response: any) => {
