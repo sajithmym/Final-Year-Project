@@ -102,8 +102,9 @@ export class InventoryComponent implements OnInit {
         reportProgress: true, //  track the upload progress
         observe: 'events' //  receive events, including the progress
       }).subscribe(
-        response => {
-          alert(response);
+        (response: any) => {
+          alert(response.body.message);
+          this.initialize();
         },
         error => {
           alert('Upload failed');
@@ -112,5 +113,17 @@ export class InventoryComponent implements OnInit {
     } else {
       alert('No file selected');
     }
+  }
+
+  deleteReport(ReportID: any) {
+    this.http.delete(`${settings.APIURL}/pharmacy/DeleteReport/${ReportID}`, { withCredentials: true }).subscribe(
+      (response: any) => {
+        alert('Report deleted successfully');
+        this.initialize();
+      },
+      (error) => {
+        alert('There was an error deleting the report. Please try again later.');
+      }
+    );
   }
 }

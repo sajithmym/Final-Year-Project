@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { PharmacyService } from './pharmacy.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -55,6 +55,13 @@ export class PharmacyController {
         }
         // Assuming saveReport method is adjusted to handle file input
         return this.pharmacyService.saveReport(id, file);
+    }
+
+    //Delete Report using ID
+    @UseGuards(JwtAuthGuard)
+    @Delete('DeleteReport/:id')
+    async deleteReport(@Param('id') id: number) {
+        return this.pharmacyService.deleteReport(id);
     }
 
 }

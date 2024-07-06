@@ -15,6 +15,13 @@
                         accept="application/pdf">
                     <button class="accept" (click)="fileInput.click()">Upload Scanned Report (PDF)</button>
                 </div>
+
+                <ul *ngIf="appointment.reports.length > 0">
+                    <h3>Upload_Reports</h3>
+                    <li id="cool" *ngFor="let report of appointment.reports">{{report.document_name}}
+                        <button id="bsn" (click)="deleteReport(report.id)">Delete</button>
+                    </li>
+                </ul>
             </div>
         </li>
     </ul>

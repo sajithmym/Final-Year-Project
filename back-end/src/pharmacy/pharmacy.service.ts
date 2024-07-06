@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { Appointment } from './../DB_Models/Appointment.entity';
 import { Documents } from 'src/DB_Models/Report_document.entity';
+const fs = require('fs');
 
 @Injectable()
 export class PharmacyService {
@@ -35,7 +36,7 @@ export class PharmacyService {
 
     //Get payment done appoinments
     async Get_payment_done_Appoinments() {
-        const appointments = await this.appointmentRepository.find({ where: { Isaccepted: 'Payment Successful' }, relations: ["doctor", "patient"] });
+        const appointments = await this.appointmentRepository.find({ where: { Isaccepted: 'Payment Successful' }, relations: ["doctor", "patient", "Documents"] });
 
         if (!appointments) {
             throw new Error('No appointments found');
@@ -50,7 +51,8 @@ export class PharmacyService {
             doctor_name: appointment.doctor.name,
             patient_name: appointment.patient.name,
             patient_phone_number: appointment.patient.phone_number,
-            bill: appointment.bill_amount
+            bill: appointment.bill_amount,
+            reports: appointment.Documents,
         }));
     }
 
@@ -89,6 +91,22 @@ export class PharmacyService {
 
         await this.documentRepository.save(document);
         return { message: 'Report uploaded successfully' };
+    }
+
+    async deleteReport(id: number) {
+        //find the document
+        const document = await this.documentRepository.findOne({ where: { id: id } });
+        if (!document) {
+            throw new Error('Document not found');
+        }
+        // get path of the document
+        const path = document.document_path;
+
+        //delete the document
+        await this.documentRepository.delete({ id: id });
+
+        // delete from Backend folder document_path
+        fs.unlinkSync(path);
     }
 
 }
