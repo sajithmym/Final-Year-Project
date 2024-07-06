@@ -46,6 +46,6 @@ export class PatientController {
     @UseGuards(JwtAuthGuard)
     @Post('appoinment_status_Payment_done/:id')
     Payment_done(@Param('id') id: number) {
-        this.doctorService.ChangeStatus(id, 'Payment Done');
+        this.doctorService.ChangeStatus(id, 'Payment Successful');
     }
 }

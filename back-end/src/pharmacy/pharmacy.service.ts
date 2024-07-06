@@ -39,7 +39,7 @@ export class PharmacyService {
 
     //Get payment done appoinments
     async Get_payment_done_Appoinments() {
-        const appointments = await this.appointmentRepository.find({ where: { Isaccepted: 'Payment Done' }, relations: ["doctor", "patient"] });
+        const appointments = await this.appointmentRepository.find({ where: { Isaccepted: 'Payment Successful' }, relations: ["doctor", "patient"] });
 
         if (!appointments) {
             throw new Error('No appointments found');

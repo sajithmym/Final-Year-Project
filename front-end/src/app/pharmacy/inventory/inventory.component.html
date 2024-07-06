@@ -1,5 +1,6 @@
 <div class="appointments">
     <ul>
+        <h1>Inventory</h1>
         <h5 style="text-align: center;"> {{message}} </h5>
         <li *ngFor="let appointment of appointments;let i = index">
             <div id="loop">
@@ -9,7 +10,7 @@
                 <p id="patient">Patient Mobile Number : {{appointment.patient_phone_number}}</p>
                 <p id="patient">appointment Status : {{appointment.Isaccepted}}</p>
                 <div class="buttons">
-                    <button class="accept" (click)="ONCheckout(appointment.id)">View Subtotal for Prescription</button>
+                    <button class="accept" (click)="ONCheckout(appointment.id)">Click to View Details</button>
                 </div>
             </div>
         </li>
@@ -35,6 +36,7 @@
         </ul>
 
         <h2 style="text-align: center;">Bill amount: {{currentAppointment.bill}} LKR</h2>
+        <h2 style="text-align: center;">{{currentAppointment.Isaccepted}}</h2>
         <!-- <input type="number" [(ngModel)]="appointmentPrice" placeholder="Enter The Price for this Prescription...">
         <button (click)="setSubTotal()">Send invoice to patient</button> -->
     </div>
