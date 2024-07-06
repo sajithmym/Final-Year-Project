@@ -2,19 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { Appointment } from './../DB_Models/Appointment.entity';
-import { Patient } from 'src/DB_Models/Patient.entity';
-import { Doctor } from 'src/DB_Models/Doctor.entity';
+import { Documents } from 'src/DB_Models/Report_document.entity';
 
 @Injectable()
 export class PharmacyService {
-
     constructor(
         @InjectRepository(Appointment)
         private appointmentRepository: Repository<Appointment>,
-        @InjectRepository(Patient)
-        private patientRepository: Repository<Patient>,
-        @InjectRepository(Doctor)
-        private doctorRepository: Repository<Doctor>,
+        @InjectRepository(Documents)
+        private documentRepository: Repository<Documents>,
     ) { }
 
     // get Finesh_Accept_appointments for a patient
@@ -67,5 +63,15 @@ export class PharmacyService {
         appointment.bill_amount = amount;
         await this.appointmentRepository.save(appointment);
         return appointment;
+    }
+
+    async saveReport(id: number, report: string) {
+        const appointment: any = await this.appointmentRepository.findOne({ where: { id: id }, relations: ["doctor", "patient"] });
+        if (!appointment) {
+            throw new Error('Appointment not found');
+        }
+
+        console.log(appointment);
+        console.log(report);
     }
 }

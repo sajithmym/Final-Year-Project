@@ -29,4 +29,11 @@ export class PharmacyController {
     Payment_done_appointmentsDoctor() {
         return this.pharmacyService.Get_payment_done_Appoinments();
     }
+
+    // save reports for an appointment as pdf
+    @UseGuards(JwtAuthGuard)
+    @Post('UploadReport/:id')
+    saveReport(@Param('id') id: number, @Body('report') report: string) {
+        return this.pharmacyService.saveReport(id, report);
+    }
 }
