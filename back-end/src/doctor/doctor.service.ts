@@ -66,7 +66,6 @@ export class DoctorService {
 
         console.log(' ` ` '.repeat(20));
         console.log(SMS);
-
         try {
             const response = await axios.post(
                 'https://rest.clicksend.com/v3/sms/send',
@@ -79,6 +78,9 @@ export class DoctorService {
                 },
             );
             console.log(response.data);
+            console.log(' ` ` '.repeat(20));
+            console.log("\n");
+
         } catch (error) {
             console.log(error.message);
         }
