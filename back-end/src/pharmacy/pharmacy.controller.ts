@@ -3,7 +3,7 @@ import { PharmacyService } from './pharmacy.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import path, { extname } from 'path';
+import { extname } from 'path';
 import { v4 as uuidv4 } from 'uuid';
 
 @Controller('pharmacy')

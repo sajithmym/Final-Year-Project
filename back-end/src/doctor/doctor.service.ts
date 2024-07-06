@@ -1,4 +1,3 @@
-import { Patient } from 'src/DB_Models/Patient.entity';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -7,7 +6,6 @@ import { Doctor } from 'src/DB_Models/Doctor.entity';
 import { Appointment } from 'src/DB_Models/Appointment.entity';
 import axios from 'axios';
 import { configure } from 'Config';
-import { promises } from 'dns';
 
 @Injectable()
 export class DoctorService {

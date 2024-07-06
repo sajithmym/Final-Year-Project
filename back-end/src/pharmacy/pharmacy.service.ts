@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Appointment } from './../DB_Models/Appointment.entity';
 import { Documents } from 'src/DB_Models/Report_document.entity';
 const fs = require('fs');
