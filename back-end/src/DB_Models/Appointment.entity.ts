@@ -1,7 +1,8 @@
 // Appointment.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
 import { Patient } from './Patient.entity';
 import { Doctor } from './Doctor.entity';
+import { Documents } from './Report_document.entity';
 
 @Entity('appointments')
 export class Appointment {
@@ -28,4 +29,7 @@ export class Appointment {
 
     @Column({ nullable: true })
     bill_amount: number;
+
+    @OneToMany(() => Documents, document => document.appinment, { onDelete: 'CASCADE' })
+    Documents: Documents[];
 }

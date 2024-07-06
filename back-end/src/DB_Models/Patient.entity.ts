@@ -22,7 +22,4 @@ export class Patient {
 
   @OneToMany(() => Appointment, appointment => appointment.patient, { onDelete: 'CASCADE' })
   appointments: Appointment[];
-
-  @OneToMany(() => Documents, document => document.patient, { onDelete: 'CASCADE' })
-  Documents: Documents[];
 }
