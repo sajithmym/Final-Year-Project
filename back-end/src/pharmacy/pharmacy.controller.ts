@@ -1,7 +1,10 @@
-import { Body, Controller, Get, Param, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { PharmacyService } from './pharmacy.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import { v4 as uuidv4 } from 'uuid';
 
 @Controller('pharmacy')
 export class PharmacyController {
@@ -33,15 +36,28 @@ export class PharmacyController {
 
     @UseGuards(JwtAuthGuard)
     @Post('UploadReport/:id')
-    @UseInterceptors(FileInterceptor('report'))
+    @UseInterceptors(FileInterceptor('report', {
+        storage: diskStorage({
+            destination: './uploads/reports', // Adjust the destination as needed
+            filename: (req, file, callback) => {
+                const extension = extname(file.originalname).toLowerCase();
+                if (extension !== '.pdf') {
+                    return callback(new HttpException('Only PDF files are allowed!', HttpStatus.BAD_REQUEST), null);
+                }
+                const filename = `${uuidv4()}${extension}`;
+                callback(null, filename);
+            },
+        }),
+    }))
     async saveReport(@Param('id') id: number, @UploadedFile() file: Express.Multer.File) {
         if (!file) {
-            throw new Error('No file uploaded.');
+            throw new HttpException('No file uploaded.', HttpStatus.BAD_REQUEST);
         }
-        // Log the file object to the console
         console.log(file);
 
         // Assuming saveReport method is adjusted to handle file input
         return this.pharmacyService.saveReport(id, file);
     }
+
 }
+

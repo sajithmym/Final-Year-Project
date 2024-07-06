@@ -70,8 +70,7 @@ export class PharmacyService {
         if (!appointment) {
             throw new Error('Appointment not found');
         }
-
-        console.log(Data);
         return Data;
     }
+
 }
