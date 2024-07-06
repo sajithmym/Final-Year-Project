@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { PharmacyService } from './pharmacy.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('pharmacy')
 export class PharmacyController {
@@ -30,10 +31,17 @@ export class PharmacyController {
         return this.pharmacyService.Get_payment_done_Appoinments();
     }
 
-    // save reports for an appointment as pdf
     @UseGuards(JwtAuthGuard)
     @Post('UploadReport/:id')
-    saveReport(@Param('id') id: number, @Body() bodyData: any) {
-        return this.pharmacyService.saveReport(id, bodyData);
+    @UseInterceptors(FileInterceptor('report'))
+    async saveReport(@Param('id') id: number, @UploadedFile() file: Express.Multer.File) {
+        if (!file) {
+            throw new Error('No file uploaded.');
+        }
+        // Log the file object to the console
+        console.log(file);
+
+        // Assuming saveReport method is adjusted to handle file input
+        return this.pharmacyService.saveReport(id, file);
     }
 }
