@@ -54,26 +54,28 @@ export class ViewMedicalHistoryComponent implements OnInit {
     }
   }
 
-  Download_Report(ID: any, name: string) {
-    this.http.get(`${settings.APIURL}/patient/Download_Report/${ID}`, {
-      responseType: 'blob', // Expect a blob response
-      withCredentials: true
-    }).subscribe(
-      (blob: Blob) => {
-        const url = window.URL.createObjectURL(blob); // Create a URL for the blob
+  downloadReport(reportId: number, reportName: string) {
+    const apiUrl = `${settings.APIURL}/patient/Download_Report/${reportId}`;
+    this.http.get(apiUrl, { responseType: 'blob', withCredentials: true }).subscribe({
+      next: (blob: Blob) => {
+        const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = name + '.pdf'; // Set the filename. You might want to dynamically set this.
-        document.body.appendChild(link); // Append the link to the document
-        link.click(); // Programmatically click the link to trigger the download
-        document.body.removeChild(link); // Clean up the DOM
-        window.URL.revokeObjectURL(url); // Release the created URL
+        link.download = this.encodeFileName(reportName, 'pdf');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
       },
-      (error) => {
-        console.error(error);
+      error: (error) => {
+        console.error('Download error:', error);
         alert('There was an error downloading the report. Please try again later.');
-      }
-    );
+      },
+    });
+  }
+
+  private encodeFileName(fileName: string, extension: string): string {
+    return `${encodeURIComponent(fileName)}.${extension}`;
   }
 
 }
