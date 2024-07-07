@@ -48,4 +48,11 @@ export class PatientController {
     Payment_done(@Param('id') id: number) {
         this.doctorService.ChangeStatus(id, 'Payment Successful');
     }
+
+    // Download Report frpm Document Table
+    @UseGuards(JwtAuthGuard)
+    @Get('Download_Report/:id')
+    Download_Report(@Param('id') id: number) {
+        return this.patientService.Download_Report(id);
+    }
 }

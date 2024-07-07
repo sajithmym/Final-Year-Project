@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as fs from 'fs/promises';
+
 import { Appointment } from './../DB_Models/Appointment.entity';
 import { Patient } from 'src/DB_Models/Patient.entity';
 import { Doctor } from 'src/DB_Models/Doctor.entity';
+import { Documents } from 'src/DB_Models/Report_document.entity';
 
 @Injectable()
 export class PatientService {
-
     constructor(
         @InjectRepository(Appointment)
         private appointmentRepository: Repository<Appointment>,
@@ -15,6 +17,8 @@ export class PatientService {
         private patientRepository: Repository<Patient>,
         @InjectRepository(Doctor)
         private doctorRepository: Repository<Doctor>,
+        @InjectRepository(Documents)
+        private documentRepository: Repository<Documents>,
     ) { }
 
     async setAppointments(data: any): Promise<any> {
@@ -95,5 +99,22 @@ export class PatientService {
             reports: appointment.Documents,
 
         }));
+    }
+
+    async Download_Report(id: number): Promise<any> {
+        const Report = await this.documentRepository.findOneBy({ id: id });
+        if (!Report) {
+            throw new Error('Report not found');
+        }
+
+        let path = Report.document_path;
+
+        // Read the pdf file using path and return as buffer
+        try {
+            const fileBuffer = await fs.readFile(path);
+            return { data: fileBuffer, name: Report.document_name };
+        } catch (error) {
+            throw new Error('Failed to read the report file');
+        }
     }
 }
