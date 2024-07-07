@@ -2,7 +2,7 @@ import { config } from 'dotenv';
 config();
 
 export const configure = {
-  frontendUrl: 'http://localhost:2222/',
+  frontendUrl: 'http://localhost:2222',
   port: process.env.PORT || 8888,
   DB_Port: process.env.DB_PORT || 3306,
   DB_Host: process.env.DB_HOST || 'localhost',
