@@ -8,6 +8,9 @@ import { settings } from 'Static_values';
   styleUrls: ['./view-medical-history.component.css']
 })
 export class ViewMedicalHistoryComponent implements OnInit {
+  Download_Report(arg0: any) {
+    throw new Error('Method not implemented.');
+  }
   appointments: any = [];
   user: any = JSON.parse(localStorage.getItem('User-login-uok-pms') || '{}');
 

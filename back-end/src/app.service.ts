@@ -5,6 +5,7 @@ import { Injectable } from '@nestjs/common';
 export class AppService {
   Runing(): string {
     console.log('Server Is Running...');
-    return `Server Is Running...`;
+    const currentDateTime = new Date().toLocaleString();
+    return `Server Is Running... - ${currentDateTime} -`;
   }
 }

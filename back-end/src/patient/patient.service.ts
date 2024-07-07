@@ -79,7 +79,7 @@ export class PatientService {
             throw new Error('patient not found');
         }
 
-        const appointments = await this.appointmentRepository.find({ where: { patient: patient }, relations: ["doctor"] });
+        const appointments = await this.appointmentRepository.find({ where: { patient: patient }, relations: ["doctor", "Documents"] });
 
         return appointments.map(appointment => ({
             id: appointment.id,
@@ -88,11 +88,11 @@ export class PatientService {
             Isaccepted: appointment.Isaccepted,
             medician: appointment.medician,
             doctor: {
-                id: appointment.doctor.id,
                 name: appointment.doctor.name,
                 phone_number: appointment.doctor.phone_number,
                 specialization: appointment.doctor.specialization
-            }
+            },
+            reports: appointment.Documents,
 
         }));
     }
