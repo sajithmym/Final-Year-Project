@@ -55,16 +55,19 @@ export class ViewMedicalHistoryComponent implements OnInit {
   }
 
   Download_Report(ID: any) {
-    this.http.get(`${settings.APIURL}/patient/Download_Report/${ID}`, { withCredentials: true }).subscribe(
-      (response: any) => {
-        if (response && response.success) {
-          const link = document.createElement('a');
-          link.href = response.data;
-          link.download = response.name;
-          link.click();
-        } else {
-          alert('There was an error downloading the report. Please try again later.');
-        }
+    this.http.get(`${settings.APIURL}/patient/Download_Report/${ID}`, {
+      responseType: 'blob', // Expect a blob response
+      withCredentials: true
+    }).subscribe(
+      (blob: Blob) => {
+        const url = window.URL.createObjectURL(blob); // Create a URL for the blob
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'report.pdf'; // Set the filename. You might want to dynamically set this.
+        document.body.appendChild(link); // Append the link to the document
+        link.click(); // Programmatically click the link to trigger the download
+        document.body.removeChild(link); // Clean up the DOM
+        window.URL.revokeObjectURL(url); // Release the created URL
       },
       (error) => {
         console.error(error);
