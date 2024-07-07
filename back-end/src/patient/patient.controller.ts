@@ -1,6 +1,8 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Res, UseGuards } from '@nestjs/common';
 import { PatientService } from './patient.service';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Response } from 'express';
+
 import { Patient } from 'src/DB_Models/Patient.entity';
 import { Repository } from 'typeorm';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -52,7 +54,15 @@ export class PatientController {
     // Download Report frpm Document Table
     @UseGuards(JwtAuthGuard)
     @Get('Download_Report/:id')
-    Download_Report(@Param('id') id: number) {
-        return this.patientService.Download_Report(id);
+    async Download_Report(@Param('id') id: number, @Res() res: Response) {
+        try {
+            const { buffer, name } = await this.patientService.Download_Report(id);
+            res.setHeader('Content-Type', 'application/pdf'); // Correct usage
+            res.setHeader('Content-Disposition', `attachment; filename=${name}`); // Correct usage
+            res.send(buffer);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Failed to download the report');
+        }
     }
 }
