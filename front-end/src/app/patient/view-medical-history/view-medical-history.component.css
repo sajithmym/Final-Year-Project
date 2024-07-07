@@ -6,7 +6,7 @@
     box-shadow: 0 0 5px rgb(217, 217, 217);
     padding: 2%;
     overflow: auto;
-    color: yellow;
+    color: rgb(19, 4, 57);
 }
 
 .appointments h1 {
@@ -58,12 +58,14 @@
 
 .accept,
 .reject {
-    margin: 5px;
+    margin: 15px;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    width: 35%;
+    font-size: large;
 }
 
 .accept:hover {
@@ -96,7 +98,7 @@
 #cool {
     padding: 2px;
     margin: 0;
-    color: white;
+    color: black;
     background-color: inherit;
     border: none;
     box-shadow: none;
