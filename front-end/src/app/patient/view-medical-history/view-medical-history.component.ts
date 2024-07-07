@@ -56,10 +56,16 @@ export class ViewMedicalHistoryComponent implements OnInit {
 
   downloadReport(reportId: number, reportName: string): void {
     this.http.get(`${settings.APIURL}/patient/Download_Report/${reportId}`, { responseType: 'blob', withCredentials: true }).subscribe(
-      (response) => {
-        const blob = new Blob([response], { type: 'application/pdf' });
+      (response: Blob) => { // Corrected responseType to 'blob' and adjusted the response type here
+        const blob = new Blob([response], { type: 'application/pdf' }); // Directly use the response as it's already a Blob
         const url = window.URL.createObjectURL(blob);
-        window.open(url);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = reportName + '.pdf';
+        document.body.appendChild(a); // Append the element to the body before triggering the click
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a); // Clean up by removing the element after the download
       },
       (error) => {
         console.error(error);
@@ -67,4 +73,5 @@ export class ViewMedicalHistoryComponent implements OnInit {
       }
     );
   }
+
 }

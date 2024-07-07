@@ -51,13 +51,16 @@ export class PatientController {
         this.doctorService.ChangeStatus(id, 'Payment Successful');
     }
 
-    // Download Report frpm Document Table
     @UseGuards(JwtAuthGuard)
     @Get('Download_Report/:id')
-    async Download_Report(@Param('id') id: number) {
+    async Download_Report(@Param('id') id: number, @Res() res: Response) {
         const data: any = await this.patientService.Download_Report(id);
-        console.log(data.data);
-        return data;
+        const buffer = data.data; // Assuming this is your PDF buffer
+        const fileName = data.name; // Or dynamically generate based on the report
+
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+        res.send(buffer);
     }
 }
 
