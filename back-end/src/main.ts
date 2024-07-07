@@ -6,18 +6,13 @@ import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
-  app.use(cookieParser());
-
   app.enableCors({
-    origin: 'http://localhost:2222',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type, Accept',
+    origin: configure.frontendUrl,
     credentials: true,
+    allowedHeaders: 'Content-Type, Accept',
   });
-
+  app.use(cookieParser());
   await app.listen(configure.port);
-
   Logger.log(`Server running on http://localhost:${configure.port}`);
 }
 bootstrap();
