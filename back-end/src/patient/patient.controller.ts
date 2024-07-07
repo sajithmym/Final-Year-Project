@@ -56,10 +56,8 @@ export class PatientController {
     @Get('Download_Report/:id')
     async Download_Report(@Param('id') id: number, @Res() res: Response) {
         try {
-            const { buffer, name } = await this.patientService.Download_Report(id);
-            res.setHeader('Content-Type', 'application/pdf'); // Correct usage
-            res.setHeader('Content-Disposition', `attachment; filename=${name}`); // Correct usage
-            res.send(buffer);
+            const Data = await this.patientService.Download_Report(id);
+            return { data: Data.data, name: Data.name };
         } catch (error) {
             console.error(error);
             res.status(500).send('Failed to download the report');

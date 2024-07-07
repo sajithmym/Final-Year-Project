@@ -57,25 +57,10 @@ export class ViewMedicalHistoryComponent implements OnInit {
   downloadReport(reportId: number, reportName: string): void {
     const apiUrl = `${settings.APIURL}/patient/Download_Report/${reportId}`;
     this.http.get(apiUrl, { responseType: 'blob', withCredentials: true }).subscribe((data) => {
-      const blob = new Blob([data], { type: 'application/pdf' });
-      const url = window.URL.createObjectURL(blob);
-      const anchor = document.createElement('a');
-      anchor.href = url;
-      anchor.download = this.encodeFileName(reportName, 'pdf');
-      document.body.appendChild(anchor); // Required for Firefox
-      anchor.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(anchor);
+      console.log(data);
     }, error => {
       console.error('Error downloading the report:', error);
       alert('Failed to download report. Please try again later.');
     });
   }
-
-  private encodeFileName(fileName: string, extension: string): string {
-    const safeName = fileName.replace(/[^a-zA-Z0-9 _-]/g, '_');
-    return `${encodeURIComponent(safeName)}.${extension}`;
-  }
-
-
 }
