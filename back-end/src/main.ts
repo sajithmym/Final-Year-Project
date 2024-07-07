@@ -10,10 +10,10 @@ async function bootstrap() {
   app.use(cookieParser());
 
   app.enableCors({
-    origin: 'http://localhost:2222', // Specify the origin of the client application
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed HTTP Methods
-    allowedHeaders: 'Content-Type, Accept', // Allowed HTTP Headers
-    credentials: true, // This is important for sending cookies and authorization headers
+    origin: 'http://localhost:2222',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type, Accept',
+    credentials: true,
   });
 
   await app.listen(configure.port);
