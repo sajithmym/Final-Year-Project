@@ -55,7 +55,22 @@ export class ViewMedicalHistoryComponent implements OnInit {
   }
 
   Download_Report(ID: any) {
-    throw new Error('Method not implemented.');
+    this.http.get(`${settings.APIURL}/patient/Download_Report/${ID}`, { withCredentials: true }).subscribe(
+      (response: any) => {
+        if (response && response.success) {
+          const link = document.createElement('a');
+          link.href = response.data;
+          link.download = response.name;
+          link.click();
+        } else {
+          alert('There was an error downloading the report. Please try again later.');
+        }
+      },
+      (error) => {
+        console.error(error);
+        alert('There was an error downloading the report. Please try again later.');
+      }
+    );
   }
 
 }
