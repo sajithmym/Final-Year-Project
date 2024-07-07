@@ -51,7 +51,7 @@ export class PatientController {
         this.doctorService.ChangeStatus(id, 'Payment Successful');
     }
 
-    @UseGuards(JwtAuthGuard)
+    // @UseGuards(JwtAuthGuard)
     @Get('Download_Report/:id')
     async Download_Report(@Param('id') id: number, @Res() res: Response) {
         const data: any = await this.patientService.Download_Report(id);
