@@ -54,14 +54,10 @@ export class PatientController {
     // Download Report frpm Document Table
     @UseGuards(JwtAuthGuard)
     @Get('Download_Report/:id')
-    async Download_Report(@Param('id') id: number, @Res() res: Response) {
-        try {
-            const Data = await this.patientService.Download_Report(id);
-            return { data: Data.data, name: Data.name };
-        } catch (error) {
-            console.error(error);
-            res.status(500).send('Failed to download the report');
-        }
+    async Download_Report(@Param('id') id: number) {
+        const data: any = await this.patientService.Download_Report(id);
+        console.log(data.data);
+        return data;
     }
 }
 

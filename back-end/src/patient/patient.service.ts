@@ -112,6 +112,7 @@ export class PatientService {
         // Read the pdf file using path and return as buffer
         try {
             const fileBuffer = await fs.readFile(path);
+            console.log(path);
             return { data: fileBuffer, name: Report.document_name };
         } catch (error) {
             throw new Error('Failed to read the report file');
