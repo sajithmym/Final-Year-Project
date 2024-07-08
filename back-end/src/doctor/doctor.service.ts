@@ -171,11 +171,6 @@ export class DoctorService {
 
     async finishAppointment(bodyData: any): Promise<any> {
         const appointment: any = await this.ChangeStatus(bodyData.appointmentId, "Finesh")
-
-        let message = `${appointment.doctor.name} has prescribed medication. You can view the details in our web application.`
-
-        this.sendSMS(appointment.patient.phone_number, message)
-
         return { status: 'success' }
     }
 

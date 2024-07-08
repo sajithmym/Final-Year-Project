@@ -1,3 +1,4 @@
+import { DoctorService } from 'src/doctor/doctor.service';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -12,6 +13,7 @@ export class PharmacyService {
         private appointmentRepository: Repository<Appointment>,
         @InjectRepository(Documents)
         private documentRepository: Repository<Documents>,
+        private readonly doctorService: DoctorService,
     ) { }
 
     // get Finesh_Accept_appointments for a patient
@@ -36,11 +38,14 @@ export class PharmacyService {
 
     //Get payment done appoinments
     async Get_payment_done_Appoinments() {
-        const appointments = await this.appointmentRepository.find({ where: { Isaccepted: 'Payment Successful' }, relations: ["doctor", "patient", "Documents"] });
+        const appointments: any = await this.appointmentRepository.find({ where: { Isaccepted: 'Payment Successful' }, relations: ["doctor", "patient", "Documents"] });
 
         if (!appointments) {
             throw new Error('No appointments found');
         }
+
+        let message = `${appointments.doctor.name} has prescribed medication for you. For further details, please refer to our web application. The total bill amount is ${appointments.bill_amount}`
+        this.doctorService.sendSMS(appointments.patient.phone_number, message)
 
         return appointments.map(appointment => ({
             id: appointment.id,
