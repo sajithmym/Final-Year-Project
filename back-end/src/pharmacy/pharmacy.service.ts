@@ -44,9 +44,6 @@ export class PharmacyService {
             throw new Error('No appointments found');
         }
 
-        let message = `${appointments.doctor.name} has prescribed medication for you. For further details, please refer to our web application. The total bill amount is ${appointments.bill_amount}`
-        this.doctorService.sendSMS(appointments.patient.phone_number, message)
-
         return appointments.map(appointment => ({
             id: appointment.id,
             appointmentDate: appointment.appointmentDate,
@@ -69,6 +66,10 @@ export class PharmacyService {
         appointment.Isaccepted = "Payment Pending";
         appointment.bill_amount = amount;
         await this.appointmentRepository.save(appointment);
+
+        let message = `${appointment.doctor.name} has prescribed medication for you. For further details, please refer to our web application. The total bill amount is ${appointment.bill_amount + 700} LKR.`
+        this.doctorService.sendSMS(appointment.patient.phone_number, message)
+
         return appointment;
     }
 
