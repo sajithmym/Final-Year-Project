@@ -1,5 +1,20 @@
 # patient-Management-app (Angular, NestJs and MySql)
 
+
+Deployed Link: https://sajithmym-pms.netlify.app/
+
+-patient
+  - Mobile number: 0766450662
+  - password: QWqw12!@
+
+-Doctor
+  - Mobile number: 777888999
+  - password: QWqw12!@
+
+-Pharmacy
+  - Mobile number: 777000111
+  - password: QWqw12!@
+
 ![Screenshot 2024-07-09 101314](https://github.com/sajithmym/Final-Year-Project/assets/84276601/afe6789e-e0dc-4f0d-819b-d797b8339fc1)
 
 
