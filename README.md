@@ -1,19 +1,21 @@
-# patient-Management-app (Angular, NestJs and MySql)
+# Patient Management App (Angular, NestJs, and MySQL)
 
+**Deployed Link:** [Patient Management App](https://sajithmym-pms.netlify.app/)
 
-Deployed Link: https://sajithmym-pms.netlify.app/
+## Login Credentials
 
--patient
-  - Mobile number: 0766450662
-  - password: QWqw12!@
+### Patient
+- **Mobile Number:** 0766450662
+- **Password:** QWqw12!@
 
--Doctor
-  - Mobile number: 777888999
-  - password: QWqw12!@
+### Doctor
+- **Mobile Number:** 777888999
+- **Password:** QWqw12!@
 
--Pharmacy
-  - Mobile number: 777000111
-  - password: QWqw12!@
+### Pharmacy
+- **Mobile Number:** 777000111
+- **Password:** QWqw12!@
+
 
 ![Screenshot 2024-07-09 101314](https://github.com/sajithmym/Final-Year-Project/assets/84276601/afe6789e-e0dc-4f0d-819b-d797b8339fc1)
 
